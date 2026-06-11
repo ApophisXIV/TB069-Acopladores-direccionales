@@ -1,0 +1,453 @@
+
+<!-- saved from url=(0089)https://www.ok2kkw.com/00003016/komparator/smerova_odbocnice_pcb/smerova_odbocnice_en.htm -->
+<html style="--vsc-domain: &quot;www.ok2kkw.com&quot;;"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1250">
+<meta http-equiv="Content-Language" content="cs">
+<meta name="GENERATOR" content="Microsoft FrontPage 5.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+
+<title>Directional coupler 144 and 432 MHz</title>
+</head>
+
+<body background="./Directional coupler 144 and 432 MHz_files/gama2006.jpg" cz-shortcut-listen="true">
+
+<div align="center">
+  <center>
+  <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="975" id="AutoNumber1">
+    <tbody><tr>
+      <td>
+      <p align="center"><b><font face="Calibri" size="5" color="#0000FF"><br>
+      <span lang="en-us">PCB directional coupler for SWR protection of SSPA up 
+      to 1 kW level</span>.</font></b></p>
+      <p class="MsoNormal" style="text-align:justify"><font face="Calibri"><i>
+      When I needed to buy somewhere some similar direction coupler for lower 
+      VHF bands PA up to 500W, I was not successful.&nbsp; The only simple solution 
+      was to develop such device at home. Maybe the below description will be 
+      useful for someone, who want to construct SSPA with all protections in his 
+      home shack as well as.</i></font></p>
+      <p class="MsoNormal" style="text-align:justify"><font face="Calibri">In 
+      the Czech republic are quite regularly used professional directional
+      <a href="http://www.ok2kkw.com/00003016/komparator/21012009(002).jpg">
+      couplers</a> by Kathrein, dismounted from obsolete GSM base stations of 
+      1st generation. This <a href="https://www.ok2kkw.com/00003016/komparator/smerova_odbocnice_pcb/kathrein_792972.pdf">device</a> is 
+      mechanicaly perfect, but the coupling attenuation on 2m is to high to be 
+      able use it for stable SWR measurment. As well as the 7/16 DIN connectors 
+      are not very often use in regular level ham radio practise. The other, 
+      commercialy available directional couplers are
+      <a href="http://www.ok2kkw.com/00003016/semirigidy/smerova_vazba.htm">not 
+      usable</a> for RF power in the range 300 to 800W. Due to it, I set the 
+      task for such part<span lang="en-us"> (144 <font size="2">&amp;</font> 432MHz)</span>:</font></p>
+      <blockquote>
+        <blockquote>
+          <ul>
+            <li>
+            <p class="MsoNormal" style="text-align:justify"><span lang="en-us">
+            <font face="Calibri">simple, cheap and repeatable construction even 
+            in ham radio environment</font></span></p></li>
+            <li>
+            <p class="MsoNormal" style="text-align:justify"><span lang="en-us">
+            <font face="Calibri">power limit 800W by the maximum PWR level for 
+            good N connectors</font></span></p></li>
+            <li>
+            <p class="MsoNormal" style="text-align:justify"><span lang="en-us">
+            <font face="Calibri">good matching for 50</font></span><font face="Calibri">&#8486; 
+            impedance – at least -26dB reflections</font></p></li>
+            <li>
+            <p class="MsoNormal" style="text-align:justify"><span lang="en-us">
+            <font face="Calibri">built in detectors, </font></span>
+            <font face="Calibri">delivering about 10V DC in case of 500W RF 
+            power.</font></p></li>
+            <li>
+            <p class="MsoNormal" style="text-align:justify"><span lang="en-us">
+            <font face="Calibri">directivity </font></span><font face="Calibri">
+            (isolation between forward and a reverse path) at least 20dB</font></p></li>
+          </ul>
+        </blockquote>
+      </blockquote>
+      <p class="MsoNormal" style="text-align:justify"><font face="Calibri">The 
+      very first idea was to draw such coupler lines on single, double plated 
+      PCB. However: when the ordinary, 1.5 mm thick FR4 laminate is used, the 
+      width of stripline is less, than 3mm, what is not enough to transfer the 
+      above mentioned RF power (particularly, when operate the FSK mode, like 
+      for EME and a MS). When 500W RF is applied, RF current 3,2A warming up the 
+      stripline and due to that the
+      <a href="http://www.4pcb.com/trace-width-calculator.html">RF current is 
+      above limit</a> for such mictrostrip width. To transfer the above 
+      mentioned power (up to 800W) is necessary increase width of line and it 
+      (for 1.5mm thick material)&nbsp; is needed to use PCB with lower dielectric 
+      constant, than FR4 have (for example Rogers 3000 family PCBs). However 
+      such RF PCB material is not well accessible for home radio shack. Due to 
+      that I decided to use rather sandwich construction of directional coupler 
+      using two regular FR4 1.5mm thick and only one of them has one side plated 
+      lines, which gives 3mm dielectric below the microstrip. It allowed me to 
+      increase width of power line. Now the power is not limited even up to 1kW 
+      RF. Both single sided boards (the above with microstrip, the bottom one 
+      with ground plane) are interconnected by small brass rivets (2.5mm dia, 
+      5mm long).<span lang="EN-CA"> Finally</span> I made two versions – one for 
+      144 (and 70MHz) up to 800W RF and the second one for 432MHz RF, as well as 
+      up to 800W. Of course the 144MHz version of stripline is usable for 70cm 
+      as well, but due to tight coupling the power on 70cm shall be limited to 
+      abt. 150W RF. But it‘s not a fault, because this directional coupler is 
+      designed for installation <u>INTO</u> a SSPA, and such QRO PA can’t be 
+      commonly used for more bands (due to 2nd. harmonics cutting off&nbsp; by for 
+      each band separately tailored LPF). </font></p>
+      <p align="justify">&nbsp;</p>
+      <p align="center"><font face="Calibri">
+      <a href="https://www.ok2kkw.com/00003016/komparator/smerova_odbocnice_pcb/directional_coupler_a49.gif">
+      <img border="2" src="./Directional coupler 144 and 432 MHz_files/directional_coupler_a49_small.gif" xthumbnail-orig-image="directional_coupler_a49.gif" width="350" height="266"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <a href="https://www.ok2kkw.com/00003016/komparator/smerova_odbocnice_pcb/directional_coupler_a50.gif">
+      <img border="2" src="./Directional coupler 144 and 432 MHz_files/directional_coupler_a50_small.gif" xthumbnail-orig-image="directional_coupler_a50.gif" width="350" height="266"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      </font></p>
+      <p align="left">&nbsp;</p>
+      <div align="right">
+        <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="430" id="AutoNumber2" align="right">
+          <tbody><tr>
+            <td align="right" valign="top">
+            <table border="0" cellpadding="0" cellspacing="0" width="413" style="border-collapse: collapse; border-style: dotted; border-width: 1">
+              <colgroup>
+                <col width="104" style="width: 78pt">
+              </colgroup>
+              <tbody><tr height="25" style="height: 18.75pt">
+                <td height="25" width="104" style="height: 18.75pt; vertical-align: middle; white-space: normal; color: #000000; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; border-left: 2px solid #000000; border-right: 2px solid #000000; border-top-style: solid; border-top-width: 2; border-bottom-style: solid; border-bottom-width: 2; padding: 0" align="center" bordercolorlight="#808080" bordercolordark="#808080">
+                <table x:str="" border="0" cellpadding="0" cellspacing="0" width="413" style="border-collapse:
+ collapse;width:309pt">
+                  <colgroup>
+                    <col width="104" style="width: 78pt">
+                    <col width="103" span="3" style="width: 77pt">
+                  </colgroup>
+                  <tbody><tr height="25" style="height: 18.75pt">
+                    <td height="25" width="104" style="height: 18.75pt; width: 78pt; text-align: center; vertical-align: middle; white-space: normal; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; border-left: .5pt dotted windowtext; border-right: .5pt dotted windowtext; border-top: .5pt dotted windowtext; border-bottom: 1px solid windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+                    <span lang="en-us"><font face="Calibri" size="3">Coupler</font></span></td>
+                    <td width="103" style="width: 77pt; text-align: center; vertical-align: middle; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; white-space: nowrap; border-left: medium none; border-right: .5pt dotted windowtext; border-top: .5pt dotted windowtext; border-bottom: 1px solid windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+                    <font size="3" face="Calibri">A49</font></td>
+                    <td width="103" style="width: 77pt; text-align: center; vertical-align: middle; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; white-space: nowrap; border-left: medium none; border-right: .5pt dotted windowtext; border-top: .5pt dotted windowtext; border-bottom: 1px solid windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+                    <font size="3" face="Calibri">A50</font></td>
+                    <td width="103" style="width: 77pt; text-align: center; vertical-align: middle; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; white-space: nowrap; border-left: medium none; border-right: .5pt dotted windowtext; border-top: .5pt dotted windowtext; border-bottom: 1px solid windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+                    <span lang="en-us"><font face="Calibri" size="3">note</font></span></td>
+                  </tr>
+                  <tr height="34" style="height:25.5pt">
+                    <td height="34" width="104" style="height: 25.5pt; width: 78pt; text-align: center; vertical-align: middle; white-space: normal; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; border-left: .5pt dotted windowtext; border-right: .5pt dotted windowtext; border-top-color: inherit; border-bottom: .5pt dotted windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+                    <font face="Calibri" size="2"><span lang="en-us">reflections</span> 
+                    144MHz</font></td>
+                    <td style="text-align: center; vertical-align: middle; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; white-space: nowrap; border-left: medium none; border-right: .5pt dotted windowtext; border-top-color: inherit; border-bottom: .5pt dotted windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+                    <font face="Calibri" size="2">30dB</font></td>
+                    <td style="text-align: center; vertical-align: middle; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; white-space: nowrap; border-left: medium none; border-right: .5pt dotted windowtext; border-top-color: inherit; border-bottom: .5pt dotted windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+                    <font face="Calibri" size="2">30dB</font></td>
+                    <td style="text-align: center; vertical-align: middle; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; white-space: nowrap; border-left: medium none; border-right: .5pt dotted windowtext; border-top-color: inherit; border-bottom: .5pt dotted windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+                    <font face="Calibri" size="2"><span lang="en-us">SWR</span> 1,06 / 1,06</font></td>
+                  </tr>
+                  <tr height="34" style="height:25.5pt">
+                    <td height="34" width="104" style="height: 25.5pt; width: 78pt; text-align: center; vertical-align: middle; white-space: normal; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; border-left: .5pt dotted windowtext; border-right: .5pt dotted windowtext; border-top: medium none; border-bottom: .5pt dotted windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+                    <font face="Calibri" size="2"><span lang="en-us">reflections</span> 
+                    432MHz</font></td>
+                    <td style="text-align: center; vertical-align: middle; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; white-space: nowrap; border-left: medium none; border-right: .5pt dotted windowtext; border-top: medium none; border-bottom: .5pt dotted windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+                    <font face="Calibri" size="2">27dB</font></td>
+                    <td style="text-align: center; vertical-align: middle; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; white-space: nowrap; border-left: medium none; border-right: .5pt dotted windowtext; border-top: medium none; border-bottom: .5pt dotted windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+                    <font face="Calibri" size="2">30dB</font></td>
+                    <td style="text-align: center; vertical-align: middle; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; white-space: nowrap; border-left: medium none; border-right: .5pt dotted windowtext; border-top: medium none; border-bottom: .5pt dotted windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+                    <font face="Calibri" size="2"><span lang="en-us">SWR</span> 1,09 / 1,06</font></td>
+                  </tr>
+                  <tr height="34" style="height:25.5pt">
+                    <td height="34" width="104" style="height: 25.5pt; width: 78pt; text-align: center; vertical-align: middle; white-space: normal; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; border-left: .5pt dotted windowtext; border-right: .5pt dotted windowtext; border-top: medium none; border-bottom: .5pt dotted windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+                    <font face="Calibri" size="2">limit. <span lang="en-us">PWR</span><br>
+                    144MHz</font></td>
+                    <td style="text-align: center; vertical-align: middle; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; white-space: nowrap; border-left: medium none; border-right: .5pt dotted windowtext; border-top: medium none; border-bottom: .5pt dotted windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+                    <font face="Calibri" size="2">750 W</font></td>
+                    <td style="text-align: center; vertical-align: middle; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; white-space: nowrap; border-left: medium none; border-right: .5pt dotted windowtext; border-top: medium none; border-bottom: .5pt dotted windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+                    <font face="Calibri" size="2">800 W</font></td>
+                    <td style="text-align: center; vertical-align: middle; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; white-space: nowrap; border-left: medium none; border-right: .5pt dotted windowtext; border-top: medium none; border-bottom: .5pt dotted windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+                    <font face="Calibri" size="2">&nbsp;</font></td>
+                  </tr>
+                  <tr height="34" style="height:25.5pt">
+                    <td height="34" width="104" style="height: 25.5pt; width: 78pt; text-align: center; vertical-align: middle; white-space: normal; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; border-left: .5pt dotted windowtext; border-right: .5pt dotted windowtext; border-top: medium none; border-bottom: .5pt dotted windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+                    <font face="Calibri" size="2">limit. <span lang="en-us">PWR</span><br>
+                    432MHz</font></td>
+                    <td style="text-align: center; vertical-align: middle; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; white-space: nowrap; border-left: medium none; border-right: .5pt dotted windowtext; border-top: medium none; border-bottom: .5pt dotted windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+                    <font face="Calibri" size="2">150 W</font></td>
+                    <td style="text-align: center; vertical-align: middle; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; white-space: nowrap; border-left: medium none; border-right: .5pt dotted windowtext; border-top: medium none; border-bottom: .5pt dotted windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+                    <font face="Calibri" size="2">800 W</font></td>
+                    <td style="text-align: center; vertical-align: middle; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; white-space: nowrap; border-left: medium none; border-right: .5pt dotted windowtext; border-top: medium none; border-bottom: .5pt dotted windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+                    <font face="Calibri" size="2">&nbsp;</font></td>
+                  </tr>
+                  <tr height="35" style="height: 26.25pt">
+                    <td height="35" width="104" style="height: 26.25pt; width: 78pt; text-align: center; vertical-align: middle; white-space: normal; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; border-left: .5pt dotted windowtext; border-right: .5pt dotted windowtext; border-top: medium none; border-bottom: .5pt dotted windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+                    <font face="Calibri" size="2"><span lang="en-us">coupl.att.</span> 144MHz (50R)</font></td>
+                    <td style="text-align: center; vertical-align: middle; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; white-space: nowrap; border-left: medium none; border-right: .5pt dotted windowtext; border-top: medium none; border-bottom: .5pt dotted windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px" x:num="">
+                    <font face="Calibri" size="2">30</font></td>
+                    <td style="text-align: center; vertical-align: middle; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; white-space: nowrap; border-left: medium none; border-right: .5pt dotted windowtext; border-top: medium none; border-bottom: .5pt dotted windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px" x:num="">
+                    <font face="Calibri" size="2">44</font></td>
+                    <td width="103" style="width: 77pt; text-align: center; vertical-align: middle; white-space: normal; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; border-left: medium none; border-right: .5pt dotted windowtext; border-top: medium none; border-bottom: .5pt dotted windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+                    <font face="Calibri" size="2"><span lang="en-us">see the RF 
+                    connection: pic</span></font></td>
+                  </tr>
+                  <tr height="35" style="height: 26.25pt">
+                    <td height="35" width="104" style="height: 26.25pt; width: 78pt; text-align: center; vertical-align: middle; white-space: normal; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; border-left: .5pt dotted windowtext; border-right: .5pt dotted windowtext; border-top: medium none; border-bottom: .5pt dotted windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+                    <font face="Calibri" size="2"><span lang="en-us">coupl.att.</span> 
+                    432MHz (50R)</font></td>
+                    <td style="text-align: center; vertical-align: middle; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; white-space: nowrap; border-left: medium none; border-right: .5pt dotted windowtext; border-top: medium none; border-bottom: .5pt dotted windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px" x:num="">
+                    <font face="Calibri" size="2">20</font></td>
+                    <td style="text-align: center; vertical-align: middle; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; white-space: nowrap; border-left: medium none; border-right: .5pt dotted windowtext; border-top: medium none; border-bottom: .5pt dotted windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px" x:num="">
+                    <font face="Calibri" size="2">33</font></td>
+                    <td width="103" style="width: 77pt; text-align: center; vertical-align: middle; white-space: normal; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; border-left: medium none; border-right: .5pt dotted windowtext; border-top: medium none; border-bottom: .5pt dotted windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+                    <font face="Calibri" size="2"><span lang="en-us">see the RF 
+                    connection: pic</span></font></td>
+                  </tr>
+                  <tr height="37" style="height: 27.75pt">
+                    <td height="37" width="104" style="height: 27.75pt; width: 78pt; text-align: center; vertical-align: middle; white-space: normal; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; border-left: .5pt dotted windowtext; border-right: .5pt dotted windowtext; border-top: medium none; border-bottom: .5pt dotted windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+                    <span lang="en-us"><font face="Calibri" size="2">directivity</font></span><font face="Calibri" size="2">
+                    <br>
+                    A/B 144MHz (50R)</font></td>
+                    <td style="text-align: center; vertical-align: middle; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; white-space: nowrap; border-left: medium none; border-right: .5pt dotted windowtext; border-top: medium none; border-bottom: .5pt dotted windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px" x:num="">
+                    <font face="Calibri" size="2">25</font></td>
+                    <td style="text-align: center; vertical-align: middle; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; white-space: nowrap; border-left: medium none; border-right: .5pt dotted windowtext; border-top: medium none; border-bottom: .5pt dotted windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px" x:num="">
+                    <font face="Calibri" size="2">26</font></td>
+                    <td width="103" style="width: 77pt; text-align: center; vertical-align: middle; white-space: normal; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; border-left: medium none; border-right: .5pt dotted windowtext; border-top: medium none; border-bottom: .5pt dotted windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+                    <font face="Calibri" size="2"><span lang="en-us">see the RF 
+                    connection: pic</span></font></td>
+                  </tr>
+                  <tr height="39" style="height: 29.25pt">
+                    <td height="39" width="104" style="height: 29.25pt; width: 78pt; text-align: center; vertical-align: middle; white-space: normal; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; border-left: .5pt dotted windowtext; border-right: .5pt dotted windowtext; border-top: medium none; border-bottom: .5pt dotted windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+                    <span lang="en-us"><font face="Calibri" size="2">directivity</font></span><font face="Calibri" size="2">
+                    <br>
+                    A/B 432MHz (50R)</font></td>
+                    <td style="text-align: center; vertical-align: middle; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; white-space: nowrap; border-left: medium none; border-right: .5pt dotted windowtext; border-top: medium none; border-bottom: .5pt dotted windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px" x:num="">
+                    <font face="Calibri" size="2">23</font></td>
+                    <td style="text-align: center; vertical-align: middle; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; white-space: nowrap; border-left: medium none; border-right: .5pt dotted windowtext; border-top: medium none; border-bottom: .5pt dotted windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px" x:num="">
+                    <font face="Calibri" size="2">27</font></td>
+                    <td width="103" style="width: 77pt; text-align: center; vertical-align: middle; white-space: normal; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; border-left: medium none; border-right: .5pt dotted windowtext; border-top: medium none; border-bottom: .5pt dotted windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+                    <font face="Calibri" size="2"><span lang="en-us">see the RF 
+                    connection: pic</span></font></td>
+                  </tr>
+                  <tr height="51" style="height:38.25pt">
+                    <td height="51" width="104" style="height: 38.25pt; width: 78pt; text-align: center; vertical-align: middle; white-space: normal; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; border-left: .5pt dotted windowtext; border-right: .5pt dotted windowtext; border-top: medium none; border-bottom: .5pt dotted windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+                    <font face="Calibri" size="2">dete<span lang="en-us">cted</span> DC 
+                    <span lang="en-us">voltage</span> 70MHz (FWD, 20W) A</font></td>
+                    <td style="text-align: center; vertical-align: middle; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; white-space: nowrap; border-left: medium none; border-right: .5pt dotted windowtext; border-top: medium none; border-bottom: .5pt dotted windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px" x:num="1.43">
+                    <font face="Calibri" size="2">1,43</font></td>
+                    <td style="text-align: center; vertical-align: middle; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; white-space: nowrap; border-left: medium none; border-right: .5pt dotted windowtext; border-top: medium none; border-bottom: .5pt dotted windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+                    <font face="Calibri" size="2">n.a.</font></td>
+                    <td style="text-align: center; vertical-align: middle; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; white-space: nowrap; border-left: medium none; border-right: .5pt dotted windowtext; border-top: medium none; border-bottom: .5pt dotted windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+                    <font face="Calibri" size="2">*)</font></td>
+                  </tr>
+                  <tr height="51" style="height:38.25pt">
+                    <td height="51" width="104" style="height: 38.25pt; width: 78pt; text-align: center; vertical-align: middle; white-space: normal; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; border-left: .5pt dotted windowtext; border-right: .5pt dotted windowtext; border-top: medium none; border-bottom: .5pt dotted windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+                    <font face="Calibri" size="2">dete<span lang="en-us">cted</span> DC 
+                    <span lang="en-us">voltage</span> 70MHz (FWD, 20W) B</font></td>
+                    <td style="text-align: center; vertical-align: middle; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; white-space: nowrap; border-left: medium none; border-right: .5pt dotted windowtext; border-top: medium none; border-bottom: .5pt dotted windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px" x:num="0.3">
+                    <font face="Calibri" size="2">0,3</font></td>
+                    <td style="text-align: center; vertical-align: middle; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; white-space: nowrap; border-left: medium none; border-right: .5pt dotted windowtext; border-top: medium none; border-bottom: .5pt dotted windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+                    <font face="Calibri" size="2">n.a.</font></td>
+                    <td style="text-align: center; vertical-align: middle; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; white-space: nowrap; border-left: medium none; border-right: .5pt dotted windowtext; border-top: medium none; border-bottom: .5pt dotted windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+                    <font face="Calibri" size="2">*)</font></td>
+                  </tr>
+                  <tr height="51" style="height:38.25pt">
+                    <td height="51" width="104" style="height: 38.25pt; width: 78pt; text-align: center; vertical-align: middle; white-space: normal; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; border-left: .5pt dotted windowtext; border-right: .5pt dotted windowtext; border-top: medium none; border-bottom: .5pt dotted windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+                    <font face="Calibri" size="2">dete<span lang="en-us">cted</span> DC 
+                    <span lang="en-us">voltage</span> 144MHz (FWD, 50W) A</font></td>
+                    <td style="text-align: center; vertical-align: middle; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; white-space: nowrap; border-left: medium none; border-right: .5pt dotted windowtext; border-top: medium none; border-bottom: .5pt dotted windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px" x:num="5.4">
+                    <font face="Calibri" size="2">5,4</font></td>
+                    <td style="text-align: center; vertical-align: middle; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; white-space: nowrap; border-left: medium none; border-right: .5pt dotted windowtext; border-top: medium none; border-bottom: .5pt dotted windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px" x:num="1.14">
+                    <font face="Calibri" size="2">1,14</font></td>
+                    <td style="text-align: center; vertical-align: middle; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; white-space: nowrap; border-left: medium none; border-right: .5pt dotted windowtext; border-top: medium none; border-bottom: .5pt dotted windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+                    <font face="Calibri" size="2">*)</font></td>
+                  </tr>
+                  <tr height="51" style="height:38.25pt">
+                    <td height="51" width="104" style="height: 38.25pt; width: 78pt; text-align: center; vertical-align: middle; white-space: normal; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; border-left: .5pt dotted windowtext; border-right: .5pt dotted windowtext; border-top: medium none; border-bottom: .5pt dotted windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+                    <font face="Calibri" size="2">dete<span lang="en-us">cted</span> DC 
+                    <span lang="en-us">voltage</span> 144MHz (FWD, 50W) B</font></td>
+                    <td style="text-align: center; vertical-align: middle; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; white-space: nowrap; border-left: medium none; border-right: .5pt dotted windowtext; border-top: medium none; border-bottom: .5pt dotted windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px" x:num="0.7">
+                    <font face="Calibri" size="2">0,7</font></td>
+                    <td style="text-align: center; vertical-align: middle; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; white-space: nowrap; border-left: medium none; border-right: .5pt dotted windowtext; border-top: medium none; border-bottom: .5pt dotted windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px" x:num="0.06">
+                    <font face="Calibri" size="2">0,06</font></td>
+                    <td style="text-align: center; vertical-align: middle; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; white-space: nowrap; border-left: medium none; border-right: .5pt dotted windowtext; border-top: medium none; border-bottom: .5pt dotted windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+                    <font face="Calibri" size="2">*)</font></td>
+                  </tr>
+                  <tr height="51" style="height:38.25pt">
+                    <td height="51" width="104" style="height: 38.25pt; width: 78pt; text-align: center; vertical-align: middle; white-space: normal; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; border-left: .5pt dotted windowtext; border-right: .5pt dotted windowtext; border-top: medium none; border-bottom: .5pt dotted windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+                    <font face="Calibri" size="2">dete<span lang="en-us">cted</span> DC 
+                    <span lang="en-us">voltage</span> 432MHz (FWD, 50W) A</font></td>
+                    <td style="text-align: center; vertical-align: middle; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; white-space: nowrap; border-left: medium none; border-right: .5pt dotted windowtext; border-top: medium none; border-bottom: .5pt dotted windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px" x:num="14.7">
+                    <font face="Calibri" size="2">14,7</font></td>
+                    <td style="text-align: center; vertical-align: middle; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; white-space: nowrap; border-left: medium none; border-right: .5pt dotted windowtext; border-top: medium none; border-bottom: .5pt dotted windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px" x:num="3.4">
+                    <font face="Calibri" size="2">3,4</font></td>
+                    <td style="text-align: center; vertical-align: middle; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; white-space: nowrap; border-left: medium none; border-right: .5pt dotted windowtext; border-top: medium none; border-bottom: .5pt dotted windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+                    <font face="Calibri" size="2">*)</font></td>
+                  </tr>
+                  <tr height="51" style="height:38.25pt">
+                    <td height="51" width="104" style="height: 38.25pt; width: 78pt; text-align: center; vertical-align: middle; white-space: normal; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; border-left: .5pt dotted windowtext; border-right: .5pt dotted windowtext; border-top: medium none; border-bottom: .5pt dotted windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+                    <font face="Calibri" size="2">dete<span lang="en-us">cted</span> DC 
+                    <span lang="en-us">voltage</span> 432MHz (FWD, 50W) B</font></td>
+                    <td style="text-align: center; vertical-align: middle; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; white-space: nowrap; border-left: medium none; border-right: .5pt dotted windowtext; border-top: medium none; border-bottom: .5pt dotted windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px" x:num="2.9">
+                    <font face="Calibri" size="2">2,9</font></td>
+                    <td style="text-align: center; vertical-align: middle; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; white-space: nowrap; border-left: medium none; border-right: .5pt dotted windowtext; border-top: medium none; border-bottom: .5pt dotted windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px" x:num="0.29">
+                    <font face="Calibri" size="2">0,29</font></td>
+                    <td style="text-align: center; vertical-align: middle; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; white-space: nowrap; border-left: medium none; border-right: .5pt dotted windowtext; border-top: medium none; border-bottom: .5pt dotted windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+                    <font face="Calibri" size="2">*)</font></td>
+                  </tr>
+                  <tr height="51" style="height:38.25pt">
+                    <td height="51" width="104" style="height: 38.25pt; width: 78pt; text-align: center; vertical-align: middle; white-space: normal; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; border-left: .5pt dotted windowtext; border-right: .5pt dotted windowtext; border-top: medium none; border-bottom: .5pt dotted windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+                    <font face="Calibri" size="2">dete<span lang="en-us">cted</span> DC 
+                    <span lang="en-us">voltage</span> 70MHz (FWD, 100W)</font></td>
+                    <td style="text-align: center; vertical-align: middle; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; white-space: nowrap; border-left: medium none; border-right: .5pt dotted windowtext; border-top: medium none; border-bottom: .5pt dotted windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px" x:num="4.4">
+                    <font face="Calibri" size="2">4,4</font></td>
+                    <td style="text-align: center; vertical-align: middle; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; white-space: nowrap; border-left: medium none; border-right: .5pt dotted windowtext; border-top: medium none; border-bottom: .5pt dotted windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+                    <font face="Calibri" size="2">n.a.</font></td>
+                    <td style="text-align: center; vertical-align: middle; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; white-space: nowrap; border-left: medium none; border-right: .5pt dotted windowtext; border-top: medium none; border-bottom: .5pt dotted windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+                    <font face="Calibri" size="2">*) **)</font></td>
+                  </tr>
+                  <tr height="51" style="height:38.25pt">
+                    <td height="51" width="104" style="height: 38.25pt; width: 78pt; text-align: center; vertical-align: middle; white-space: normal; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; border-left: .5pt dotted windowtext; border-right: .5pt dotted windowtext; border-top: medium none; border-bottom: .5pt dotted windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px" x:str="detekované DC napětí 144MHz (FWD, 800W) ">
+                    <font face="Calibri" size="2">dete<span lang="en-us">cted</span> DC 
+                    <span lang="en-us">voltage</span> 144MHz (FWD, 800W)&nbsp;</font></td>
+                    <td style="text-align: center; vertical-align: middle; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; white-space: nowrap; border-left: medium none; border-right: .5pt dotted windowtext; border-top: medium none; border-bottom: .5pt dotted windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px" x:num="21.5">
+                    <font face="Calibri" size="2">21,5</font></td>
+                    <td style="text-align: center; vertical-align: middle; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; white-space: nowrap; border-left: medium none; border-right: .5pt dotted windowtext; border-top: medium none; border-bottom: .5pt dotted windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px" x:num="5.1">
+                    <font face="Calibri" size="2">5,1</font></td>
+                    <td style="text-align: center; vertical-align: middle; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; white-space: nowrap; border-left: medium none; border-right: .5pt dotted windowtext; border-top: medium none; border-bottom: .5pt dotted windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+                    <font face="Calibri" size="2">*) **)</font></td>
+                  </tr>
+                  <tr height="51" style="height:38.25pt">
+                    <td height="51" width="104" style="height: 38.25pt; width: 78pt; text-align: center; vertical-align: middle; white-space: normal; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; border-left: .5pt dotted windowtext; border-right: .5pt dotted windowtext; border-top: medium none; border-bottom: .5pt dotted windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+                    <font face="Calibri" size="2">dete<span lang="en-us">cted</span> DC 
+                    <span lang="en-us">voltage</span> 432MHz (FWD, 800W)</font></td>
+                    <td style="text-align: center; vertical-align: middle; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; white-space: nowrap; border-left: medium none; border-right: .5pt dotted windowtext; border-top: medium none; border-bottom: .5pt dotted windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+                    <font face="Calibri" size="2">n.a.</font></td>
+                    <td style="text-align: center; vertical-align: middle; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; white-space: nowrap; border-left: medium none; border-right: .5pt dotted windowtext; border-top: medium none; border-bottom: .5pt dotted windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px" x:num="13.6">
+                    <font face="Calibri" size="2">13,6</font></td>
+                    <td style="text-align: center; vertical-align: middle; color: windowtext; font-size: 10.0pt; font-weight: 400; font-style: normal; text-decoration: none; font-family: Arial; white-space: nowrap; border-left: medium none; border-right: .5pt dotted windowtext; border-top: medium none; border-bottom: .5pt dotted windowtext; padding-left: 1px; padding-right: 1px; padding-top: 1px">
+                    <font face="Calibri" size="2">*) **)</font></td>
+                  </tr>
+                </tbody></table>
+                </td>
+              </tr>
+            </tbody></table>
+            <p align="center"><span lang="en-us"><font size="2" face="Calibri">
+            Note</font></span><font face="Calibri"><font size="2">:&nbsp;&nbsp;&nbsp;&nbsp; 
+            *)&nbsp; m<span lang="en-us">easured by high impedance voltmete<br>
+            </span>**) <span lang="en-us">&nbsp;estimated by calculation</span>&nbsp;
+            <span lang="en-us">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </span> <br>
+            A <span lang="en-us">/</span> B - </font><span lang="en-us">
+            <font size="2">detectors voltage direction forward and reverse</font></span></font></p></td>
+          </tr>
+        </tbody></table>
+      </div>
+      <p class="MsoNormal" style="text-align:justify"><font face="Calibri">The 
+      bord A49 is a directional coupler with more tight coupling, primarily 
+      designed for 2m PAs with 100 to 800W RF out. A50 PCB has desidned for 70cm 
+      for the same power range. Both of these couplers are not suitable for 
+      23cm. For this band I will publish soon another board for home brewing.</font></p>
+      <p class="MsoNormal" style="text-align:justify"><font face="Calibri">When 
+      you intend use these coupler, také a care to the connection of cox cables. 
+      For 2 m and the PWR up to 500W is good enough simply solder teflon cable 
+      (similar size like RG58) , but for higher PWR and for 70cm is better to 
+      use install the PCB into a suitable box and use good N connectors.</font></p>
+      <p class="MsoNormal" style="text-align:justify"><font face="Calibri">SMD 
+      components are 1206 size detection diode is a RF Schottky low signal 
+      rectifier with capacity below 1pF and at least 20V reverse voltage. I have 
+      there obsolete <a href="http://katalogy.ic.cz/KAS34.html">KAS34</a> by 
+      Tesla, but any similar type is OK.&nbsp; The key component is suitable 
+      terminating resistor of the decoupling microstrip. PCB has designed for 
+      parallel combinationof two SMD resistors 150 &#8486; of 1206 size, however 
+      soldered resistors have to high parazitic capacity. After some experiments 
+      was as a terminator used ordinary 1/4W metalized resistor 82 &#8486; with wire 
+      connections, which is placed there as shown on the pics. Body of the 
+      resistor is about 2mm above the PCB plane and the grounded point is inside 
+      the coupling loop. (<a href="https://www.ok2kkw.com/00003016/komparator/smerova_odbocnice_pcb/p1272704b.png">pic</a>) Legth of resistor 
+      wires have some inductance, which compensates resistor capacity.</font></p>
+      <p class="MsoNormal" style="text-align:justify"><font face="Calibri">
+      Detector blocking capacitors are standard ceramic 2.2nF, seriál resistor 
+      3.3k&#8486;. If you want to use the directional coupler for SWR protection, you 
+      may reverse the diode polarity and use for example this
+      <a href="http://www.ok2kkw.com/00003016/komparator/reflektometricka_ochrana.htm">
+      comparator</a>. If you prefer use
+      <a href="http://www.ok2kkw.com/00003016/pa70cm/detektory_mereni_vf.htm">
+      external detector</a>, connect the coupling microstrip directly to the SMA 
+      connector, placed on the side wall of the box.</font></p>
+      <p class="MsoNormal" style="text-align:justify"><font face="Calibri">
+      Measured average performance (4 pcs were measured) is in the table.</font></p>
+      <p align="justify">&nbsp;</p>
+      <p class="MsoNormal" style="text-align:justify"><font face="Calibri">Let 
+      me wish to all, who will try to do this directional coupler, successful 
+      construction and lot of fun on VHF bands!</font></p>
+      <p class="MsoNormal" style="text-align:justify"><font face="Calibri">73 de 
+      OKVPZ</font></p>
+      <p class="MsoNormal" style="text-align:justify"><span lang="en-us">
+      <font face="Calibri">Check the pics below:</font></span></p>
+      <p class="MsoNormal" style="text-align:justify">&nbsp;</p>
+      <p class="MsoNormal" style="text-align:justify">&nbsp;</p>
+      <p class="MsoNormal" style="text-align:justify">&nbsp;</p>
+      <p class="MsoNormal" style="text-align:justify">&nbsp;</p>
+      <div align="center">
+        <center>
+        <table border="0" cellspacing="1" width="975" id="AutoNumber3">
+          <tbody><tr>
+            <td align="center"><a href="https://www.ok2kkw.com/00003016/komparator/smerova_odbocnice_pcb/p1272700.jpg">
+            <img border="2" src="./Directional coupler 144 and 432 MHz_files/p1272700_small.jpg" xthumbnail-orig-image="p1272700.jpg" width="300" height="194"></a></td>
+            <td align="center"><a href="https://www.ok2kkw.com/00003016/komparator/smerova_odbocnice_pcb/p1272707.jpg">
+            <img border="2" src="./Directional coupler 144 and 432 MHz_files/p1272707_small.jpg" xthumbnail-orig-image="p1272707.jpg" width="300" height="243"></a></td>
+            <td align="center"><a href="https://www.ok2kkw.com/00003016/komparator/smerova_odbocnice_pcb/p1272704b.png">
+            <img border="2" src="./Directional coupler 144 and 432 MHz_files/p1272704a_small.png" width="300" height="177"></a></td>
+          </tr>
+          <tr>
+            <td align="center"><a href="https://www.ok2kkw.com/00003016/komparator/smerova_odbocnice_pcb/p1272708.jpg">
+            <img border="2" src="./Directional coupler 144 and 432 MHz_files/p1272708_small.jpg" xthumbnail-orig-image="p1272708.jpg" width="300" height="172"></a></td>
+            <td align="center"><a href="https://www.ok2kkw.com/00003016/komparator/smerova_odbocnice_pcb/p1272706.jpg">
+            <img border="2" src="./Directional coupler 144 and 432 MHz_files/p1272706_small.jpg" xthumbnail-orig-image="p1272706.jpg" width="300" height="153"></a></td>
+            <td align="center"><a href="https://www.ok2kkw.com/00003016/komparator/smerova_odbocnice_pcb/p1272705.jpg">
+            <img border="2" src="./Directional coupler 144 and 432 MHz_files/p1272705_small.jpg" xthumbnail-orig-image="p1272705.jpg" width="300" height="177"></a></td>
+          </tr>
+        </tbody></table>
+        </center>
+      </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+      &nbsp;</td>
+    </tr>
+  </tbody></table>
+  </center>
+</div>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+
+
+<div id="give-freely-root-ejkiikneibegknkgimmihdpcbcedgmpo" class="give-freely-root" data-extension-id="ejkiikneibegknkgimmihdpcbcedgmpo" data-extension-name="Volume Booster" style="display: block;"><template shadowrootmode="open"><style>
+  :host {
+    all: initial;
+  }
+
+  .gf-scroll-remove::-webkit-scrollbar {
+    border-radius-bottom-right: 15px;
+  }
+
+  button {
+    cursor: pointer;
+    transition: transform 0.1s ease;
+  }
+
+  button:active {
+    transform: scale(0.98);
+  }
+
+  .give-freely-close-button:hover {
+    opacity: 0.7;
+  }
+
+  input[type="radio"] {
+    margin-right: 8px;
+  }
+
+  hr {
+    border: none;
+    border-top: 1px solid #e5e5e5;
+    margin: 1em 0;
+  }
+
+  @media (max-width: 600px), (max-height: 480px) {
+    #give-freely-checkout-popup {
+      display: none !important;
+    }
+  }
+</style><div><div class="gf-app"></div></div></template></div></body></html>
