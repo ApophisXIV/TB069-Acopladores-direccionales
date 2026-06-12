@@ -6,7 +6,7 @@
   doc-title: "Acopladores direccionales \nDiseño e implementación",
   author: "Rodriguez Guido E. (108723) - Duque Karla A. (108406)",
   affiliation: "FIUBA",
-  logo: image("assets/Logo-fiuba_big.png", width: 3cm),
+  logo: image("imgs/Logo-fiuba_big.png", width: 3cm),
   // <a href="https://www.flaticon.com/free-icons/aerospace" title="aerospace icons">Aerospace icons created by gravisio - Flaticon</a>
   language: "es",
   abstract: lorem(50),
@@ -182,7 +182,7 @@ Como parte de la actividad del club de radio frecuencia de la facultad, siendo a
 A continuación se presenta un diagrama de bloques de la relación de las diferentes etapas y actividades del proyecto.
 
 #figure(  
-  image("assets/imgs/esquema_de_trabajo.png",width: 80%)
+  image("imgs/esquema_de_trabajo.png",width: 80%)
 )
 
 
@@ -209,7 +209,7 @@ Estos parámetros están definidos por unidad de longitud y dependen tanto de la
 
 
 #figure(
-image("assets/imgs/ilustrations/rlgc.svg", width: 65%),
+image("imgs/ilustrations/rlgc.svg", width: 65%),
 caption: [Modelo RLGC de una linea de transmisión]
 )
 
@@ -269,7 +269,7 @@ La onda electromagnética que se propaga a lo largo de una línea de transmisió
 
 #v(-0.5cm)
 #figure(
-  image("assets/imgs/modoTEMvectores.PNG", width: 5cm),
+  image("imgs/modoTEMvectores.PNG", width: 5cm),
   caption: [Modo de propagación TEM]
 )<fig:modo_tem>
 
@@ -279,10 +279,10 @@ También existe el modo TE (Transversal Eléctrico), en el cual el campo eléctr
 
 #v(-0.25cm)
 #subpar.grid(
-  figure(image("assets/imgs/modoTEvectores.PNG",width: 4.5cm), caption: [
+  figure(image("imgs/modoTEvectores.PNG",width: 4.5cm), caption: [
    Modo de propagación TE
   ]), <fig:TE>,
-  figure(image("assets/imgs/modoTMvectores.PNG",width: 4.5cm), caption: [
+  figure(image("imgs/modoTMvectores.PNG",width: 4.5cm), caption: [
     Modo de propagación TM
   ]), <fig:TM>,
   columns: (1fr, 1fr),
@@ -329,7 +329,7 @@ Es una línea de transmisión utilizada en PCB (circuitos impresos), consiste en
 
 #v(-0.6cm)
 #figure(
-image("assets/imgs/ilustrations/microstripDespliegue.png", width: 40%),
+image("imgs/ilustrations/microstripDespliegue.png", width: 40%),
 caption: [Microstrip] 
 )<fig:microstrip>
 
@@ -352,7 +352,7 @@ Siendo $c_0$ la velocidad de la luz en el vacío y $lambda$ la longitud de onda.
 
   #v(-0.5cm)
   #figure(
-    image("assets/imgs/ilustrations/striplineDespliegue.png", width: 40%),
+    image("imgs/ilustrations/striplineDespliegue.png", width: 40%),
     caption: [Línea de transmisión Stripline] 
   )<fig:stripline>
 
@@ -364,7 +364,7 @@ Siendo $c_0$ la velocidad de la luz en el vacío y $lambda$ la longitud de onda.
 El material que se utilizo en este trabajo es el FR4, uno de los materiales dieléctricos más utilizados en la fabricación de placas de circuito impreso (PCB). Este material está compuesto por un tejido de fibra de vidrio con un entretramado de malla como se observa en la @fig:malla_fr4 impregnado con resina epoxi, dispuesto en forma de múltiples capas superpuestas (stack), sobre las cuales se laminan las capas de cobre que conforman las pistas conductoras del circuito.
 
 #figure(
-image("assets/imgs/ilustrations/Malla_FR4_MBE.PNG", width: 45%),
+image("imgs/ilustrations/Malla_FR4_MBE.PNG", width: 45%),
 caption: [Tejido de malla de sustrato FR4 estilo 1080]
 )<fig:malla_fr4>
 
@@ -374,10 +374,10 @@ Desde el punto de vista eléctrico, el FR4 se caracteriza por su permitividad re
 
 
 #subpar.grid(
-  figure(image("assets/imgs/ilustrations/dielectricoNoPolTAND.PNG",width: 100%), caption: [
+  figure(image("imgs/ilustrations/dielectricoNoPolTAND.PNG",width: 100%), caption: [
     PCB no polarizado
   ]), <fig:di_no_pol>,
-  figure(image("assets/imgs/ilustrations/dielectricoSIPolTAND.PNG",width: 100%), caption: [
+  figure(image("imgs/ilustrations/dielectricoSIPolTAND.PNG",width: 100%), caption: [
    PCB polarizado
   ]), <fig:di_pol>,
   columns: (1fr, 1fr),
@@ -419,7 +419,7 @@ En particular, se estudiarán dispositivos utilizados en circuitos de radiofrecu
 Un stub es una línea de transmisión de longitud finita que normalmente se conecta a otra línea de transmisión principal y cuyo extremo puede terminar en circuito abierto o en cortocircuito. Debido a las propiedades de propagación de las líneas de transmisión, un stub presenta una impedancia de entrada dependiente de su longitud eléctrica, lo que permite utilizarlo como elemento reactivo en circuitos de radiofrecuencia.
 
 #figure(
-  image("assets/imgs/ilustrations/stubs_dibujo.png", width: 45%),
+  image("imgs/ilustrations/stubs_dibujo.png", width: 45%),
   caption: [Stubs]
 )<fig:stubs_dibujo>
 
@@ -480,7 +480,7 @@ Un resonador de anillo es una estructura formada por una línea de transmisión 
 #todo("REFERENCIAR LA TESIS DE BOGGI")
 
 #figure(
-  image("assets/imgs/ilustrations/ring_resonator_dibujo.png", width: 50%),
+  image("imgs/ilustrations/ring_resonator_dibujo.png", width: 50%),
   caption: [Esquema básico de un resonador de anillo]
 )<fig:ring_dibujo>
 
@@ -552,7 +552,7 @@ Para complementar el análisis basado en modelos distribuidos, es necesario intr
 
 
 #figure(
-  image("assets/imgs/modelo_concentrado_ring_resonator.png", width: 60%),
+  image("imgs/modelo_concentrado_ring_resonator.png", width: 60%),
   caption: [Circuito de parametros concentrados para un resonador de anillo]
 )<fig:ring_parametros_concentrados>
 
@@ -604,8 +604,8 @@ Estos acopladores se implementan frecuentemente en tecnología _microstrip_, don
 
 #v(-0.5cm)
 #subpar.grid(
-  figure(image("assets/imgs/ilustrations/acoplador_direccional_microstrip.png"), caption: [Acoplador direccional microstrip]), <fig:acoplador_direccional_microstrip>,
-  figure(image("assets/imgs/ilustrations/acoplador_direccional_stripline.png"), caption: [Acoplador direccional stripline]), <fig:acoplador_direccional_stripline>, 
+  figure(image("imgs/ilustrations/acoplador_direccional_microstrip.png"), caption: [Acoplador direccional microstrip]), <fig:acoplador_direccional_microstrip>,
+  figure(image("imgs/ilustrations/acoplador_direccional_stripline.png"), caption: [Acoplador direccional stripline]), <fig:acoplador_direccional_stripline>, 
   columns: (1fr, 1fr),
   gap:0.5cm,
   gutter:-0cm,
@@ -632,7 +632,7 @@ En el *modo par*, las tensiones en ambas líneas son iguales y están en fase, h
 Por el contrario, en el *modo impar*, las tensiones son iguales en magnitud pero desfasadas $180 degree$, por lo que las corrientes circulan en direcciones opuestas, en este caso el plano de simetría actúa como un muro eléctrico perfecto (PEC), donde el campo eléctrico tangencial es nulo. Este modo tiene una impedancia característica denominada impedancia impar $Z_(0 o)$.
 
 #figure(
-  image("assets/imgs/placeholder.jpg", width: 30%),
+  image("imgs/placeholder.jpg", width: 30%),
   caption: [Distribución de campos para el modo par e impar en líneas acopladas.]
 )<fig:modos_par_impar>
 
@@ -681,7 +681,7 @@ El acoplador en cuadratura es un tipo particular de acoplador direccional de cua
 
 
 #figure(
-image("assets/imgs/ilustrations/acoplador_hibrido_dibujo.png", width: 60%),
+image("imgs/ilustrations/acoplador_hibrido_dibujo.png", width: 60%),
   caption: [Acoplador en cuadratura]
 )
 
@@ -697,7 +697,7 @@ En circuitos de microondas, el análisis de redes se realiza comúnmente mediant
 
 #v(-0.5cm)
 #figure(
-image("assets/imgs/placeholder.jpg", width:30%),
+image("imgs/placeholder.jpg", width:30%),
 caption: [imagen en bloques de un acoplador (4 puertos)]
 )
 
@@ -745,10 +745,10 @@ Es importante recordar que las relaciones medidas son en dB y grados sexagesimal
 
 #v(-0.5cm)
 #subpar.grid(
-  figure(image("assets/imgs/calibracion_vna.jpg", width: 90%,height: 4.5cm,fit: "stretch"), caption: [
+  figure(image("imgs/calibracion_vna.jpg", width: 90%,height: 4.5cm,fit: "stretch"), caption: [
    Calibración del VNA terminador"Open"
   ]),
-  figure(image("assets/imgs/cal_vna.jpg",width: 90%,height: 4.5cm), caption: [
+  figure(image("imgs/cal_vna.jpg",width: 90%,height: 4.5cm), caption: [
   Calibración VNA terminador _"Short"_
   ]),
   columns: (1fr, 1fr),
@@ -779,7 +779,7 @@ ocasionar errores no deseados en la medición. Así mismo destacamos que durante
 El analizador de espectro es un instrumento de medición utilizado para analizar señales en el dominio de la frecuencia. A diferencia de instrumentos como el osciloscopio, que muestran la amplitud de una señal en función del tiempo, el analizador de espectro representa la potencia de la señal en función de la frecuencia, permitiendo observar las distintas componentes espectrales que la conforman.
 
 #figure(
-  image("assets/imgs/analizador_medición.jpg", width: 30%,height: 5.5cm,fit: "stretch"), 
+  image("imgs/analizador_medición.jpg", width: 30%,height: 5.5cm,fit: "stretch"), 
   caption: [Medición en el analizador de espectro]
 )
 
@@ -788,7 +788,7 @@ En la pantalla del instrumento, el eje horizontal corresponde a la frecuencia, m
 
 
 #figure(
-  image("assets/imgs/analizador_spectro.png", width: 50%),
+  image("imgs/analizador_spectro.png", width: 50%),
   caption: [Diagrama en bloques de un analizador de espectro]
 )<fig:analizador_espectro>
 
@@ -869,9 +869,9 @@ Adicionalmente, se implementaron stubs de longitudes físicas de #qty[50][mm] y 
 En esta etapa de implementación se realizó el PCB con los stubs después de simularlos para luego medir y caracterizar el sustrato.
 
 #subpar.grid(
-  figure(image("assets/imgs/ring_y_stubs_cinta.jpg",height: 5cm,width: 100%)),
-  // figure(image("assets/imgs/anillos_stubs_filmina_fr4.png",height: 3.5cm)),
-  figure(image("assets/imgs/anillos_stubs_fr4_listos.png",height: 5cm,width: 100%)),
+  figure(image("imgs/ring_y_stubs_cinta.jpg",height: 5cm,width: 100%)),
+  // figure(image("imgs/anillos_stubs_filmina_fr4.png",height: 3.5cm)),
+  figure(image("imgs/anillos_stubs_fr4_listos.png",height: 5cm,width: 100%)),
   columns: (1fr,1fr),
   caption: [Fabricación de los PCBs],
   gap: 0.5cm, 
@@ -888,7 +888,7 @@ Se realizaron las mediciones desde #qty[100][MHz] hasta #qty[6][GHz] con 1001 pu
 de #qty[5.89][MHz].
 
 #figure(
-image("assets/imgs/stub_un_cuarto.jpg", width: 45%),
+image("imgs/stub_un_cuarto.jpg", width: 45%),
 caption: [medición del stub de un cuarto de longitud de onda]
 )<fig:stub_un_cuarto>
 
@@ -989,8 +989,8 @@ poder observar de manera experimetal la diferencia entre ellos.
 
 
 #subpar.grid(
-  figure(image("assets/imgs/coupled_insoladora.jpg",fit: "stretch",height: 4cm,width: 70%)),
-  figure(image("assets/imgs/acopladores_diseñados.jpg",fit: "stretch",height: 4cm,width:70%)),
+  figure(image("imgs/coupled_insoladora.jpg",fit: "stretch",height: 4cm,width: 70%)),
+  figure(image("imgs/acopladores_diseñados.jpg",fit: "stretch",height: 4cm,width:70%)),
   columns: (1fr,1fr),
   caption: [Fabricación de los acopladores direccionales],
   gutter: -2cm,
@@ -1012,10 +1012,10 @@ Es importante que como el VNA tiene solo dos puertos, al momento de medir los pu
   description: "Medición del puerto de salida",
   port_name:"output",
   dir_coupler_name: "ACD1",
-  mag:"assets/imgs/ACD1/adc1_through_mag_s11_s21.png",
-  pha:"assets/imgs/ACD1/adc1_through_phase_s11_s21.png",
-  smith:"assets/imgs/ACD1/adc1_through_smith_s11.png",
-  dut:"assets/imgs/ACD1/adc1_through_bench.jpg",
+  mag:"imgs/ACD1/adc1_through_mag_s11_s21.png",
+  pha:"imgs/ACD1/adc1_through_phase_s11_s21.png",
+  smith:"imgs/ACD1/adc1_through_smith_s11.png",
+  dut:"imgs/ACD1/adc1_through_bench.jpg",
   offset_dut_pt:30pt
 )
 
@@ -1024,10 +1024,10 @@ Es importante que como el VNA tiene solo dos puertos, al momento de medir los pu
   description: "Medición del puerto acoplado",
   port_name:"acoplado",
   dir_coupler_name: "ACD1",
-  mag:"assets/imgs/ACD1/adc1_coupled_mag_s11_s21.png",
-  pha:"assets/imgs/ACD1/adc1_coupled_phase_s11_s21.png",
-  smith:"assets/imgs/ACD1/adc1_coupled_smith_s11.png",
-  dut:"assets/imgs/ACD1/adc1_coupled_bench.png",
+  mag:"imgs/ACD1/adc1_coupled_mag_s11_s21.png",
+  pha:"imgs/ACD1/adc1_coupled_phase_s11_s21.png",
+  smith:"imgs/ACD1/adc1_coupled_smith_s11.png",
+  dut:"imgs/ACD1/adc1_coupled_bench.png",
   offset_dut_pt:0pt
 )
 
@@ -1036,10 +1036,10 @@ Es importante que como el VNA tiene solo dos puertos, al momento de medir los pu
   description: "Medición del puerto aislado",
   port_name:"aislado",
   dir_coupler_name: "ACD1",
-  mag:"assets/imgs/ACD1/adc1_isolated_mag_s11_s21.png",
-  pha:"assets/imgs/ACD1/adc1_isolated_phase_s11_s21.png",
-  smith:"assets/imgs/ACD1/adc1_isolated_smith_s11.png",
-  dut:"assets/imgs/ACD1/adc1_isolated_bench.jpg",
+  mag:"imgs/ACD1/adc1_isolated_mag_s11_s21.png",
+  pha:"imgs/ACD1/adc1_isolated_phase_s11_s21.png",
+  smith:"imgs/ACD1/adc1_isolated_smith_s11.png",
+  dut:"imgs/ACD1/adc1_isolated_bench.jpg",
   offset_dut_pt:26pt
 )
 
@@ -1053,10 +1053,10 @@ Midiendo el acoplador de manera inversa, es decir, el puerto 1 ahora es el puert
   description: "Medición del puerto acoplado y del puerto aislado con el DUT invertido",
   port_name:"acoplado",
   dir_coupler_name: "ACD1_inverted",
-  mag:"assets/imgs/ACD1/adc1_isolatedInverted(new-coupled)_mag_s11_s21.png",
-  smith:"assets/imgs/ACD1/adc1_isolated_inverted_bench.jpg",
-  pha:"assets/imgs/ACD1/adc1_coupledInverted(new-Isolated)_mag_s11_s21.png",
-  dut:"assets/imgs/ACD1/adc1_coupled_inverted_bench.jpg",
+  mag:"imgs/ACD1/adc1_isolatedInverted(new-coupled)_mag_s11_s21.png",
+  smith:"imgs/ACD1/adc1_isolated_inverted_bench.jpg",
+  pha:"imgs/ACD1/adc1_coupledInverted(new-Isolated)_mag_s11_s21.png",
+  dut:"imgs/ACD1/adc1_coupled_inverted_bench.jpg",
   cap_smith_opt: "Setup para medición del puerto acoplado del DUT",
   cap_dut_opt: "Setup para medición del puerto aislado del DUT",
   cap_pha_opt: "Magnitud (dB) del parámetro de reflexión y transmisión del puerto aislado",
@@ -1078,10 +1078,10 @@ El segundo acoplador direccional microstrip el cual fue simulado y diseñado con
   description: "Medición del puerto de salida",
   port_name:"output",
   dir_coupler_name: "ACD2",
-  mag:"assets/imgs/ACD2/adc2_through_mag_s11_s21.png",
-  pha:"assets/imgs/ACD2/adc2_through_phase_s11_s21.png",
-  smith:"assets/imgs/ACD2/adc2_through_smith_s11.png",
-  dut:"assets/imgs/ACD2/adc2_through_bench.jpg",
+  mag:"imgs/ACD2/adc2_through_mag_s11_s21.png",
+  pha:"imgs/ACD2/adc2_through_phase_s11_s21.png",
+  smith:"imgs/ACD2/adc2_through_smith_s11.png",
+  dut:"imgs/ACD2/adc2_through_bench.jpg",
   offset_dut_pt:42pt
 )
 
@@ -1092,10 +1092,10 @@ El segundo acoplador direccional microstrip el cual fue simulado y diseñado con
   description: "Medición del puerto acoplado",
   port_name:"acoplado",
   dir_coupler_name: "ACD2",
-  mag:"assets/imgs/ACD2/adc2_coupled_mag_s11_s21.png",
-  pha:"assets/imgs/ACD2/adc2_coupled_phase_s11_s21.png",
-  smith:"assets/imgs/ACD2/adc2_coupled_smith_s11.png",
-  dut:"assets/imgs/ACD2/adc2_coupled_bench.jpg",
+  mag:"imgs/ACD2/adc2_coupled_mag_s11_s21.png",
+  pha:"imgs/ACD2/adc2_coupled_phase_s11_s21.png",
+  smith:"imgs/ACD2/adc2_coupled_smith_s11.png",
+  dut:"imgs/ACD2/adc2_coupled_bench.jpg",
   offset_dut_pt:26pt
 )
 
@@ -1103,10 +1103,10 @@ El segundo acoplador direccional microstrip el cual fue simulado y diseñado con
    description: "Medición del puerto aislado",
    port_name:"aislado",
    dir_coupler_name: "ACD2",
-   mag:"assets/imgs/ACD2/adc2_isolated_mag_s11_s21.png",
-   pha:"assets/imgs/ACD2/adc2_isolated_phase_s11_s21.png",
-   smith:"assets/imgs/ACD2/adc2_isolated_smith_s11.png",
-   dut:"assets/imgs/ACD2/adc2_isolated_bench.jpg",
+   mag:"imgs/ACD2/adc2_isolated_mag_s11_s21.png",
+   pha:"imgs/ACD2/adc2_isolated_phase_s11_s21.png",
+   smith:"imgs/ACD2/adc2_isolated_smith_s11.png",
+   dut:"imgs/ACD2/adc2_isolated_bench.jpg",
    offset_dut_pt:43pt
  )
 
@@ -1120,10 +1120,10 @@ El tercer acoplador direccional microsse realizo stripline el cual fue simulado 
   description: "Medición del puerto de salida",
   port_name:"output",
   dir_coupler_name: "ACD3",
-  mag:"assets/imgs/ACD3/adc3_through_mag_s11_s21.png",
-  pha:"assets/imgs/ACD3/adc3_through_phase_s11_s21.png",
-  smith:"assets/imgs/ACD3/adc3_through_smith_s11.png",
-  dut:"assets/imgs/ACD3/adc3_through_bench.jpg",
+  mag:"imgs/ACD3/adc3_through_mag_s11_s21.png",
+  pha:"imgs/ACD3/adc3_through_phase_s11_s21.png",
+  smith:"imgs/ACD3/adc3_through_smith_s11.png",
+  dut:"imgs/ACD3/adc3_through_bench.jpg",
   offset_dut_pt:2pt
 )
 
@@ -1132,10 +1132,10 @@ El tercer acoplador direccional microsse realizo stripline el cual fue simulado 
   description: "Medición del puerto acoplado",
   port_name:"acoplado",
   dir_coupler_name: "ACD3",
-  mag:"assets/imgs/ACD3/adc3_coupled_mag_s11_s21.png",
-  pha:"assets/imgs/ACD3/adc3_coupled_phase_s11_s21.png", 
-  smith:"assets/imgs/ACD3/adc3_coupled_smith_s11.png",  
-  dut:"assets/imgs/ACD3/adc3_coupled_bench.jpg",
+  mag:"imgs/ACD3/adc3_coupled_mag_s11_s21.png",
+  pha:"imgs/ACD3/adc3_coupled_phase_s11_s21.png", 
+  smith:"imgs/ACD3/adc3_coupled_smith_s11.png",  
+  dut:"imgs/ACD3/adc3_coupled_bench.jpg",
   offset_dut_pt:0pt
 )
 
@@ -1146,10 +1146,10 @@ El tercer acoplador direccional microsse realizo stripline el cual fue simulado 
    description: "Medición del puerto aislado",
    port_name:"aislado",
    dir_coupler_name: "ACD3",
-   mag:"assets/imgs/ACD3/adc3_isolated_mag_s11_s21.png",
-   pha:"assets/imgs/ACD3/adc3_isolated_phase_s11_s21.png",
-   smith:"assets/imgs/ACD3/adc3_isolated_smith_s11.png",
-   dut:"assets/imgs/ACD3/adc3_isolated_bench.jpg", 
+   mag:"imgs/ACD3/adc3_isolated_mag_s11_s21.png",
+   pha:"imgs/ACD3/adc3_isolated_phase_s11_s21.png",
+   smith:"imgs/ACD3/adc3_isolated_smith_s11.png",
+   dut:"imgs/ACD3/adc3_isolated_bench.jpg", 
    offset_dut_pt:0pt
  )
 
@@ -1163,10 +1163,10 @@ Ahora el cuarto acoplador direccional en stripline
   description: "Medición del puerto de salida",
   port_name:"output",
   dir_coupler_name: "ACD4",
-  mag:"assets/imgs/ACD_tunning/acd4_through_s11_s21_mag.png",
-  pha:"assets/imgs/ACD_tunning/acd4_through_s11_s21_phase.png",
-  smith:"assets/imgs/ACD_tunning/acd4_through_s11_smith.png",
-  dut:"assets/imgs/ACD_tunning/adc4_through_bench.jpg",
+  mag:"imgs/ACD_tunning/acd4_through_s11_s21_mag.png",
+  pha:"imgs/ACD_tunning/acd4_through_s11_s21_phase.png",
+  smith:"imgs/ACD_tunning/acd4_through_s11_smith.png",
+  dut:"imgs/ACD_tunning/adc4_through_bench.jpg",
   offset_dut_pt:2pt
 )
 
@@ -1175,10 +1175,10 @@ Ahora el cuarto acoplador direccional en stripline
   description: "Medición del puerto acoplado",
   port_name:"acoplado",
   dir_coupler_name: "ACD4",
-  mag:"assets/imgs/ACD_tunning/acd4_coupled_s11_s21_mag.png",
-  pha:"assets/imgs/ACD_tunning/acd4_coupled_s11_s21_phase.png",
-  smith:"assets/imgs/ACD_tunning/acd4_coupled_s11_smith.png",
-  dut:"assets/imgs/ACD_tunning/adc4_coupled_bench.jpg",
+  mag:"imgs/ACD_tunning/acd4_coupled_s11_s21_mag.png",
+  pha:"imgs/ACD_tunning/acd4_coupled_s11_s21_phase.png",
+  smith:"imgs/ACD_tunning/acd4_coupled_s11_smith.png",
+  dut:"imgs/ACD_tunning/adc4_coupled_bench.jpg",
   offset_dut_pt:2pt
 )
 
@@ -1186,10 +1186,10 @@ Ahora el cuarto acoplador direccional en stripline
   description: "Medición del puerto aislado",
   port_name:"aislado",
   dir_coupler_name: "ACD4",
-  mag:"assets/imgs/ACD_tunning/acd4_isolated_s11_s21_mag.png",
-  pha:"assets/imgs/ACD_tunning/acd4_isolated_s11_s21_phase.png",
-  smith:"assets/imgs/ACD_tunning/acd4_isolated_s11_smith.png",
-  dut:"assets/imgs/ACD_tunning/adc4_through_bench.jpg",
+  mag:"imgs/ACD_tunning/acd4_isolated_s11_s21_mag.png",
+  pha:"imgs/ACD_tunning/acd4_isolated_s11_s21_phase.png",
+  smith:"imgs/ACD_tunning/acd4_isolated_s11_smith.png",
+  dut:"imgs/ACD_tunning/adc4_through_bench.jpg",
   offset_dut_pt:2pt
 )
 
@@ -1270,9 +1270,9 @@ Como comentario adicional, el proyecto se pretende implementar en un pcb FR4 de 
 
 
 
-#image("assets/imgs/ad8302_reflectometer.png") 
+#image("imgs/ad8302_reflectometer.png") 
 
-#image("assets/imgs/AD8302.png",width: 50%)
+#image("imgs/AD8302.png",width: 50%)
 
 
 
