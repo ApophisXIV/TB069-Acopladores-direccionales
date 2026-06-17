@@ -1,4 +1,4 @@
-#import "template.typ" : *
+#import "template.typ": *
 
 
 #show: it => basic-report(
@@ -11,7 +11,7 @@
   language: "es",
   abstract: lorem(50),
   compact-mode: false,
-  it
+  it,
 )
 
 #set math.equation(numbering: "(1)")
@@ -22,139 +22,177 @@
 #show: booktabs-default-table-style
 
 
-#set page(margin: (y:3cm,x:1in))
+#set page(margin: (y: 3cm, x: 1in))
 #show link: underline
 
-#show <add_to_outline_without_numbering>:set heading(outlined: true,numbering: none)
+#show <add_to_outline_without_numbering>: set heading(outlined: true, numbering: none)
 
 
-#let todo(task) = {return text(size: 10pt,fill:red, upper[#task])}
+#let todo(task) = { return text(size: 10pt, fill: red, upper[#task]) }
+#let todo_bib(task) = {
+  return text(size: 10pt, weight: "black", font: "Trebuchet MS", fill: rgb("#208620"), upper[#task])
+}
 
 
-#show figure: set text(size:9pt)
+#show figure: set text(size: 9pt)
 
 
 // #heading(outlined: false)[
-  
+
 // -----------------------------------------------------------
 // AUX
 // -----------------------------------------------------------
-#let fn_open_stub(x) = return {-1.0 / calc.tan(x)}
-#let fn_short_stub(x) = return {calc.tan(x)}
+#let fn_open_stub(x) = return { -1.0 / calc.tan(x) }
+#let fn_short_stub(x) = return { calc.tan(x) }
 
-#let plot_z_stub_vs_l(is_open_stub:true,color_1,color_2,phase_offset) =[
-    #let fn_stub = if is_open_stub == true{
-        fn_open_stub
-    } else {
-        fn_short_stub
-    }
-   #plot(
-    xmin: -2.0 * calc.pi, xmax: 2.0 * calc.pi - 0.1,
-    ymin: -5.5, ymax:6,
-    width: 6.5, height: 5,
+#let plot_z_stub_vs_l(is_open_stub: true, color_1, color_2, phase_offset) = [
+  #let fn_stub = if is_open_stub == true {
+    fn_open_stub
+  } else {
+    fn_short_stub
+  }
+  #plot(
+    xmin: -2.0 * calc.pi,
+    xmax: 2.0 * calc.pi - 0.1,
+    ymin: -5.5,
+    ymax: 6,
+    width: 6.5,
+    height: 5,
     xlabel: $beta l$,
     ylabel: $Z(l)$,
     show-grid: "none",
     grid-label-break: false, // Defaul
     x-extend: (22, 2),
     axis-y-extend: (1, 1.5),
-    show-origin: false,  // Avoid duplicate "0" with custom xtick-labels
+    show-origin: false, // Avoid duplicate "0" with custom xtick-labels
     ytick: none,
-  
-    xtick: (-2.0*calc.pi,-3.0/2.0 * calc.pi,-calc.pi,-calc.pi/2,calc.pi/2, calc.pi,3/2*calc.pi, 2.0*calc.pi),
-    xtick-labels: ($-2 pi$,$(- 3 pi)/2$ ,$- pi$,$- pi/2$ ,$pi/2$,$pi$, $(3 pi)/2$,$2 pi$),
-    
+
+    xtick: (
+      -2.0 * calc.pi,
+      -3.0 / 2.0 * calc.pi,
+      -calc.pi,
+      -calc.pi / 2,
+      calc.pi / 2,
+      calc.pi,
+      3 / 2 * calc.pi,
+      2.0 * calc.pi,
+    ),
+    xtick-labels: ($-2 pi$, $(- 3 pi)/2$, $- pi$, $- pi/2$, $pi/2$, $pi$, $(3 pi)/2$, $2 pi$),
+
     (fn: x => fn_stub(x), stroke: color_1.lighten(50%) + 1.2pt, samples: 175),
-    (fn: x => fn_stub(x), domain:((-calc.pi + phase_offset - 0.01),(-calc.pi+ phase_offset + 0.0)),stroke: color_2 + 1.5pt, samples: 1),
-    (fn: x => fn_stub(x), domain:((-0.00000001 + phase_offset),(0.01 + phase_offset)),stroke: color_2 + 1.5pt, samples: 1),
-    (fn: x => fn_stub(x), domain:((calc.pi+ phase_offset - 0.09),(calc.pi + phase_offset + 0.0000001)),stroke: color_2 + 1.5pt, samples: 1),
+    (
+      fn: x => fn_stub(x),
+      domain: ((-calc.pi + phase_offset - 0.01), (-calc.pi + phase_offset + 0.0)),
+      stroke: color_2 + 1.5pt,
+      samples: 1,
+    ),
+    (
+      fn: x => fn_stub(x),
+      domain: ((-0.00000001 + phase_offset), (0.01 + phase_offset)),
+      stroke: color_2 + 1.5pt,
+      samples: 1,
+    ),
+    (
+      fn: x => fn_stub(x),
+      domain: ((calc.pi + phase_offset - 0.09), (calc.pi + phase_offset + 0.0000001)),
+      stroke: color_2 + 1.5pt,
+      samples: 1,
+    ),
   )
 ]
 
 
 // Matriz de figuras
 
-#let figures_matrix(description:"",port_name:"",
-                    dir_coupler_name:"",
-                    mag:"",pha:"",smith:"",dut:"",
-                    offset_dut_pt:0pt,
-                    offset_smith_pt:0pt,
-                    cap_mag_opt:"",
-                    cap_pha_opt:"",
-                    cap_smith_opt:"",
-                    cap_dut_opt:"",
-                  ) = {
+#let figures_matrix(
+  description: "",
+  port_name: "",
+  dir_coupler_name: "",
+  mag: "",
+  pha: "",
+  smith: "",
+  dut: "",
+  offset_dut_pt: 0pt,
+  offset_smith_pt: 0pt,
+  cap_mag_opt: "",
+  cap_pha_opt: "",
+  cap_smith_opt: "",
+  cap_dut_opt: "",
+) = {
   let mag_caption = if cap_mag_opt.len() == 0 {
-      [Magnitud (dB) del parámetro de reflexión ($S_(11)$) y transmisión ($S_(21)$) del puerto "#port_name"]
-  } else{
-      [#cap_mag_opt]
+    [Magnitud (dB) del parámetro de reflexión ($S_(11)$) y transmisión ($S_(21)$) del puerto "#port_name"]
+  } else {
+    [#cap_mag_opt]
   }
 
   let pha_caption = if cap_pha_opt.len() == 0 {
-      [Fase ($degree$) del parámetro de reflexión ($S_(11)$) y transmisión ($S_(21)$) del puerto "#port_name"]
+    [Fase ($degree$) del parámetro de reflexión ($S_(11)$) y transmisión ($S_(21)$) del puerto "#port_name"]
   } else {
-      [#cap_pha_opt]
+    [#cap_pha_opt]
   }
 
   let smith_caption = if cap_smith_opt.len() == 0 {
-      [Carta de Smith del puerto "#port_name"]
+    [Carta de Smith del puerto "#port_name"]
   } else {
-      [#cap_smith_opt]
+    [#cap_smith_opt]
   }
 
   let dut_caption = if cap_dut_opt.len() == 0 {
-      [_Setup_ para medición del puerto "#port_name" del _DUT_]
+    [_Setup_ para medición del puerto "#port_name" del _DUT_]
   } else {
-      [#cap_dut_opt]
+    [#cap_dut_opt]
   }
 
   let h_smith_alt = if offset_smith_pt == 0pt {
     160pt
-  } else{
+  } else {
     auto
   }
-                    
-  show figure : set text(size:7pt)
-  align(center+horizon)[
-  #scale(reflow: false, x: 117%,y:135%)[
-    #rotate(-90deg)[
-      #subpar.grid(
-        [
-          
-          #figure(image(mag),caption: mag_caption)
-          #eval("<fig:mag_"+port_name+"_"+dir_coupler_name+">", mode: "code")
-        ],
-        [
-          #figure(
-            box(clip: true, radius: 5pt,outset: -0pt,
-              image(fit: "stretch",width: 128pt + offset_smith_pt,height: h_smith_alt , smith)
-            ),
-          // #figure(image(width: 125pt,height: 160pt,fit: "stretch",smith),
-          caption: smith_caption)
-          #eval("<fig:smith_"+port_name+"_"+dir_coupler_name+">", mode: "code")
-        ],
-        [
-          #figure(image(pha),
-          caption:pha_caption)
-          #eval("<fig:pha_"+port_name+"_"+dir_coupler_name+">", mode: "code")
-        ],
-        [
-          #figure(
-            box(clip: true, radius: 5pt,outset: -0pt,
-              image(fit: "stretch",width: 128pt + offset_dut_pt,dut)
-            ),
-          caption: dut_caption)
-          #eval("<fig:bench_setup_"+port_name+"_"+dir_coupler_name+">", mode: "code")
-        ],
-        columns: (2fr,1fr),
-        caption: [#description],
-        gap: 0.5cm,
-        gutter:0.45cm,
-      )
+
+  show figure: set text(size: 7pt)
+  align(center + horizon)[
+    #scale(reflow: false, x: 117%, y: 135%)[
+      #rotate(-90deg)[
+        #subpar.grid(
+          [
+
+            #figure(image(mag), caption: mag_caption)
+            #eval("<fig:mag_" + port_name + "_" + dir_coupler_name + ">", mode: "code")
+          ],
+          [
+            #figure(
+              box(clip: true, radius: 5pt, outset: -0pt, image(
+                fit: "stretch",
+                width: 128pt + offset_smith_pt,
+                height: h_smith_alt,
+                smith,
+              )),
+              // #figure(image(width: 125pt,height: 160pt,fit: "stretch",smith),
+              caption: smith_caption,
+            )
+            #eval("<fig:smith_" + port_name + "_" + dir_coupler_name + ">", mode: "code")
+          ],
+
+          [
+            #figure(image(pha), caption: pha_caption)
+            #eval("<fig:pha_" + port_name + "_" + dir_coupler_name + ">", mode: "code")
+          ],
+          [
+            #figure(
+              box(clip: true, radius: 5pt, outset: -0pt, image(fit: "stretch", width: 128pt + offset_dut_pt, dut)),
+              caption: dut_caption,
+            )
+            #eval("<fig:bench_setup_" + port_name + "_" + dir_coupler_name + ">", mode: "code")
+          ],
+
+          columns: (2fr, 1fr),
+          caption: [#description],
+          gap: 0.5cm,
+          gutter: 0.45cm,
+        )
+      ]
     ]
   ]
-]
-
 }
 
 // -----------------------------------------------------------
@@ -171,98 +209,83 @@
 = Introducción general
 
 == Contexto y motivación
-En el marco de la asignatura _TB069 - Electromagnetismo Aplicado_ del plan 2023 de la carrera de Ingeniería Electrónica, se presenta la posibilidad de promoción mediante la realización de un trabajo práctico de aplicación por lo que a lo largo de esta memoria se presentará el proceso de diseño, implementación y medición de un acoplador direccional _microstrip_ para el cual de forma preliminar se caracterizará el sustrato sobre el cual será construido mediante tres métodos de medición indirecta los cuales se van a ver detalladamente mas adelante.  
+En el marco de la asignatura _TB069 - Electromagnetismo Aplicado_ del plan 2023 de la carrera de Ingeniería Electrónica, se presenta la posibilidad de promoción mediante la realización de un trabajo práctico de aplicación por lo que a lo largo de esta memoria se presentará el proceso de diseño, implementación y medición de un acoplador direccional tanto en tecnología _microstrip_ como _stripline_ para el cual de forma preliminar se caracterizará el sustrato sobre el cual será construido mediante tres métodos de medición indirecta los cuales se van a ver detalladamente mas adelante.
 
 == Objetivos y alcances
 
-En el marco de la asignatura _TB069 - Electromagnetismo Aplicado_ del plan 2023 de la carrera de Ingeniería Electrónica, se presenta la posibilidad de promoción mediante la realización de un trabajo práctico de aplicación por lo que a lo largo de este informe se procederá a diseñar e implementar un acoplador direccional para el cual previamente se realizará la caracterización del sustrato mediante tres métodos diferentes de medición indirecta: $Delta S$ (diferencia de fase), resonador de anillo y Capacitancia.
-  
-Como parte de la actividad del club de radio frecuencia de la facultad, siendo ambos miembros activos del mismo, se presenta la idea de desarrollar un adaptador automático de antena con el fin de estudiar su proceso de diseño y posterior implementación, para ello se determinó la necesidad de diseñar e implementar un *acoplador direccional* del cual se obtendrá el parámetro de reflexión mediante el circuito integrado AD8302, el circuito de control basado en el uso de un microcontrolador y finalmente el circuito de adaptación. De forma paralela se decide *caracterizar el sustrato* con el fin de determinar de forma fehaciente su permitividad relativa ($epsilon_r$) y su $tg(delta)$ logrando así minimizar la discrepancia entre los resultados teóricos y experimentales. 
+En el marco de la asignatura _TB069 - Electromagnetismo Aplicado_ del plan 2023 de la carrera de Ingeniería Electrónica, se presenta la posibilidad de promoción mediante la realización de un trabajo práctico de aplicación por lo que a lo largo de este informe se procederá a diseñar e implementar un acoplador direccional para el cual previamente se realizará la caracterización del sustrato mediante tres métodos de medición indirecta: $Delta S$ (diferencia de fase), resonadores de anillo _microstrip_ y medición de capacitancia para diferentes áreas.
+
+Como parte de la actividad del club de radio frecuencia de la facultad, siendo ambos miembros activos del mismo, se presenta la idea de desarrollar un adaptador automático de antena con el fin de estudiar su proceso de diseño y posterior implementación, para ello se determinó la necesidad de diseñar e implementar un *acoplador direccional* del cual se obtendrá el parámetro de reflexión mediante el circuito integrado AD8302, el circuito de control basado en el uso de un microcontrolador y finalmente el circuito de adaptación. De forma paralela se decide *caracterizar el sustrato* con el fin de determinar de forma fehaciente su permitividad relativa ($epsilon_r$) y su $tg(delta)$ logrando así minimizar la discrepancia entre los resultados teóricos y experimentales.
 
 A continuación se presenta un diagrama de bloques de la relación de las diferentes etapas y actividades del proyecto.
 
-#figure(  
-  image("imgs/esquema_de_trabajo.png",width: 80%)
+#figure(
+  image("imgs/esquema_de_trabajo.png", width: 80%),
 )
 
 
 Luego de una primer conversación con el Dr. Ing Gustavo Fano, se decidió tomar una parte acotada del proyecto para ser presentado como propuesta de realización con los siguientes bloques:
 - Diseño, simulación e implementación del acoplador direccional incluyendo un marco teórico introductorio y consideraciones prácticas tenidas en cuenta
-- Caracterización del sustrato mediante la medición 
-- Diseño e implementación de una interfaz gráfica que permita caracterizar el sustrato
+- Caracterización del sustrato mediante la medición
+- Diseño e implementación de una interfaz gráfica que permita analizar los datos experimentales obtenidos necesarios para caracterizar el sustrato
 
 = Introducción específica
 A continuación se explicarán algunos conceptos necesarios para llevar a cabo la elaboración del acoplador direccional como así también los métodos de medición empleados.
 
-
 == Líneas de transmisión
+Una línea de transmisión puede ser entendida desde su interpretación como un medio físico que permite transportar energía eléctrica o energía electromagnética y/o información constituido mediante dos o más conductores metálicos, ópticos o de cualquier otro material que permita la propagación eficiente de la energía como así también desde su modelo de análisis siendo propicio de utilizar cuando las dimensiones físicas del sistema son comparables con la longitud de onda de la señal, de modo que los efectos de propagación no pueden ser despreciados.
 
-Una línea de transmisión es un medio físico que transporta energía eléctrica o información desde un punto a otro, mediante conductores metálicos. Se utiliza cuando las dimensiones físicas del sistema son comparables con la longitud de onda de la señal, de modo que los efectos de propagación no pueden ser despreciados.
+=== Modelo de la línea de transmisión de parámetros distribuidos
+Tal como fue mencionado, para el análisis se cuenta con un denominado modelo equivalente de parámetros distribuidos, en el cual se representan los distintos fenómenos físicos asociados a la propagación de la señal donde se presenta la *resistencia (R)* para modelar las pérdidas en los conductores, la *inductancia (L)* para representar la energía magnética, la  *capacitancia (C)* para representar la energía eléctrica, y la *conductancia (G)* para modelar las pérdidas relacionadas al dieléctrico.
 
-=== Modelo de la línea de transmisión de parámetros concentrados
-
-El análisis de una línea de transmisión puede realizarse mediante un modelo equivalente de parámetros concentrados, en el cual se representan los distintos fenómenos físicos asociados a la propagación de la señal:
-
-La *Resistencia (R)* para modelar las pérdidas en los conductores, la *Inductancia (L)* para representar la energía magnética, la  *Capacitancia (C)* para representar la energía eléctrica, y la *Conductancia (G)* para modelar las pérdidas debidas al dieléctrico.
-
-Estos parámetros están definidos por unidad de longitud y dependen tanto de la geometría de la línea como de las propiedades eléctricas de los materiales que la componen. El conjunto de los cuatro parámetros recibe el nombre de modelo RLGC, y constituye la base para la formulación de las ecuaciones de la línea de transmisión.
-
+Es importante mencionar que estos parámetros están definidos por unidad de longitud y en la práctica dependen tanto de la geometría de la línea como de las propiedades eléctricas de los materiales que la componen. El conjunto de los cuatro parámetros recibe el nombre de modelo RLGC, y constituye la base para la formulación de las ecuaciones de la línea de transmisión derivdas por Heaviside en la decada de 1880.
+#todo_bib("Buscar biblio en Pozar sobre ecuaciones del telegrafista")
 
 #figure(
-image("imgs/ilustrations/rlgc.svg", width: 65%),
-caption: [Modelo RLGC de una linea de transmisión]
+  image("imgs/ilustrations/rlgc.svg", width: 65%),
+  caption: [Modelo RLGC de una linea de transmisión],
 )
 
-Aplicando las leyes de Kirchhoff a un segmento infinitesimal $Delta l$,  se obtienen la @ec_tension y @ec_corriente, las denominadas ecuaciones del telegrafista , que describen la variación espacial de la tensión y la corriente:
-  
+Aplicando las leyes de Kirchhoff a un segmento infinitesimal $Delta l$,  se obtienen la @ec_tension y @ec_corriente, las denominadas ecuaciones del telegrafista, que describen la variación espacial de la tensión y la corriente:
 
-
-  #grid(
+#grid(
   columns: (1fr, 1fr),
   column-gutter: 8pt,
   [$ (d V(l))/(d l) = - (R + J omega L) dot Delta_l dot I(l) $<ec_tension>],
-  [$ (d I(l))/(d l) = -(G + j omega C) dot Delta_l dot V(l)) $<ec_corriente>]           // Segunda ecuación
+  [$ (d I(l))/(d l) = -(G + j omega C) dot Delta_l dot V(l)) $<ec_corriente>],
+  // Segunda ecuación
 )
-
 
 Estas ecuaciones diferenciales de primer orden son la base  para obtener una ecuación diferencial de segundo orden para la tensión y otra para la corriente, conocida como ecuación de Helmholtz (@ec:Helmholtz_tension y @ec:Helmholtz_corriente), que describe la propagación de ondas a lo largo de la línea:
 
-
-  #grid(
+#grid(
   columns: (1fr, 1fr),
   column-gutter: 8pt,
   [$ (d² V(l))/(d² l) - gamma^2 dot V (l) = 0 $<ec:Helmholtz_tension>],
   [$ (d² I(l))/(d² l) - gamma^2 dot I (l) = 0 $<ec:Helmholtz_corriente>],
 )
 
+Siendo $gamma$ la constante de propagación de la linea, puede ser expresada en la forma de la @gamma_parametros_concentrados o la @ec:cons_prop, donde $alpha$ es la constante de atenuación que representa la pérdida de amplitud de la señal a lo largo de la línea y $beta$ la constante de fase que describe la variación de fase de la onda durante su propagación.
 
-Siendo $gamma$ es la constante de propagación de la linea que también se puede expresar tanto como la @gamma_parametros_concentrados como la @ec:cons_prop
-
- #grid(
+#grid(
   columns: (1fr, 1fr),
   column-gutter: 8pt,
-  [$ gamma = sqrt((j omega L + R) dot (j omega C + G))  
-  $<gamma_parametros_concentrados>],
+  [$ gamma = sqrt((j omega dot L + R) dot (j omega dot C + G)) $<gamma_parametros_concentrados>],
   [$ gamma = alpha + j beta $<ec:cons_prop>],
 )
 
+Por consiguiente la solución general de la ecuación de Helmholtz conduce a las expresiones de la tensión (@ec:Tension_TL) y corriente (@ec:Corriente_TL) a lo largo de la línea de transmisión:
 
-donde $alpha$ es la constante de atenuación, que representa la pérdida de amplitud de la señal a lo largo de la línea y $beta$ es la constante de fase, que describe la variación de fase de la onda durante su propagación.
-
-
-Por consiguinte la solución general de la ecuación de Helmholtz conduce a las expresiones de la tensión (@ec:Tension_TL) y la corriente (@ec:Corriente_TL) a lo largo de la línea de transmisión:
-
- #grid(
+#grid(
   columns: (1fr, 1fr),
   column-gutter: 8pt,
-  [$ V(l) = V⁺ dot exp(- gamma l) + V⁻ dot exp(gamma l) $ <ec:Tension_TL>],
-  [$ I(l) = I⁺ dot exp(- gamma l) + I⁻ dot exp(gamma l) $ <ec:Corriente_TL>],
+  [$ V(l) = V^+ dot exp(- gamma dot l) + V^- dot exp(gamma dot l) $ <ec:Tension_TL>],
+  [$ I(l) = I^+ dot exp(- gamma dot l) + I^- dot exp(gamma dot l) $ <ec:Corriente_TL>],
 )
 
-Donde 𝑉⁺ e I⁺ representan las ondas incidentes que se propagan en el sentido positivo de la línea,mientras que 𝑉⁻ e 𝐼⁻ representan las ondas reflejadas que se propagan en sentido contrario.
+Donde $V^+$ e $I^+$ representan las ondas incidentes que se propagan en el sentido positivo de la línea,mientras que $V^-$ e $I^-$ representan las ondas reflejadas que se propagan en sentido contrario.
 
 === Propagación de la señal en una linea de transmisión
-
 La onda electromagnética en una linea de transmisión, se propaga principalmente en el material dieléctrico que separa ambas placas conductoras, es decir lo hace en un medio material.
 
 La onda electromagnética que se propaga a lo largo de una línea de transmisión puede hacerlo mediante distintos modos de propagación, los cuales describen la orientación de los campos eléctrico y magnético con respecto a la dirección de propagación de la onda. Dependiendo de esta orientación, los campos pueden presentar componentes transversales, longitudinales o una combinación de ambas.
@@ -270,67 +293,75 @@ La onda electromagnética que se propaga a lo largo de una línea de transmisió
 #v(-0.5cm)
 #figure(
   image("imgs/modoTEMvectores.PNG", width: 5cm),
-  caption: [Modo de propagación TEM]
+  caption: [Modo de propagación TEM],
 )<fig:modo_tem>
 
-Cuando el campo eléctrico y magnético son completamente transversales a la dirección de propagación, se presenta el modo TEM (Transversal Electromagnético) como se ilustra en la @fig:modo_tem, este modo ocurre en estructuras homogéneas como puede se striplines.
+Cuando el campo eléctrico y magnético son completamente transversales a la dirección de propagación, se presenta el modo TEM (Transversal Electromagnético) como se ilustra en la @fig:modo_tem, este modo es más propenso a darse en frecuencias menores al GHz (sub-GHz) y en estructuras principalmente no dispersivas (homogéneas) como pueden ser las _striplines_ o coaxiales, en otras palabras, en estructuras donde haya baja un nula dispersión de la onda electromagnética por fuera del propio confinamiento de la línea de transmisión.
+#todo_bib("Agregar biblio del pozar o algun otro libro sobre TEM en stripline")
 
 También existe el modo TE (Transversal Eléctrico), en el cual el campo eléctrico es completamente transversal a la dirección de propagación, mientras que el campo magnético presenta una componente longitudinal, caso contrario el modo TM (Transversal Magnético) el campo magnético es transversal a la propagación, y el campo eléctrico es quien presenta una componente longitudinal, ambos se ilustran en la @fig:TE y en la @fig:TM respectivamente.
 
 #v(-0.25cm)
 #subpar.grid(
-  figure(image("imgs/modoTEvectores.PNG",width: 4.5cm), caption: [
-   Modo de propagación TE
-  ]), <fig:TE>,
-  figure(image("imgs/modoTMvectores.PNG",width: 4.5cm), caption: [
+  figure(image("imgs/modoTEvectores.PNG", width: 4.5cm), caption: [
+    Modo de propagación TE
+  ]),
+  <fig:TE>,
+
+  figure(image("imgs/modoTMvectores.PNG", width: 4.5cm), caption: [
     Modo de propagación TM
-  ]), <fig:TM>,
+  ]),
+  <fig:TM>,
+
   columns: (1fr, 1fr),
   gap: 0.5cm,
-  gutter: 1cm, 
+  gutter: 1cm,
   caption: [Modo de propagación transversales],
   label: <fig_modo_propagacion>,
 )
 
 
 // Por otro lado, cuando los campos presentan componentes longitudinales significativas, se habla de modos no TEM.
-Por otro lado, en muchas líneas de transmisión prácticas aparece el denominado modo cuasi-TEM, el cual es una aproximación de propagación de onda en líneas de transmisión donde los campos eléctrico y magnético son casi, pero no exactamente, perpendiculares a la dirección de propagación. Ocurre en estructuras inhomogéneas, como líneas de microstrip, debido a diferencias en la permitividad del dieléctrico (aire y sustrato) del cual luego ahondaremos en detalle 
+Por último, siendo este el más propenso a ocurrir en la práctica aparece el denominado modo cuasi-TEM. Este se trata de un modo de propagación de onda en líneas de transmisión donde los campos eléctrico y magnético son casi, pero no exactamente, perpendiculares a la dirección de propagación. 
+El modo cuasi-TEM ocurre especialmente en estructuras inhomogéneas producto de que no toda la energía electromagnética queda confinada en la línea de transmisión sino que una parte existe por fuera del sustrato debido a las diferencias entre la permitividad del dieléctrico y el medio que la rodea como es el caso de la línea _microstrip_.
 
-Con el objetivo de simplificar el análisis y facilitar los cálculos, se asume que la onda se propaga cuasi-TEM, hipótesis válida para muchas líneas de transmisión utilizadas en la práctica.
+Con el objetivo de simplificar el análisis y facilitar el cálculo, se asume que la onda se propagará en un modo TEM y cuasi-TEM, hipótesis válida para muchas líneas de transmisión utilizadas en la práctica, en particular en el presente trabajo.
 
 
-=== Tipos de linea de transmisión
-  Existen varios tipos de línea de transmisión que explicaremos a continuación:
-  - Línea de transmisión sin pérdidas: Esto ocurre cuando el conductor y el dieléctrico son perfectos, es decir, es decir $R=0$ y $G=0$ del modelo RLGC antes mencionado.
+== Características eléctricas
+Las líneas de transmisión pueden ser clasificadas, entre otras caracteristicas, por su geometría como así también por las consideraciones eléctricas que se realizan para su análisis como se presenta a continuación.
 
-  - Líneas de transmisión largas: Son aquellas líneas de transmisión que se pueden considerar infinitas para el entorno de análisis escogido, es decir si consideramos que en un entorno la línea es como infinita no existen las reflexiones por el cual todo se llega a transmitir.
-  - Línea de transmisión sin distorsión: Es aquella en la que la señal de salida es una réplica exacta de la entrada, atenuada o retrasada, pero sin alterar su forma original. 
-    
-    Como condición para que una línea de transmisión sea sin distorsión debe cumplirse la @ec:TL_sin_distorsion por lo que la velocidad de propagación y la atenuación no dependen de la frecuencia.
+- *Línea de transmisión sin pérdidas*: Esto ocurre cuando el conductor y el dieléctrico son perfectos, es decir, es decir $R=0$ y $G=0$ del modelo RLGC antes mencionado.
 
-  $ R/L = G/C $<ec:TL_sin_distorsion>
+- *Líneas de transmisión largas*: Son aquellas líneas de transmisión que se pueden considerar infinitas para el entorno de análisis utilizado, es decir si para un entorno  consideramos la línea como infinita asumiremos que no existen las reflexiones por lo cual toda la energía se llega a transferir a la carga.
 
-  - Línea de transmisión de baja resistencia: Es aquella en el que el conductor es perfecto, es decir,  no tiene perdidas por el conductor.
-  
-    Aqui podemos observar que  :
+- *Línea de transmisión sin distorsión*: Es aquella en la que la señal de salida es una réplica exacta de la entrada, atenuada o retrasada, pero sin alterar su forma original.  Como condición para que una línea de transmisión sea tal debe cumplirse la @ec:TL_sin_distorsion poniendo de manifiesto que la velocidad de propagación y la atenuación no dependen de la frecuencia.
 
-  #grid(
-  columns: (1fr, 1fr), 
-  column-gutter: 8pt, 
-  $ L dot C = mu dot  epsilon $,  
-  $ sigma/epsilon = G/C  $       
+$ R/L = G/C $<ec:TL_sin_distorsion>
+
+- *Línea de transmisión de bajas pérdidas*: Es aquella en la que el conductor es perfecto, es decir, no tiene perdidas resistivas como se expone a continuación:
+
+#grid(
+  columns: (1fr, 1fr),
+  column-gutter: 8pt,
+  $ L dot C = mu dot epsilon $, $ sigma/epsilon = G/C $,
 )
-    
-  En particular en este trabajo vamos a ver líneas de transmisión eléctricas tales como:
-  
-==== Líneas de transmisión de microcinta o _microstrip_ 
 
-Es una línea de transmisión utilizada en PCB (circuitos impresos), consiste en una pista (linea de transmisión) sobre el sustrato dieléctrico con un plano de tierra inferior, tal como indica la @fig:microstrip.
+#todo_bib("Agregar referencias a los pdf de clases para esta parte y el pozar")
+
+== Características geómetricas
+En lo que respecta a la geometría encontramos las lineas de transmisión planas que son aquellas en las que los conductores que la componen son planos en su forma geométrica. Estas son las más comunes de hallar en una placa de circuito impreso (_PCB_) donde se encuentran conductores paralelos separados por el material dieléctrico #footnote([En el apilamiento (_stack up_) la capa de dieléctrico se la denomina _core_ o _prepeg_ según corresponda]) como podría ser 'FR4', teflón, Kapton, cerámica, RT/Duroid, entre otros.
+
+
+
+=== Líneas de transmisión de microcinta o _microstrip_
+
+Consiste en una pista (linea de transmisión) sobre el sustrato dieléctrico con un plano de tierra inferior, tal como indica la @fig:microstrip.
 
 #v(-0.6cm)
 #figure(
-image("imgs/ilustrations/microstripDespliegue.png", width: 40%),
-caption: [Microstrip] 
+  image("imgs/ilustrations/microstripDespliegue.png", width: 40%),
+  caption: [Microstrip],
 )<fig:microstrip>
 
 
@@ -339,59 +370,27 @@ Cabe destacar que la estructura, al estar inmersa entre los dos materiales, la s
 Un parametro importante que debemos mencionar es permitividad electrica efectiva, esta expresion es consecuencia natural de la forma en la que se encuentra construida nuestra estructura al estar embebida entre dos medios materiales con permitividades electricas relativas diferentes, poniendo de manifiesto que la onda propagante percibirá un permitividad electrica relativa equivalente que se encontrará entre $epsilon_r$ del aire (1) y $epsilon_r$  del sustrato.
 
 // #todo("REVISAR")
- 
+
 La velocidad de fase se expresa como  $v_p = c_0/ sqrt(epsilon_(e f f))$
 
 Siendo $c_0$ la velocidad de la luz en el vacío y $lambda$ la longitud de onda.
 
 
-  
-==== Líneas de transmisión stripline 
-  
-  Stripline es una línea de transmisión formada por tres conductores. asi como se observa en la @fig:stripline, los conductores de los planos superior e inferior son planos de tierra, y la banda conductora central se encuentra entre los dos dieléctricos. El espacio entre la banda conductora y los planos de tierra puede ser aire u otros materiales dieléctricos.
 
-  #v(-0.5cm)
-  #figure(
-    image("imgs/ilustrations/striplineDespliegue.png", width: 40%),
-    caption: [Línea de transmisión Stripline] 
-  )<fig:stripline>
+=== Líneas de transmisión stripline
 
-  Estas lineas tienen como ventaja que evita las interferencias radiadas (la radiación es mínima y puede despreciarse), con una pérdida similar a la de las líneas coaxiales. Sin embargo, como el $epsilon_(e f f)$ que es igual al $epsilon_r$, es mayor que el de una microstrip debido a que la propagación se produce solo en el sustrato. Esto reduce la velocidad de fase de la señal, resultando una longitud de onda ($lambda$) mas corta para una misma frecuencia.
+Stripline es una línea de transmisión formada por tres conductores. asi como se observa en la @fig:stripline, los conductores de los planos superior e inferior son planos de tierra, y la banda conductora central se encuentra entre los dos dieléctricos. El espacio entre la banda conductora y los planos de tierra puede ser aire u otros materiales dieléctricos.
 
-
-== Materiales
-
-El material que se utilizo en este trabajo es el FR4, uno de los materiales dieléctricos más utilizados en la fabricación de placas de circuito impreso (PCB). Este material está compuesto por un tejido de fibra de vidrio con un entretramado de malla como se observa en la @fig:malla_fr4 impregnado con resina epoxi, dispuesto en forma de múltiples capas superpuestas (stack), sobre las cuales se laminan las capas de cobre que conforman las pistas conductoras del circuito.
-
+#v(-0.5cm)
 #figure(
-image("imgs/ilustrations/Malla_FR4_MBE.PNG", width: 45%),
-caption: [Tejido de malla de sustrato FR4 estilo 1080]
-)<fig:malla_fr4>
+  image("imgs/ilustrations/striplineDespliegue.png", width: 40%),
+  caption: [Línea de transmisión Stripline],
+)<fig:stripline>
 
-Las siglas FR provienen del término Flame Retardant (retardante de llama), mientras que el número 4 corresponde a una clasificación específica dentro de esta familia de materiales. Esta propiedad se debe principalmente a la composición de la resina epoxi utilizada, la cual permite retardar la propagación del fuego en caso de exposición a altas temperaturas.
-
-Desde el punto de vista eléctrico, el FR4 se caracteriza por su permitividad relativa ( $epsilon_r$) y su tangente de pérdidas (tan $delta$), parámetros que describen el comportamiento del material frente a campos eléctricos alternos. La tangente de pérdidas cuantifica la energía disipada en el dieléctrico debido a los procesos de polarización del material. Valores bajos de este parámetro indican menores pérdidas y, por lo tanto, una mejor propagación de las señales electromagnéticas.
+Estas lineas tienen como ventaja que evita las interferencias radiadas (la radiación es mínima y puede despreciarse), con una pérdida similar a la de las líneas coaxiales. Sin embargo, como el $epsilon_(e f f)$ que es igual al $epsilon_r$, es mayor que el de una microstrip debido a que la propagación se produce solo en el sustrato. Esto reduce la velocidad de fase de la señal, resultando una longitud de onda ($lambda$) mas corta para una misma frecuencia.
 
 
-#subpar.grid(
-  figure(image("imgs/ilustrations/dielectricoNoPolTAND.PNG",width: 100%), caption: [
-    PCB no polarizado
-  ]), <fig:di_no_pol>,
-  figure(image("imgs/ilustrations/dielectricoSIPolTAND.PNG",width: 100%), caption: [
-   PCB polarizado
-  ]), <fig:di_pol>,
-  columns: (1fr, 1fr),
-  gap:0.5cm,
-  gutter:2cm,
-  caption: [Polarización del sustrato del PCB],
-  label: <fig:polarizacion_dielectrico>,
-)
 
-En la práctica, el sustrato FR4 no es perfectamente homogéneo ni isotrópico, debido principalmente a la estructura del tejido de fibra de vidrio y a imperfecciones propias del proceso de fabricación. Estas variaciones pueden generar pequeñas diferencias en la permitividad efectiva del material, afectando parámetros importantes en el diseño de líneas de transmisión, como la impedancia característica y la velocidad de propagación.
-
-Asimismo, la rugosidad de las capas de cobre puede incrementar las pérdidas por conducción, especialmente a frecuencias del orden de los GHz. A pesar de ello, cierta rugosidad es necesaria para asegurar una adecuada adhesión entre el cobre y el sustrato dieléctrico durante el proceso de fabricación del PCB.
-
-A pesar de estas limitaciones, el FR4 es el material seleccionado para este trabajo debido a su bajo costo, amplia disponibilidad y facilidad de fabricación, lo que lo convierte en una opción adecuada para la implementación de estructuras de microstrip y para la caracterización experimental de parámetros dieléctricos. Si bien su naturaleza inhomogénea puede introducir pequeñas variaciones en los resultados,para la frecuencia de trabajo que es #qty[915][MHz] el material sigue siendo suficientemente adecuado para el análisis y validación de los métodos de caracterización propuestos.
 
 === Fuentes de referencia (links adjuntos) #todo("REVISAR ESTO")
 // Caracterización del sustrato
@@ -414,13 +413,13 @@ En esta sección se presentan algunas aplicaciones prácticas de los conceptos d
 
 En particular, se estudiarán dispositivos utilizados en circuitos de radiofrecuencia y microondas implementados sobre PCB, tales como los stubs, el resonador de anillo y el acoplador direccional.
 
-=== Stubs 
+=== Stubs
 
 Un stub es una línea de transmisión de longitud finita que normalmente se conecta a otra línea de transmisión principal y cuyo extremo puede terminar en circuito abierto o en cortocircuito. Debido a las propiedades de propagación de las líneas de transmisión, un stub presenta una impedancia de entrada dependiente de su longitud eléctrica, lo que permite utilizarlo como elemento reactivo en circuitos de radiofrecuencia.
 
 #figure(
   image("imgs/ilustrations/stubs_dibujo.png", width: 45%),
-  caption: [Stubs]
+  caption: [Stubs],
 )<fig:stubs_dibujo>
 
 
@@ -434,40 +433,47 @@ Por otro lado, cuando el stub con terminación en cortocircuito $Z_L= 0$, la imp
 $ Z(l) = j dot Z_0 dot tan(beta dot l) $<ec:stub_corto>
 
 #subpar.grid(
-  figure(plot_z_stub_vs_l(navy,red,0,is_open_stub:true), caption: [Stub con terminación en circuito abierto]), <fig:open_stub>,
-  figure(plot_z_stub_vs_l(navy,fuchsia ,calc.pi/2.0,is_open_stub: false), caption: [Stub con terminación en cortocircuito]), <fig:short_stub>, 
+  figure(plot_z_stub_vs_l(navy, red, 0, is_open_stub: true), caption: [Stub con terminación en circuito abierto]),
+  <fig:open_stub>,
+
+  figure(
+    plot_z_stub_vs_l(navy, fuchsia, calc.pi / 2.0, is_open_stub: false),
+    caption: [Stub con terminación en cortocircuito],
+  ),
+  <fig:short_stub>,
+
   columns: (1fr, 1fr),
-  gap:0.5cm,
-  gutter:-0cm,
-  caption: [Impedancia del stub en función de $ beta l$],
+  gap: 0.5cm,
+  gutter: -0cm,
+  caption: [Impedancia del stub en función de $beta l$],
 )
 
 Una de las aplicaciones más comunes es la adaptación de impedancias, donde el stub se emplea para compensar la parte reactiva de una carga y lograr una mejor transferencia de potencia entre la línea y el dispositivo conectado.
 
 
-Además, los stubs también se utilizan en el diseño de filtros de microondas, donde actúan como elementos reactivos implementados directamente sobre el PCB. 
+Además, los stubs también se utilizan en el diseño de filtros de microondas, donde actúan como elementos reactivos implementados directamente sobre el PCB.
 
 Otra aplicación relevante consiste en su uso para la caracterización de sustratos dieléctricos, ya que a partir de la frecuencia de resonancia de un stub es posible estimar la permitividad efectiva del sustrato sobre el cual se implementa la línea de transmisión. Esto resulta particularmente útil en el análisis y validación de materiales utilizados en circuitos de alta frecuencia.
 
 
 Para cada stub se cumple:
 
-  #grid(
-  columns: (1fr, 1fr), 
-  column-gutter: 8pt, 
-  $ L_1 = n dot lambda_1/4 =(n dot c_0)/(4 dot f_1 dot sqrt(epsilon_(e f f)) ) $,          
-  $ L_2 =n dot lambda_2/4 = (n dot c_0)/(4 dot f_2 dot sqrt(epsilon_(e f f))) $           
+#grid(
+  columns: (1fr, 1fr),
+  column-gutter: 8pt,
+  $ L_1 = n dot lambda_1/4 =(n dot c_0)/(4 dot f_1 dot sqrt(epsilon_(e f f)) ) $,
+  $ L_2 =n dot lambda_2/4 = (n dot c_0)/(4 dot f_2 dot sqrt(epsilon_(e f f))) $,
 )
 
 Donde $L_1$ y $L_2$ son las longitudes físicas de los stubs, $f_1$ y $f_2$ son sus respectivas frecuencias de resonancia, y $n$ es un número entero que corresponde al armónico del modo de resonancia analizado (el cual debe ser el mismo para ambos stubs).
 
-Cabe destacar que en un stub con terminación en circuito abierto, las condiciones de resonancia se dan cuando $beta dot l = (2k + 1) pi / 2$. Como se puede observar en la @fig:open_stub , en estos valores la impedancia se anula y el stub se comporta como un cortocircuito hacia la línea principal, haciendo que las resonancias ocurran en los armónicos impares ($n = 1, 3, 5, ...$). 
+Cabe destacar que en un stub con terminación en circuito abierto, las condiciones de resonancia se dan cuando $beta dot l = (2k + 1) pi / 2$. Como se puede observar en la @fig:open_stub , en estos valores la impedancia se anula y el stub se comporta como un cortocircuito hacia la línea principal, haciendo que las resonancias ocurran en los armónicos impares ($n = 1, 3, 5, ...$).
 
 Por el contrario, un stub con terminación en cortocircuito resuena cuando $beta dot l = k dot pi$ y $l = n dot lambda/4$. En la @fig:short_stub se aprecia que en estos puntos la impedancia también se hace cero. Bajo esta condición, su entrada se comporta como un cortocircuito, por lo que las resonancias aparecen en los armónicos pares ($n = 2, 4, 6, ...$).
 
 
 Restando ambas expresiones se obtiene:
-$ L_2- L_1 = (n dot c_0)/(4 dot sqrt(epsilon_(e f f))) dot (1/f_2- 1/f_1)  $
+$ L_2- L_1 = (n dot c_0)/(4 dot sqrt(epsilon_(e f f))) dot (1/f_2- 1/f_1) $
 
 despejando el $epsilon_(e f f )$
 
@@ -481,7 +487,7 @@ Un resonador de anillo es una estructura formada por una línea de transmisión 
 
 #figure(
   image("imgs/ilustrations/ring_resonator_dibujo.png", width: 50%),
-  caption: [Esquema básico de un resonador de anillo]
+  caption: [Esquema básico de un resonador de anillo],
 )<fig:ring_dibujo>
 
 El circuito básico de un resonador de anillo está compuesto por las líneas de alimentación (_feed_ _lines_), y el resonador propiamente dicho (anillo), como se ilustra en la @fig:ring_dibujo. Las líneas de alimentación permiten transferir potencia hacia el resonador y extraerla desde él. Dichas líneas se encuentran separadas del anillo por una distancia denominada _gap_.
@@ -508,7 +514,7 @@ $ epsilon_(e f f) = ((n dot c_0) / (f dot L))^2 $<ec:eff_ring>
 
 #todo("Modificar la redacción sobre el mode chart")
 
-Sin embargo utilizando el paper de Wu y Rosenbaum en el que utilizan el _mode chart_ para resonadores de anillo, el cual es un gráfico que relaciona la frecuencia con la ratio entre el ancho del anillo y el radio medio ($f$ vs $w/R_(m e d)$), donde se puede observar los distintos modos de propagación. 
+Sin embargo utilizando el paper de Wu y Rosenbaum en el que utilizan el _mode chart_ para resonadores de anillo, el cual es un gráfico que relaciona la frecuencia con la ratio entre el ancho del anillo y el radio medio ($f$ vs $w/R_(m e d)$), donde se puede observar los distintos modos de propagación.
 
 Estos modos se denominan modo $T M_(n m l)$, $T M$ por transversal magnetico definido anteriormente, n es la variación azimutal (alrededor del anillo), esta indica cuántas longitudes de onda completas entran a lo largo de la circunferencia del anillo, por ejemplo, si $n=1$ se transmite una longitud de onda al recorrer los 360 grados del anillo, la m es la variación radial, este indica cuantos... y el l indica la variación en altura de la onda, pero como el sustrato es tan delgado que el campo no varía en altura, casi siempre será un 0.
 
@@ -539,7 +545,7 @@ Finalmente, se demuestra que la tangente de pérdidas del sustrato está inversa
 
 $ tan delta = 1 / Q_d $<ec:tan_delta>
 
-Tener en cuenta que solo con este método de caracterización se puede obtener la $tan( delta)$ del sutrato.
+Tener en cuenta que solo con este método de caracterización se puede obtener la $tan(delta)$ del sutrato.
 
 
 
@@ -553,11 +559,11 @@ Para complementar el análisis basado en modelos distribuidos, es necesario intr
 
 #figure(
   image("imgs/modelo_concentrado_ring_resonator.png", width: 60%),
-  caption: [Circuito de parametros concentrados para un resonador de anillo]
+  caption: [Circuito de parametros concentrados para un resonador de anillo],
 )<fig:ring_parametros_concentrados>
 
 
-Tal como se observa en la @fig:ring_parametros_concentrados, el 
+Tal como se observa en la @fig:ring_parametros_concentrados, el
 modelo se desglosa en dos secciones:
 
 + *Lineas de alimentación:* Las líneas de entrada y salida interactúan con el anillo a través de sendas $pi$-redes capacitivas formadas por los elementos $C_1$ y $C_2$. Estas capacitancias parásitas modelan los campos eléctricos acumulados en el *_gap_* del circuito abierto, permitiendo la transferencia de energía al anillo.
@@ -604,11 +610,15 @@ Estos acopladores se implementan frecuentemente en tecnología _microstrip_, don
 
 #v(-0.5cm)
 #subpar.grid(
-  figure(image("imgs/ilustrations/acoplador_direccional_microstrip.png"), caption: [Acoplador direccional microstrip]), <fig:acoplador_direccional_microstrip>,
-  figure(image("imgs/ilustrations/acoplador_direccional_stripline.png"), caption: [Acoplador direccional stripline]), <fig:acoplador_direccional_stripline>, 
+  figure(image("imgs/ilustrations/acoplador_direccional_microstrip.png"), caption: [Acoplador direccional microstrip]),
+  <fig:acoplador_direccional_microstrip>,
+
+  figure(image("imgs/ilustrations/acoplador_direccional_stripline.png"), caption: [Acoplador direccional stripline]),
+  <fig:acoplador_direccional_stripline>,
+
   columns: (1fr, 1fr),
-  gap:0.5cm,
-  gutter:-0cm,
+  gap: 0.5cm,
+  gutter: -0cm,
   caption: [Acopladores direccionales _microstrip_ y _stripline_],
 )
 Físicamente, un acoplador direccional de este tipo posee cuatro puertos bien definidos:
@@ -617,7 +627,7 @@ Físicamente, un acoplador direccional de este tipo posee cuatro puertos bien de
 - *Puerto 3:* Puerto acoplado (_coupled port_)
 - *Puerto 4:* Puerto aislado (_isolated port_)
 
-Cuando una señal se aplica al puerto de entrada, la mayor parte de la potencia se transmite hacia el puerto de salida principal, mientras que una pequeña fracción es transferida a la línea acoplada (puerto 3). Idealmente, el puerto aislado no recibe señal debido a la cancelación de fase producida por la direccionalidad del dispositivo. 
+Cuando una señal se aplica al puerto de entrada, la mayor parte de la potencia se transmite hacia el puerto de salida principal, mientras que una pequeña fracción es transferida a la línea acoplada (puerto 3). Idealmente, el puerto aislado no recibe señal debido a la cancelación de fase producida por la direccionalidad del dispositivo.
 
 El nivel de acoplamiento depende directamente de la geometría de la estructura. Una menor distancia de separación entre las pistas (_gap_) produce un mayor acoplamiento electromagnético, mientras que una separación más amplia reduce la cantidad de potencia transferida.
 
@@ -633,10 +643,10 @@ Por el contrario, en el *modo impar*, las tensiones son iguales en magnitud pero
 
 #figure(
   image("imgs/placeholder.jpg", width: 30%),
-  caption: [Distribución de campos para el modo par e impar en líneas acopladas.]
+  caption: [Distribución de campos para el modo par e impar en líneas acopladas.],
 )<fig:modos_par_impar>
 
- Debido a que las condiciones de frontera para cada modo son distintas, las señales par e impar experimentan diferentes distribuciones de campo y acumulan fases distintas a lo largo de la región acoplada.
+Debido a que las condiciones de frontera para cada modo son distintas, las señales par e impar experimentan diferentes distribuciones de campo y acumulan fases distintas a lo largo de la región acoplada.
 
 Para que el dispositivo presente el comportamiento deseado, las contribuciones de ambos modos deben interferir de forma destructiva en el puerto aislado y constructiva en el puerto acoplado. Esta condición de interferencia óptima se logra cuando la longitud física de la región donde las líneas permanecen paralelas es exactamente igual a un cuarto de la longitud de onda a la frecuencia central de diseño.
 
@@ -658,17 +668,17 @@ $ C =20 dot log ((Z_(0 e) + Z_(0 o))/ (Z_(0 e) - Z_(0 o))) $<ec:fact_c>
 lo cual permite determinar el diseño geométrico necesario para lograr un determinado valor de acoplamiento.
 
 
-Teniendo en cuenta que el coeficiente de acoplamiento ($ k$) es la relación de tensión entre el puerto acoplado y el puerto de entrada.
+Teniendo en cuenta que el coeficiente de acoplamiento ($k$) es la relación de tensión entre el puerto acoplado y el puerto de entrada.
 
-$ k = V_3/V_1  $<ec:coef_c>
+$ k = V_3/V_1 $<ec:coef_c>
 
 Siendo $V_3$ la tensión del puerto 3 y $V_1$ la tensión del puerto de entrada.
 
 La forma de calcular las impedancias del modo par e impar se calculan con  la @ec:impedancia_par y la @ec:impedancia_impar.
 
-  $ Z_(0 e) =  Z_0 dot sqrt((1+k)/(1-k)) $<ec:impedancia_par>
+$ Z_(0 e) = Z_0 dot sqrt((1+k)/(1-k)) $<ec:impedancia_par>
 
-  $ Z_(0 o) =Z_0 dot sqrt((1-k)/(1+k)) $<ec:impedancia_impar>
+$ Z_(0 o) =Z_0 dot sqrt((1-k)/(1+k)) $<ec:impedancia_impar>
 
 Donde k es el coeficiente de acoplamiento, no confundir con el factor de acoplamiento.
 
@@ -681,8 +691,8 @@ El acoplador en cuadratura es un tipo particular de acoplador direccional de cua
 
 
 #figure(
-image("imgs/ilustrations/acoplador_hibrido_dibujo.png", width: 60%),
-  caption: [Acoplador en cuadratura]
+  image("imgs/ilustrations/acoplador_hibrido_dibujo.png", width: 60%),
+  caption: [Acoplador en cuadratura],
 )
 
 Cuando una señal se aplica en uno de los puertos de entrada, la potencia se divide equitativamente entre dos de los puertos restantes, mientras que el cuarto puerto permanece idealmente aislado.
@@ -697,8 +707,8 @@ En circuitos de microondas, el análisis de redes se realiza comúnmente mediant
 
 #v(-0.5cm)
 #figure(
-image("imgs/placeholder.jpg", width:30%),
-caption: [imagen en bloques de un acoplador (4 puertos)]
+  image("imgs/placeholder.jpg", width: 30%),
+  caption: [imagen en bloques de un acoplador (4 puertos)],
 )
 
 
@@ -710,12 +720,14 @@ cuya cantidad de elementos será $n^2$ puertos.
 
 Para un dispositivo de cuatro puertos, como el acoplador direccional analizado en este trabajo, la red puede describirse mediante una matriz de dispersión de 4×4 , donde cada elemento corresponde a una relación de transmisión o reflexión entre dos puertos.
 
-$ mat(
-  S_(1 1), S_(1 2), S_(1 3), S_(1 4);
-  S_(2 1), S_(2 2),S_(2 3), S_(2 4);
-  S_(3 1), S_(3 2), S_( 3 3), S_(3 4);
-  S_(4 1), S_(4 2), S_(4 3), S_(4 4);
-) $<ec:matriz_s>
+$
+  mat(
+    S_(1 1), S_(1 2), S_(1 3), S_(1 4);
+    S_(2 1), S_(2 2), S_(2 3), S_(2 4);
+    S_(3 1), S_(3 2), S_( 3 3), S_(3 4);
+    S_(4 1), S_(4 2), S_(4 3), S_(4 4);
+  )
+$<ec:matriz_s>
 
 En el caso particular de un acoplador direccional, ciertos parámetros poseen interpretaciones físicas específicas:
 
@@ -745,15 +757,16 @@ Es importante recordar que las relaciones medidas son en dB y grados sexagesimal
 
 #v(-0.5cm)
 #subpar.grid(
-  figure(image("imgs/calibracion_vna.jpg", width: 90%,height: 4.5cm,fit: "stretch"), caption: [
-   Calibración del VNA terminador"Open"
+  figure(image("imgs/calibracion_vna.jpg", width: 90%, height: 4.5cm, fit: "stretch"), caption: [
+    Calibración del VNA terminador"Open"
   ]),
-  figure(image("imgs/cal_vna.jpg",width: 90%,height: 4.5cm), caption: [
-  Calibración VNA terminador _"Short"_
+  figure(image("imgs/cal_vna.jpg", width: 90%, height: 4.5cm), caption: [
+    Calibración VNA terminador _"Short"_
   ]),
+
   columns: (1fr, 1fr),
-  gutter:1cm,
-  gap:0.5cm,
+  gutter: 1cm,
+  gap: 0.5cm,
   caption: [Calibración del VNA],
   label: <fig:calibración>,
 )
@@ -767,7 +780,7 @@ SOLT es la sigla para “*Short*” ( cortocircuito), “*Open*” (circuito Abi
 
 La instancia *Thru* es fundamental para la correcta medición de los coeficientes de transmisión de modo que será tenido en mayor consideración durante la caracterización de la línea de transmisión, no así las instancias anteriores, fundamentales para obtener resultados exactos al medir los coeficientes de reflexión.
 
-En otras palabras, la calibración desplaza el plano de referencia a los conectores SMA, eliminando cualquier asi los errores sistematicos del instrumento o los propios cables. 
+En otras palabras, la calibración desplaza el plano de referencia a los conectores SMA, eliminando cualquier asi los errores sistematicos del instrumento o los propios cables.
 
 Es mandatorio mencionar que una calibración como la mencionada puede ser considerada seriamente como tal cuando esta se realiza en adición al uso de pinzas torquimétricas para el ajuste de conectores de tal modo que la calibración sea reproducible y se evite dañar los conectores, pudiendo
 ocasionar errores no deseados en la medición. Así mismo destacamos que durante el proceso de medición se procedió con la limpieza mediante alcohol isopropílico de conectores y cables con el fin de no aumentar involuntariamente las perdidas de inserción.
@@ -779,8 +792,8 @@ ocasionar errores no deseados en la medición. Así mismo destacamos que durante
 El analizador de espectro es un instrumento de medición utilizado para analizar señales en el dominio de la frecuencia. A diferencia de instrumentos como el osciloscopio, que muestran la amplitud de una señal en función del tiempo, el analizador de espectro representa la potencia de la señal en función de la frecuencia, permitiendo observar las distintas componentes espectrales que la conforman.
 
 #figure(
-  image("imgs/analizador_medición.jpg", width: 30%,height: 5.5cm,fit: "stretch"), 
-  caption: [Medición en el analizador de espectro]
+  image("imgs/analizador_medición.jpg", width: 30%, height: 5.5cm, fit: "stretch"),
+  caption: [Medición en el analizador de espectro],
 )
 
 En la pantalla del instrumento, el eje horizontal corresponde a la frecuencia, mientras que el eje vertical representa la amplitud o potencia de la señal, generalmente expresada en unidades logarítmicas como dBm.
@@ -789,7 +802,7 @@ En la pantalla del instrumento, el eje horizontal corresponde a la frecuencia, m
 
 #figure(
   image("imgs/analizador_spectro.png", width: 50%),
-  caption: [Diagrama en bloques de un analizador de espectro]
+  caption: [Diagrama en bloques de un analizador de espectro],
 )<fig:analizador_espectro>
 
 
@@ -802,7 +815,7 @@ Los analizadores de espectro son ampliamente utilizados en el análisis de siste
 
 Como se puede observar, el analizador de espectro es un instrumento utilizado principalmente para medir y visualizar el contenido espectral de una señal, es decir, su potencia en función de la frecuencia. A diferencia de un analizador vectorial de redes, no está diseñado para inyectar una señal en un puerto y medir la respuesta en otro puerto del dispositivo bajo prueba.
 
-Sin embargo, algunos analizadores de espectro incorporan una función denominada Tracking Generator (TG), que permite generar una señal cuya frecuencia sigue el barrido del analizador. De esta manera, es posible inyectar una señal en el dispositivo bajo prueba y medir su respuesta en frecuencia utilizando el propio analizador, lo que permite realizar mediciones básicas de transmisión en dispositivos como filtros, amplificadores o líneas de transmisión, en nuestro caso particular utilizaremos dicha función para caracterizar los paraemtros fundamentales de un acoplador direccional (_Coupling_, _Isolation_, _Pérdida de transmisión directa e inversa_). 
+Sin embargo, algunos analizadores de espectro incorporan una función denominada Tracking Generator (TG), que permite generar una señal cuya frecuencia sigue el barrido del analizador. De esta manera, es posible inyectar una señal en el dispositivo bajo prueba y medir su respuesta en frecuencia utilizando el propio analizador, lo que permite realizar mediciones básicas de transmisión en dispositivos como filtros, amplificadores o líneas de transmisión, en nuestro caso particular utilizaremos dicha función para caracterizar los paraemtros fundamentales de un acoplador direccional (_Coupling_, _Isolation_, _Pérdida de transmisión directa e inversa_).
 
 = Caracterización del sustrato
 
@@ -845,19 +858,19 @@ $p_1 = 0.27488 + [0.6315 + 0.525/(1+ 0.157 f h)^20] u - 0.065683 exp(-8.7513 u)$
 
 $p_2 = 0.33622 [1-exp(- 0.03442 epsilon_r)]$
 
-$p_3 = 0.0363 exp(-4.6 u) dot {1- exp[-((f h)/3.87)^4.97]} $
+$p_3 = 0.0363 exp(-4.6 u) dot {1- exp[-((f h)/3.87)^4.97]}$
 
 
 
 
-$p_4 = 1 + 2.751 {1- exp[-(epsilon_r/15.916)^8] } $
+$p_4 = 1 + 2.751 {1- exp[-(epsilon_r/15.916)^8] }$
 == Método 1: stubs de microstrip
 
 El primer método consiste en la utilización de stubs de microstrip con terminación de circuito abierto de diferentes longitudes, fabricados sobre un sustrato FR4, con el objetivo de estimar la permitividad efectiva ($epsilon_(e f f)$) del sustrato FR4.
 
 === Simulación y diseño
 
-En la etapa de diseño se determinaron las dimensiones geométricas de los stubs empleando modelos analíticos para microstrip como Hammerstad y jensen, considerando una impedancia característica de 50 Ω. Se diseñaron stubs de distintas longitudes eléctricas correspondientes a fracciones de la longitud de onda para una frecuencia de #qty[915][MHz], en particular  $lambda/2,lambda/4, lambda/8 $.
+En la etapa de diseño se determinaron las dimensiones geométricas de los stubs empleando modelos analíticos para microstrip como Hammerstad y jensen, considerando una impedancia característica de 50 Ω. Se diseñaron stubs de distintas longitudes eléctricas correspondientes a fracciones de la longitud de onda para una frecuencia de #qty[915][MHz], en particular  $lambda/2,lambda/4, lambda/8$.
 
 Adicionalmente, se implementaron stubs de longitudes físicas de #qty[50][mm] y #qty[100][mm], con el objetivo de generar resonancias en distintas frecuencias.
 
@@ -869,12 +882,12 @@ Adicionalmente, se implementaron stubs de longitudes físicas de #qty[50][mm] y 
 En esta etapa de implementación se realizó el PCB con los stubs después de simularlos para luego medir y caracterizar el sustrato.
 
 #subpar.grid(
-  figure(image("imgs/ring_y_stubs_cinta.jpg",height: 5cm,width: 100%)),
+  figure(image("imgs/ring_y_stubs_cinta.jpg", height: 5cm, width: 100%)),
   // figure(image("imgs/anillos_stubs_filmina_fr4.png",height: 3.5cm)),
-  figure(image("imgs/anillos_stubs_fr4_listos.png",height: 5cm,width: 100%)),
-  columns: (1fr,1fr),
+  figure(image("imgs/anillos_stubs_fr4_listos.png", height: 5cm, width: 100%)),
+  columns: (1fr, 1fr),
   caption: [Fabricación de los PCBs],
-  gap: 0.5cm, 
+  gap: 0.5cm,
   label: <fig:pcb>,
 )
 
@@ -882,17 +895,17 @@ En esta etapa de implementación se realizó el PCB con los stubs después de si
 
 === Mediciones
 
-Una vez fabricados los stubs, las mediciones se llevan a cabo mediante un analizador vectorial de redes (VNA). En particular, se mide el parámetro $ S_(1 1)$, correspondiente al coeficiente de reflexión en el puerto de entrada.
+Una vez fabricados los stubs, las mediciones se llevan a cabo mediante un analizador vectorial de redes (VNA). En particular, se mide el parámetro $S_(1 1)$, correspondiente al coeficiente de reflexión en el puerto de entrada.
 
-Se realizaron las mediciones desde #qty[100][MHz] hasta #qty[6][GHz] con 1001 puntos por lo que la medición se realizó a pasos 
+Se realizaron las mediciones desde #qty[100][MHz] hasta #qty[6][GHz] con 1001 puntos por lo que la medición se realizó a pasos
 de #qty[5.89][MHz].
 
 #figure(
-image("imgs/stub_un_cuarto.jpg", width: 45%),
-caption: [medición del stub de un cuarto de longitud de onda]
+  image("imgs/stub_un_cuarto.jpg", width: 45%),
+  caption: [medición del stub de un cuarto de longitud de onda],
 )<fig:stub_un_cuarto>
 
-A partir de las mediciones de fase obtenidas para cada stub, se analizan los datos utilizando un _script_ en _python_, en un incio busca los cruces por cero detectando la pendiente positiva, ya que esos puntos se consideran puntos de resonancia. 
+A partir de las mediciones de fase obtenidas para cada stub, se analizan los datos utilizando un _script_ en _python_, en un incio busca los cruces por cero detectando la pendiente positiva, ya que esos puntos se consideran puntos de resonancia.
 
 Sin embargo, dado que el VNA entrega la fase envuelta (_wrapped_), es decir, la fase tiene saltos abruptos en las frecuencias de resonancia que va desde #qty[-180][$degree$] a #qty[180][$degree$], por lo que la hace susceptible al ruido de fase o espurios que pueda tener la señal.
 
@@ -901,21 +914,21 @@ Por consiguiente se utilizó un algoritmo para densenvolver la fase (_unwrapped_
 
 Dado que la discretización de la señal es cada #qty[5.89][MHz], puede que se omita el valor exacto de la frecuencia de resonancia, por lo que se decidió  mejorar el proceso de detección de las resonancias. Para la primera resonancia, a la fase desenvuelta (_unwrapped_) se le calculó el módulo y a la señal resultante se le resto #qty[180][$degree$], con este proceso
 la frecuencia de resonancia se encuentra en el cruce por cero, por ende se utilizó el algoritmo para dectar el cruce por cero.
-Este proceso se itero restando multiplos de #qty[180][$degree$] para localizar todas las resonancias como cruce por cero de la señal. 
+Este proceso se itero restando multiplos de #qty[180][$degree$] para localizar todas las resonancias como cruce por cero de la señal.
 
 
-Como se ilustra en la #todo("IMAGEN") las frecuencias de resonancia son aproximadamente multiplos impares debido a que se trata de stubs con terminación a circuito abierto. 
+Como se ilustra en la #todo("IMAGEN") las frecuencias de resonancia son aproximadamente multiplos impares debido a que se trata de stubs con terminación a circuito abierto.
 
-Al obtener todas las frecuencias de resonancia de cada stub, se analizan de a pares y se otiene el epsilon efectivo promedio 
+Al obtener todas las frecuencias de resonancia de cada stub, se analizan de a pares y se otiene el epsilon efectivo promedio
 utilizando la @ec:eff_stubs, teniendo en cuenta que se deben utilizar los armónicos de igual valor, es decir, el primer armónico de un stub con el primer armónico del otro stub.
 
 #todo("Agregar todo lo que cambio como el uso de cuadrados minimos (LLS) y el uso continuo de datos")
 
-Es importante notar que como se ilustra en la #todo("IMAGEN con el notch en 4GHz y pico") para frecuencias superiores a #qty[4.5][GHz] la medición se ve afectada por las resonancias de los conectores, por ende este rango de frecuencias fue excluido del cálculo final para medir el $epsilon_(e f f)$ del sustrato. 
+Es importante notar que como se ilustra en la #todo("IMAGEN con el notch en 4GHz y pico") para frecuencias superiores a #qty[4.5][GHz] la medición se ve afectada por las resonancias de los conectores, por ende este rango de frecuencias fue excluido del cálculo final para medir el $epsilon_(e f f)$ del sustrato.
 
 #todo("agregar foto de los stubs filtrados con linea punteada los excluidos")
 
-== Método 2: Resonadores de anillo 
+== Método 2: Resonadores de anillo
 
 El segundo método se basa en resonadores de anillo implementados sobre el sustrato FR4. Estos dispositivos presentan resonancias a frecuencias específicas que dependen de la permitividad efectiva del material y de las dimensiones geométricas del resonador.
 === Simulación y diseño
@@ -944,7 +957,7 @@ El tercer método consiste en un capacitor plano implementado sobre el mismo sus
 
 === Diseño
 
-En este caso se realizó el capacitor con una placa FR4 de #qty[35][mm]x#qty[50][mm] 
+En este caso se realizó el capacitor con una placa FR4 de #qty[35][mm]x#qty[50][mm]
 
 
 === Mediciones
@@ -959,7 +972,7 @@ Siendo d la distancia entre placas  y A el área del capacitor.
 
 = Ánalisis de resultados
 
-= Diseño de un acoplador direccional  
+= Diseño de un acoplador direccional
 
 El objetivo del trabajo es diseñar, simular y caracterizar un acoplador direccional en tecnología microstrip centrado en 915 MHz, capaz de manejar una potencia de 5 W. Este componente formará parte del proyecto general y será destinado a la medición de potencia reflejada y el monitoreo del ajuste de antena, permitiendo obtener el coeficiente de reflexión a partir de la señal acoplada, aunque para este trabajo se acota el trabajo hasta la realización de acoplador direccional.
 
@@ -969,32 +982,33 @@ El diseño teórico se basará en el modelo de modos par e impar (even/odd), a p
 
 Se realizará un barrido paramétrico sobre el espaciado entre líneas, ancho de pista y longitud de acoplamiento, con el fin de optimizar la respuesta en frecuencia del acoplador y lograr un acoplamiento que si bien todavia no fue definido con rigurosidad será próximo a –30 dB en la frecuencia central.
 
-Finalmente, el acoplador se fabricará sobre el mismo sustrato caracterizado (FR4), se medirán sus parámetros $S_(11)$, $S_(21)$, $S_(31)$ y $S_(41)$ mediante un analizador vectorial de redes (VNA), y se evaluará la directividad obtenida comparando la potencia acoplada hacia los puertos acoplado y aislado. 
-  
-      // En un acoplador direccional ideal, las pérdidas por inserción y las pérdidas por acoplamiento son idénticas. En la práctica, las pérdidas por inserción serán una combinación de pérdidas de acoplamiento, pérdidas dieléctricas, pérdidas del conductor y pérdidas por ROE. Dependiendo del rango de frecuencias, las pérdidas por acoplamiento son menos significantes con un acoplamiento superior a 15
+Finalmente, el acoplador se fabricará sobre el mismo sustrato caracterizado (FR4), se medirán sus parámetros $S_(11)$, $S_(21)$, $S_(31)$ y $S_(41)$ mediante un analizador vectorial de redes (VNA), y se evaluará la directividad obtenida comparando la potencia acoplada hacia los puertos acoplado y aislado.
+
+// En un acoplador direccional ideal, las pérdidas por inserción y las pérdidas por acoplamiento son idénticas. En la práctica, las pérdidas por inserción serán una combinación de pérdidas de acoplamiento, pérdidas dieléctricas, pérdidas del conductor y pérdidas por ROE. Dependiendo del rango de frecuencias, las pérdidas por acoplamiento son menos significantes con un acoplamiento superior a 15
 
 == Implementación del acoplador direccional
 
 
-Al momento de la implementación física del dispositivo en un PCB se decició hacerlo mediante un proceso fotolitografico. Dicho método fue escogido con el fin de minimizar las variaciones físicas en las dimesiones de las estructuras debido a que la exactitud de los métodos de estimación utilizados es altamente sensible a la geometría.  
+Al momento de la implementación física del dispositivo en un PCB se decició hacerlo mediante un proceso fotolitografico. Dicho método fue escogido con el fin de minimizar las variaciones físicas en las dimesiones de las estructuras debido a que la exactitud de los métodos de estimación utilizados es altamente sensible a la geometría.
 
 
 // Luego de simulaciones y diseño de acopladores direccionales se realiza la implementación de un acoplador, utilizando el método
-//  de fotolitografía con el objetivo de maximizar la resolución geométrica del mismo, debido a que los parámetros fisicos como la separación entre lineas (_gap_), el ancho y la longitud de la linea en la región de acoplamiento, son muy criticos ya que 
+//  de fotolitografía con el objetivo de maximizar la resolución geométrica del mismo, debido a que los parámetros fisicos como la separación entre lineas (_gap_), el ancho y la longitud de la linea en la región de acoplamiento, son muy criticos ya que
 // afectan de manera directa a las impedancias par (_even_) e impar (_odd_) y esto a su vez afecta al factor de acoplamiento, por ende también afeta la directividad del dispositivo.
 
-Por otro lado también se realizaron acopladores de prototipo hechos manualmente con cinta de cobre sobre el FR4, donde se fue 
+Por otro lado también se realizaron acopladores de prototipo hechos manualmente con cinta de cobre sobre el FR4, donde se fue
 iterando hasta conseguir una directividad alrededor de los #qty[20][dB]. Este proceso se hizo tanto para acoplador microstrip como stripline para
 poder observar de manera experimetal la diferencia entre ellos.
 
 
 #subpar.grid(
-  figure(image("imgs/coupled_insoladora.jpg",fit: "stretch",height: 4cm,width: 70%)),
-  figure(image("imgs/acopladores_diseñados.jpg",fit: "stretch",height: 4cm,width:70%)),
-  columns: (1fr,1fr),
+  figure(image("imgs/coupled_insoladora.jpg", fit: "stretch", height: 4cm, width: 70%)),
+  figure(image("imgs/acopladores_diseñados.jpg", fit: "stretch", height: 4cm, width: 70%)),
+
+  columns: (1fr, 1fr),
   caption: [Fabricación de los acopladores direccionales],
   gutter: -2cm,
-  gap: 0.5cm, 
+  gap: 0.5cm,
   label: <fig:pcb_acoplador_direccional>,
 )
 
@@ -1010,59 +1024,59 @@ Es importante que como el VNA tiene solo dos puertos, al momento de medir los pu
 
 #figures_matrix(
   description: "Medición del puerto de salida",
-  port_name:"output",
+  port_name: "output",
   dir_coupler_name: "ACD1",
-  mag:"imgs/ACD1/adc1_through_mag_s11_s21.png",
-  pha:"imgs/ACD1/adc1_through_phase_s11_s21.png",
-  smith:"imgs/ACD1/adc1_through_smith_s11.png",
-  dut:"imgs/ACD1/adc1_through_bench.jpg",
-  offset_dut_pt:30pt
+  mag: "imgs/ACD1/adc1_through_mag_s11_s21.png",
+  pha: "imgs/ACD1/adc1_through_phase_s11_s21.png",
+  smith: "imgs/ACD1/adc1_through_smith_s11.png",
+  dut: "imgs/ACD1/adc1_through_bench.jpg",
+  offset_dut_pt: 30pt,
 )
 
 
 #figures_matrix(
   description: "Medición del puerto acoplado",
-  port_name:"acoplado",
+  port_name: "acoplado",
   dir_coupler_name: "ACD1",
-  mag:"imgs/ACD1/adc1_coupled_mag_s11_s21.png",
-  pha:"imgs/ACD1/adc1_coupled_phase_s11_s21.png",
-  smith:"imgs/ACD1/adc1_coupled_smith_s11.png",
-  dut:"imgs/ACD1/adc1_coupled_bench.png",
-  offset_dut_pt:0pt
+  mag: "imgs/ACD1/adc1_coupled_mag_s11_s21.png",
+  pha: "imgs/ACD1/adc1_coupled_phase_s11_s21.png",
+  smith: "imgs/ACD1/adc1_coupled_smith_s11.png",
+  dut: "imgs/ACD1/adc1_coupled_bench.png",
+  offset_dut_pt: 0pt,
 )
 
 
 #figures_matrix(
   description: "Medición del puerto aislado",
-  port_name:"aislado",
+  port_name: "aislado",
   dir_coupler_name: "ACD1",
-  mag:"imgs/ACD1/adc1_isolated_mag_s11_s21.png",
-  pha:"imgs/ACD1/adc1_isolated_phase_s11_s21.png",
-  smith:"imgs/ACD1/adc1_isolated_smith_s11.png",
-  dut:"imgs/ACD1/adc1_isolated_bench.jpg",
-  offset_dut_pt:26pt
+  mag: "imgs/ACD1/adc1_isolated_mag_s11_s21.png",
+  pha: "imgs/ACD1/adc1_isolated_phase_s11_s21.png",
+  smith: "imgs/ACD1/adc1_isolated_smith_s11.png",
+  dut: "imgs/ACD1/adc1_isolated_bench.jpg",
+  offset_dut_pt: 26pt,
 )
 
 
 #pagebreak()
-#todo("Modificar la foto del nuevo aislado" )
+#todo("Modificar la foto del nuevo aislado")
 
 Midiendo el acoplador de manera inversa, es decir, el puerto 1 ahora es el puerto 2:
 
 #figures_matrix(
   description: "Medición del puerto acoplado y del puerto aislado con el DUT invertido",
-  port_name:"acoplado",
+  port_name: "acoplado",
   dir_coupler_name: "ACD1_inverted",
-  mag:"imgs/ACD1/adc1_isolatedInverted(new-coupled)_mag_s11_s21.png",
-  smith:"imgs/ACD1/adc1_isolated_inverted_bench.jpg",
-  pha:"imgs/ACD1/adc1_coupledInverted(new-Isolated)_mag_s11_s21.png",
-  dut:"imgs/ACD1/adc1_coupled_inverted_bench.jpg",
+  mag: "imgs/ACD1/adc1_isolatedInverted(new-coupled)_mag_s11_s21.png",
+  smith: "imgs/ACD1/adc1_isolated_inverted_bench.jpg",
+  pha: "imgs/ACD1/adc1_coupledInverted(new-Isolated)_mag_s11_s21.png",
+  dut: "imgs/ACD1/adc1_coupled_inverted_bench.jpg",
   cap_smith_opt: "Setup para medición del puerto acoplado del DUT",
   cap_dut_opt: "Setup para medición del puerto aislado del DUT",
   cap_pha_opt: "Magnitud (dB) del parámetro de reflexión y transmisión del puerto aislado",
   cap_mag_opt: "Magnitud (dB) del parámetro de reflexión y transmisión del puerto acoplado",
-  offset_dut_pt: -10pt, 
-  offset_smith_pt: -14pt
+  offset_dut_pt: -10pt,
+  offset_smith_pt: -14pt,
 )
 
 #pagebreak()
@@ -1071,44 +1085,44 @@ Midiendo el acoplador de manera inversa, es decir, el puerto 1 ahora es el puert
 
 
 
-El segundo acoplador direccional microstrip el cual fue simulado y diseñado con cinta de cobre para prototipar obtenemos las siguientes mediciones. 
+El segundo acoplador direccional microstrip el cual fue simulado y diseñado con cinta de cobre para prototipar obtenemos las siguientes mediciones.
 
 
 #figures_matrix(
   description: "Medición del puerto de salida",
-  port_name:"output",
+  port_name: "output",
   dir_coupler_name: "ACD2",
-  mag:"imgs/ACD2/adc2_through_mag_s11_s21.png",
-  pha:"imgs/ACD2/adc2_through_phase_s11_s21.png",
-  smith:"imgs/ACD2/adc2_through_smith_s11.png",
-  dut:"imgs/ACD2/adc2_through_bench.jpg",
-  offset_dut_pt:42pt
+  mag: "imgs/ACD2/adc2_through_mag_s11_s21.png",
+  pha: "imgs/ACD2/adc2_through_phase_s11_s21.png",
+  smith: "imgs/ACD2/adc2_through_smith_s11.png",
+  dut: "imgs/ACD2/adc2_through_bench.jpg",
+  offset_dut_pt: 42pt,
 )
 
 
-  // mag:"https://www.researchgate.net/profile/Erick-Reyes-Vera/publication/308926650/figure/fig1/AS:414578841276416@1475854706479/Figura-2-Anillos-resonadores-elemento-propuesto-por-J-Pendry-La-disposicion-de-las_Q320.jpg",
+// mag:"https://www.researchgate.net/profile/Erick-Reyes-Vera/publication/308926650/figure/fig1/AS:414578841276416@1475854706479/Figura-2-Anillos-resonadores-elemento-propuesto-por-J-Pendry-La-disposicion-de-las_Q320.jpg",
 
 #figures_matrix(
   description: "Medición del puerto acoplado",
-  port_name:"acoplado",
+  port_name: "acoplado",
   dir_coupler_name: "ACD2",
-  mag:"imgs/ACD2/adc2_coupled_mag_s11_s21.png",
-  pha:"imgs/ACD2/adc2_coupled_phase_s11_s21.png",
-  smith:"imgs/ACD2/adc2_coupled_smith_s11.png",
-  dut:"imgs/ACD2/adc2_coupled_bench.jpg",
-  offset_dut_pt:26pt
+  mag: "imgs/ACD2/adc2_coupled_mag_s11_s21.png",
+  pha: "imgs/ACD2/adc2_coupled_phase_s11_s21.png",
+  smith: "imgs/ACD2/adc2_coupled_smith_s11.png",
+  dut: "imgs/ACD2/adc2_coupled_bench.jpg",
+  offset_dut_pt: 26pt,
 )
 
- #figures_matrix(
-   description: "Medición del puerto aislado",
-   port_name:"aislado",
-   dir_coupler_name: "ACD2",
-   mag:"imgs/ACD2/adc2_isolated_mag_s11_s21.png",
-   pha:"imgs/ACD2/adc2_isolated_phase_s11_s21.png",
-   smith:"imgs/ACD2/adc2_isolated_smith_s11.png",
-   dut:"imgs/ACD2/adc2_isolated_bench.jpg",
-   offset_dut_pt:43pt
- )
+#figures_matrix(
+  description: "Medición del puerto aislado",
+  port_name: "aislado",
+  dir_coupler_name: "ACD2",
+  mag: "imgs/ACD2/adc2_isolated_mag_s11_s21.png",
+  pha: "imgs/ACD2/adc2_isolated_phase_s11_s21.png",
+  smith: "imgs/ACD2/adc2_isolated_smith_s11.png",
+  dut: "imgs/ACD2/adc2_isolated_bench.jpg",
+  offset_dut_pt: 43pt,
+)
 
 
 #pagebreak()
@@ -1118,142 +1132,124 @@ El tercer acoplador direccional microsse realizo stripline el cual fue simulado 
 
 #figures_matrix(
   description: "Medición del puerto de salida",
-  port_name:"output",
+  port_name: "output",
   dir_coupler_name: "ACD3",
-  mag:"imgs/ACD3/adc3_through_mag_s11_s21.png",
-  pha:"imgs/ACD3/adc3_through_phase_s11_s21.png",
-  smith:"imgs/ACD3/adc3_through_smith_s11.png",
-  dut:"imgs/ACD3/adc3_through_bench.jpg",
-  offset_dut_pt:2pt
+  mag: "imgs/ACD3/adc3_through_mag_s11_s21.png",
+  pha: "imgs/ACD3/adc3_through_phase_s11_s21.png",
+  smith: "imgs/ACD3/adc3_through_smith_s11.png",
+  dut: "imgs/ACD3/adc3_through_bench.jpg",
+  offset_dut_pt: 2pt,
 )
 
 
 #figures_matrix(
   description: "Medición del puerto acoplado",
-  port_name:"acoplado",
+  port_name: "acoplado",
   dir_coupler_name: "ACD3",
-  mag:"imgs/ACD3/adc3_coupled_mag_s11_s21.png",
-  pha:"imgs/ACD3/adc3_coupled_phase_s11_s21.png", 
-  smith:"imgs/ACD3/adc3_coupled_smith_s11.png",  
-  dut:"imgs/ACD3/adc3_coupled_bench.jpg",
-  offset_dut_pt:0pt
+  mag: "imgs/ACD3/adc3_coupled_mag_s11_s21.png",
+  pha: "imgs/ACD3/adc3_coupled_phase_s11_s21.png",
+  smith: "imgs/ACD3/adc3_coupled_smith_s11.png",
+  dut: "imgs/ACD3/adc3_coupled_bench.jpg",
+  offset_dut_pt: 0pt,
 )
 
 
 
 
- #figures_matrix(
-   description: "Medición del puerto aislado",
-   port_name:"aislado",
-   dir_coupler_name: "ACD3",
-   mag:"imgs/ACD3/adc3_isolated_mag_s11_s21.png",
-   pha:"imgs/ACD3/adc3_isolated_phase_s11_s21.png",
-   smith:"imgs/ACD3/adc3_isolated_smith_s11.png",
-   dut:"imgs/ACD3/adc3_isolated_bench.jpg", 
-   offset_dut_pt:0pt
- )
+#figures_matrix(
+  description: "Medición del puerto aislado",
+  port_name: "aislado",
+  dir_coupler_name: "ACD3",
+  mag: "imgs/ACD3/adc3_isolated_mag_s11_s21.png",
+  pha: "imgs/ACD3/adc3_isolated_phase_s11_s21.png",
+  smith: "imgs/ACD3/adc3_isolated_smith_s11.png",
+  dut: "imgs/ACD3/adc3_isolated_bench.jpg",
+  offset_dut_pt: 0pt,
+)
 
 
 #pagebreak()
 Ahora el cuarto acoplador direccional en stripline
 
 
- 
+
 #figures_matrix(
   description: "Medición del puerto de salida",
-  port_name:"output",
+  port_name: "output",
   dir_coupler_name: "ACD4",
-  mag:"imgs/ACD_tunning/acd4_through_s11_s21_mag.png",
-  pha:"imgs/ACD_tunning/acd4_through_s11_s21_phase.png",
-  smith:"imgs/ACD_tunning/acd4_through_s11_smith.png",
-  dut:"imgs/ACD_tunning/adc4_through_bench.jpg",
-  offset_dut_pt:2pt
+  mag: "imgs/ACD_tunning/acd4_through_s11_s21_mag.png",
+  pha: "imgs/ACD_tunning/acd4_through_s11_s21_phase.png",
+  smith: "imgs/ACD_tunning/acd4_through_s11_smith.png",
+  dut: "imgs/ACD_tunning/adc4_through_bench.jpg",
+  offset_dut_pt: 2pt,
 )
 
 
 #figures_matrix(
   description: "Medición del puerto acoplado",
-  port_name:"acoplado",
+  port_name: "acoplado",
   dir_coupler_name: "ACD4",
-  mag:"imgs/ACD_tunning/acd4_coupled_s11_s21_mag.png",
-  pha:"imgs/ACD_tunning/acd4_coupled_s11_s21_phase.png",
-  smith:"imgs/ACD_tunning/acd4_coupled_s11_smith.png",
-  dut:"imgs/ACD_tunning/adc4_coupled_bench.jpg",
-  offset_dut_pt:2pt
+  mag: "imgs/ACD_tunning/acd4_coupled_s11_s21_mag.png",
+  pha: "imgs/ACD_tunning/acd4_coupled_s11_s21_phase.png",
+  smith: "imgs/ACD_tunning/acd4_coupled_s11_smith.png",
+  dut: "imgs/ACD_tunning/adc4_coupled_bench.jpg",
+  offset_dut_pt: 2pt,
 )
 
 #figures_matrix(
   description: "Medición del puerto aislado",
-  port_name:"aislado",
+  port_name: "aislado",
   dir_coupler_name: "ACD4",
-  mag:"imgs/ACD_tunning/acd4_isolated_s11_s21_mag.png",
-  pha:"imgs/ACD_tunning/acd4_isolated_s11_s21_phase.png",
-  smith:"imgs/ACD_tunning/acd4_isolated_s11_smith.png",
-  dut:"imgs/ACD_tunning/adc4_through_bench.jpg",
-  offset_dut_pt:2pt
+  mag: "imgs/ACD_tunning/acd4_isolated_s11_s21_mag.png",
+  pha: "imgs/ACD_tunning/acd4_isolated_s11_s21_phase.png",
+  smith: "imgs/ACD_tunning/acd4_isolated_s11_smith.png",
+  dut: "imgs/ACD_tunning/adc4_through_bench.jpg",
+  offset_dut_pt: 2pt,
 )
 
 
 
 #pagebreak()
 
-== Analisis de resultados 
+== Analisis de resultados
 
-En la @tab:mediciones_acoplador_915  se sintetizan los parámetros caracteristicos de los acopladores implementados, evaluados en la frecuencia de diseño  $f =$ #qty[915][MHz]. 
+En la @tab:mediciones_acoplador_915  se sintetizan los parámetros caracteristicos de los acopladores implementados, evaluados en la frecuencia de diseño  $f =$ #qty[915][MHz].
 
-#align(center,
-  box(width: 80%,[
-    #figure(
-      table(
-        columns: (0.8fr, 0.8fr, 0.6fr,0.6fr),
-        inset: 6pt,
-        align: horizon,
-        toprule(), // added by this package
-        table.header(
-          [*Acoplador*], [*Acoplamiento*], [*Aislación*],[*Directividad*],
-        ),
-          midrule(), // added by this package
+#align(center, box(width: 80%, [
+  #figure(
+    table(
+      columns: (0.8fr, 0.8fr, 0.6fr, 0.6fr),
+      inset: 6pt,
+      align: horizon,
+      toprule(),
+      // added by this package
+      table.header([*Acoplador*], [*Acoplamiento*], [*Aislación*], [*Directividad*]),
+      midrule(),
+      // added by this package
 
-          "ACD1",
-          qty[-45.58][dB],
-          qty[-35.85][dB],
-          qty[-9.73][dB],
+      "ACD1", qty[-45.58][dB], qty[-35.85][dB], qty[-9.73][dB],
 
-          "ACD1 invertido",
-          qty[-22.01][dB],
-          qty[-40.34][dB],
-          qty[18.33][dB],
+      "ACD1 invertido", qty[-22.01][dB], qty[-40.34][dB], qty[18.33][dB],
 
-          "ACD2",
-          qty[-25.40][dB],
-          qty[-41.87][dB],
-          qty[16.47][dB],
+      "ACD2", qty[-25.40][dB], qty[-41.87][dB], qty[16.47][dB],
 
-          "ACD3",
-          qty[-43.13][dB],
-          qty[-44.10][dB],
-          qty[0.97][dB],
+      "ACD3", qty[-43.13][dB], qty[-44.10][dB], qty[0.97][dB],
 
-          "ACD4",
-          qty[-22.02][dB],
-          qty[-42.97][dB],
-          qty[20.95][dB],
-          bottomrule() // added by this package
-
-
-      ),caption: "Mediciones del acoplador evaludas en 915 MHz"
-    )<tab:mediciones_acoplador_915>]
-  )
-)
+      "ACD4", qty[-22.02][dB], qty[-42.97][dB], qty[20.95][dB],
+      bottomrule(),
+      // added by this package
+    ),
+    caption: "Mediciones del acoplador evaludas en 915 MHz",
+  )<tab:mediciones_acoplador_915>]))
 En el primer diseño, el ACD1, se obtuvo una directividad negativa de #qty[-9.73][dB], este comportamiento indica que la potencia que se transfirió al puerto aislado es mayor a la del puerto acoplado, por lo que se decide invertirlo.
 
-Al invertir el dispositivo bajo prueba (_DUT_) y repetir la medición, la directividad subió a #qty[18.33][dB]. Este resultado confirma que la respuesta del dispositivo es altamente sensible a la orientación y disposición fisica del acoplador. Al comparar @fig:smith_acoplado_ACD1_inverted y @fig:bench_setup_acoplado_ACD1_inverted se demuestra que la orientación vertical optimiza la directividad del dispositivo. 
+Al invertir el dispositivo bajo prueba (_DUT_) y repetir la medición, la directividad subió a #qty[18.33][dB]. Este resultado confirma que la respuesta del dispositivo es altamente sensible a la orientación y disposición fisica del acoplador. Al comparar @fig:smith_acoplado_ACD1_inverted y @fig:bench_setup_acoplado_ACD1_inverted se demuestra que la orientación vertical optimiza la directividad del dispositivo.
 
 
-El segundo dispositivo otro acoplador microstrip, como indica la @tab:mediciones_acoplador_915, tiene una directividad de #qty[16.47][dB] y un acoplamiento de #qty[-25.40][dB]. Las dimensiones geometrícas de este dispositivo se obtuvieron mediante un barrido paramétrico  en la simulación, ajustando del ancho de la línea (_width_), separación (_gap_) y la longitud paralela a la linea prinicpal, buscando maximizar la directividad del dispositivo. 
+El segundo dispositivo otro acoplador microstrip, como indica la @tab:mediciones_acoplador_915, tiene una directividad de #qty[16.47][dB] y un acoplamiento de #qty[-25.40][dB]. Las dimensiones geometrícas de este dispositivo se obtuvieron mediante un barrido paramétrico  en la simulación, ajustando del ancho de la línea (_width_), separación (_gap_) y la longitud paralela a la linea prinicpal, buscando maximizar la directividad del dispositivo.
 
 
-El tercer diseño tiene el objetivo de validar el modelo de simulacion  para lineas "stripline" #footnote[Hablamos de stripline con comillas pues la forma de construccion es casera y no tendra la misma precision y exactidud que una fabricada a nivel industrial] del simulador QUCS. Se realizó este prototipo de acoplador direccional en una implementacion "stripline" para luego iterar nuevamente con lo aprendido de este primer prototipo. 
+El tercer diseño tiene el objetivo de validar el modelo de simulacion  para lineas "stripline" #footnote[Hablamos de stripline con comillas pues la forma de construccion es casera y no tendra la misma precision y exactidud que una fabricada a nivel industrial] del simulador QUCS. Se realizó este prototipo de acoplador direccional en una implementacion "stripline" para luego iterar nuevamente con lo aprendido de este primer prototipo.
 
 Una de las primeras lecciones aprendidas fue la necesidad de contar con un blindado consistente en el contorno del sustrato mostrando la importancia de confinar correctamente el campo dentro del "_stack-up_". Asi mismo el calor generado por la soldadura al momento de cerrar la caja debe ser rapidamente disipado mientras se la cierra pues el aumento de calor y posibles movimientos involuntarios de las capas del "sandwich" hace que se despegue la cinta de cobre y se mueva arruinando así los ajustes previamente realizados.
 
@@ -1262,7 +1258,7 @@ El cuarto y último dispositivo es un acoplador direccional stripline, el cual s
 
 #pagebreak()
 = Interfaz gráfica para la obtención
-Inspirado en las calculadoras de QUCS se decidió implementar una para la obtención del parámetro $epsilon_r$ y $tg(delta)$, adjuntado los archivos del VNA calcule los mismos automatizando el proceso, ademas la misma contará con interfaz de linea de comandos facilitando la posibilidad de hacer scripting. 
+Inspirado en las calculadoras de QUCS se decidió implementar una para la obtención del parámetro $epsilon_r$ y $tg(delta)$, adjuntado los archivos del VNA calcule los mismos automatizando el proceso, ademas la misma contará con interfaz de linea de comandos facilitando la posibilidad de hacer scripting.
 
 // #image("gui.png")
 
@@ -1270,10 +1266,10 @@ Como comentario adicional, el proyecto se pretende implementar en un pcb FR4 de 
 
 
 
-#image("imgs/ad8302_reflectometer.png") 
+#image("imgs/ad8302_reflectometer.png")
 
-#image("imgs/AD8302.png",width: 50%)
+#image("imgs/AD8302.png", width: 50%)
 
 
 
-// #bibliography("cites.bib") 
+// #bibliography("cites.bib")
