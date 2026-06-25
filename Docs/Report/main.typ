@@ -22,7 +22,7 @@
 #show: booktabs-default-table-style
 
 
-#set page(margin: (y: 3cm, x: 1in))
+#set page(margin: (y: 2.3cm, x: 1in))
 #show link: underline
 
 #show <add_to_outline_without_numbering>: set heading(outlined: true, numbering: none)
@@ -31,6 +31,9 @@
 #let todo(task) = { return text(size: 10pt, fill: red, upper[#task]) }
 #let todo_bib(task) = {
   return text(size: 10pt, weight: "black", font: "Trebuchet MS", fill: rgb("#208620"), upper[#task])
+}
+#let todo_compromiso(task) = {
+  return text(size: 10pt, weight: "black", font: "Trebuchet MS", fill: rgb("#a3129c"), upper[#task])
 }
 
 
@@ -296,7 +299,7 @@ La onda electromagnética que se propaga a lo largo de una línea de transmisió
   caption: [Modo de propagación TEM],
 )<fig:modo_tem>
 
-Cuando el campo eléctrico y magnético son completamente transversales a la dirección de propagación, se presenta el modo TEM (Transversal Electromagnético) como se ilustra en la @fig:modo_tem, este modo es más propenso a darse en frecuencias menores al GHz (sub-GHz) y en estructuras principalmente no dispersivas (homogéneas) como pueden ser las _striplines_ o coaxiales, en otras palabras, en estructuras donde haya baja un nula dispersión de la onda electromagnética por fuera del propio confinamiento de la línea de transmisión.
+Cuando el campo eléctrico y magnético son completamente transversales a la dirección de propagación, se presenta el modo TEM (Transversal Electromagnético) como se ilustra en la @fig:modo_tem, este modo es más propenso a darse en frecuencias menores al GHz (sub-GHz) y en estructuras principalmente no dispersivas (homogéneas) como pueden ser las _striplines_ o coaxiales, en otras palabras, en estructuras donde haya baja o nula dispersión de la onda electromagnética por fuera del propio confinamiento de la línea.
 #todo_bib("Agregar biblio del pozar o algun otro libro sobre TEM en stripline")
 
 También existe el modo TE (Transversal Eléctrico), en el cual el campo eléctrico es completamente transversal a la dirección de propagación, mientras que el campo magnético presenta una componente longitudinal, caso contrario el modo TM (Transversal Magnético) el campo magnético es transversal a la propagación, y el campo eléctrico es quien presenta una componente longitudinal, ambos se ilustran en la @fig:TE y en la @fig:TM respectivamente.
@@ -322,29 +325,33 @@ También existe el modo TE (Transversal Eléctrico), en el cual el campo eléctr
 
 
 // Por otro lado, cuando los campos presentan componentes longitudinales significativas, se habla de modos no TEM.
-Por último, siendo este el más propenso a ocurrir en la práctica aparece el denominado modo cuasi-TEM. Este se trata de un modo de propagación de onda en líneas de transmisión donde los campos eléctrico y magnético son casi, pero no exactamente, perpendiculares a la dirección de propagación. 
+Por último, siendo este el más propenso a ocurrir en la práctica, aparece el denominado modo cuasi-TEM. Este se trata de un modo de propagación de onda en líneas de transmisión donde los campos eléctrico y magnético son casi, pero no exactamente, perpendiculares a la dirección de propagación.
 El modo cuasi-TEM ocurre especialmente en estructuras inhomogéneas producto de que no toda la energía electromagnética queda confinada en la línea de transmisión sino que una parte existe por fuera del sustrato debido a las diferencias entre la permitividad del dieléctrico y el medio que la rodea como es el caso de la línea _microstrip_.
 
-Con el objetivo de simplificar el análisis y facilitar el cálculo, se asume que la onda se propagará en un modo TEM y cuasi-TEM, hipótesis válida para muchas líneas de transmisión utilizadas en la práctica, en particular en el presente trabajo.
-
+Con el objetivo de simplificar el análisis y dado que el estudio se desarrolla en la región inferior de la banda UHF#footnote[Ultra alta frecuencia (_Ultra High Frequency_). La UIT define UHF como la banda de frecuencias comprendidas entre los 300 MHz y 3GHz], se adoptará la hipótesis de propagación en modos TEM y cuasi-TEM. Esta aproximación resulta adecuada para numerosas líneas de transmisión habitualmente encontradas en la práctica y es especialmente válida para las configuraciones analizadas en este trabajo.
 
 == Características eléctricas
 Las líneas de transmisión pueden ser clasificadas, entre otras caracteristicas, por su geometría como así también por las consideraciones eléctricas que se realizan para su análisis como se presenta a continuación.
 
-- *Línea de transmisión sin pérdidas*: Esto ocurre cuando el conductor y el dieléctrico son perfectos, es decir, es decir $R=0$ y $G=0$ del modelo RLGC antes mencionado.
+=== Línea de transmisión sin pérdidas
+Representa el caso ideal donde tanto los conductores metálicos como el medio dieléctrico son perfectos. En esta condición, se asume que la resistencia en serie y la conductancia en paralelo son nulas ($R = 0$ y $G = 0$). Como consecuencia, la constante de atenuación es cero ($alpha = 0$), lo que implica que la señal se propaga indefinidamente sin reducir su amplitud
 
-- *Líneas de transmisión largas*: Son aquellas líneas de transmisión que se pueden considerar infinitas para el entorno de análisis utilizado, es decir si para un entorno  consideramos la línea como infinita asumiremos que no existen las reflexiones por lo cual toda la energía se llega a transferir a la carga.
+=== Líneas de transmisión largas
+Esta clasificación supone que Son aquellas líneas de transmisión que se pueden considerar infinitas para el entorno de análisis utilizado, es decir si para un entorno  consideramos la línea como infinita asumiremos que no existen las reflexiones por lo cual toda la energía se llega a transferir a la carga.
 
-- *Línea de transmisión sin distorsión*: Es aquella en la que la señal de salida es una réplica exacta de la entrada, atenuada o retrasada, pero sin alterar su forma original.  Como condición para que una línea de transmisión sea tal debe cumplirse la @ec:TL_sin_distorsion poniendo de manifiesto que la velocidad de propagación y la atenuación no dependen de la frecuencia.
+=== Línea de transmisión sin distorsión
+Es aquella en la que la señal de salida es una réplica exacta de la entrada, atenuada o retrasada, pero sin alterar su forma original.  Como condición para que una línea de transmisión sea tal debe cumplirse la @ec:TL_sin_distorsion poniendo de manifiesto que la velocidad de propagación y la atenuación no dependen de la frecuencia.
 
 $ R/L = G/C $<ec:TL_sin_distorsion>
 
-- *Línea de transmisión de bajas pérdidas*: Es aquella en la que el conductor es perfecto, es decir, no tiene perdidas resistivas como se expone a continuación:
+=== Línea de transmisión de bajas pérdidas
+las pérdidas no son nulas pero se consideran pequeñas en comparación con la energía reactiva almacenada por unidad de longitud ($R << omega L$ y $G << omega C$). Esto permite simplificar la constante de propagación $gamma$ y asumir que la impedancia característica $Z_0$ es puramente real, aproximándose a:
+
 
 #grid(
   columns: (1fr, 1fr),
   column-gutter: 8pt,
-  $ L dot C = mu dot epsilon $, $ sigma/epsilon = G/C $,
+  $ L dot C approx mu dot epsilon quad -> quad Z_0 approx sqrt(L/C) $, $ sigma/epsilon = G/C $,
 )
 
 #todo_bib("Agregar referencias a los pdf de clases para esta parte y el pozar")
@@ -356,43 +363,75 @@ En lo que respecta a la geometría encontramos las lineas de transmisión planas
 
 === Líneas de transmisión de microcinta o _microstrip_
 
-Consiste en una pista (linea de transmisión) sobre el sustrato dieléctrico con un plano de tierra inferior, tal como indica la @fig:microstrip.
+Una línea _microstrip_ consiste en un _stack-up_ de 2 capas donde la capa superior contiene una pista (linea de transmisión) separada por un  sustrato dieléctrico y en la capa inferior un plano de tierra, tal como ilustra la @fig:microstrip.
 
 #v(-0.6cm)
 #figure(
   image("imgs/ilustrations/microstripDespliegue.png", width: 40%),
-  caption: [Microstrip],
+  caption: [Estructura microstrip],
 )<fig:microstrip>
 
 
-Cabe destacar que la estructura, al estar inmersa entre los dos materiales, la señal se propaga tanto por el dieléctrico como por el aire. Esta discontinuidad de medios provoca que el campo electromagnético no sea puramente transversal, dando lugar al modo cuasi-TEM antes mencionado. Asimismo, aparecen las pérdidas por radiación, ya que una fracción de la energía no queda confinada en el sustrato sino que se radia.
+La estructura al estar inmersa entre dos medios materiales podemos afirmar que la señal se propagará por el dieléctrico como así también por el otro medio, en este caso aire. Esta discontinuidad de medios provoca que el campo electromagnético no sea puramente transversal, dando lugar al modo cuasi-TEM antes mencionado. Asimismo, se manifiestan las pérdidas por radiación, ya que una fracción de la energía no queda confinada en el sustrato sino que se radia.
 
-Un parametro importante que debemos mencionar es permitividad electrica efectiva, esta expresion es consecuencia natural de la forma en la que se encuentra construida nuestra estructura al estar embebida entre dos medios materiales con permitividades electricas relativas diferentes, poniendo de manifiesto que la onda propagante percibirá un permitividad electrica relativa equivalente que se encontrará entre $epsilon_r$ del aire (1) y $epsilon_r$  del sustrato.
+Un parametro importante que debemos mencionar es la permitividad dieléctrica efectiva, esta expresion es consecuencia natural de la forma en la que se encuentra construida nuestra estructura al estar embebida entre dos medios materiales con permitividades electricas relativas diferentes, poniendo de manifiesto que la onda propagante percibirá una permitividad dieléctrica relativa equivalente, cuyo valor se encontrará entre el $epsilon_r$ del aire#footnote[$epsilon_r("aire") = 1,00059 approx 1$] y el $epsilon_r$ del sustrato.
 
-// #todo("REVISAR")
+La consecuencia directa de esto es que todas las ecuaciones donde hasta ahora se utilizaba la constante del material deberan contemplar esta discontinuidad como se muestra en las ecuaciones fundamentales de ondas tales como la @ec:vp_eff y @ec:lambda_eff siendo $c_0$ la velocidad de la luz en el vacío y $lambda$ la longitud de onda.
 
-La velocidad de fase se expresa como  $v_p = c_0/ sqrt(epsilon_(e f f))$
+#grid(
+  columns: (1fr, 1fr),
+  column-gutter: 12pt,
+  [$ v_p = c_0 / sqrt(epsilon_r) quad -> quad v_(p_("eff")) = c_0 / sqrt(epsilon_("eff")) $ <ec:vp_eff>],
+  [$
+    lambda = c_0 / (f dot sqrt(epsilon_r)) quad -> quad lambda_("eff") = c_0 / (f dot sqrt(epsilon_("eff")))
+  $ <ec:lambda_eff>],
+)
 
-Siendo $c_0$ la velocidad de la luz en el vacío y $lambda$ la longitud de onda.
+En este sentido, con el objeto de cuantificar la proporción de campo que viaja por el sustrato frente al que se dispersa, Wheeler @wheeler1965_filling_factor introduce el concepto de factor de llenado efectivo (_effective filling factor_) denotado como $q$  en la @ec:filling_factor.
+#grid(
+  columns: (1fr, 1fr),
+  column-gutter: 0pt,
+  align: horizon,
+  [$ epsilon_("eff") = 1 + q (epsilon_r - 1) $ <ec:e_eff_calculo>],
+  [$ q=1/2 dot (1+1/sqrt(1+12 dot h\/w)) $ <ec:filling_factor>],
+)
+Este parámetro pondera geometricamente la relación que tiene la permitividad dieléctrica efectiva del material respecto del vacio con ambos medios permitiendonos relacionarlos mediante la @ec:e_eff_calculo la cual al ser desarrollada resulta la @ec:e_eff_despejado.
 
+$ epsilon_("eff") = (epsilon_r + 1)/2 + (epsilon_r - 1)/2 dot (1/sqrt(1+12 dot h\/w)) $ <ec:e_eff_despejado>
+
+En @wheeler1965_filling_factor se demuestra que el factor depende de parámetros geométricos de la estructura como lo son la relación entre el ancho de pista ($w$) y el espesor del sustrato ($h$). El uso de esta relación será habitual en posteriores trabajos de otros autores como es el caso de Hammerstad, Jensen, entre otros que desarrollaremos en secciones posteriores de este trabajo.
+
+Para una primer aproximación, si asumimos como constante el $epsilon_r$ del sustrato, es posible notar que el valor de $q$ se encuentra acotado por factores geométricos de la estructura, es decir caso donde la pista es "infinitamente" ancha o infinitesimalmente angosta lo que resulta de que al tomar el límite para el parámetro $h\/w$ sobre la @ec:filling_factor observamos que el valor se encuentra acotado entre $1/2 <= q <= 1$ en consecuencia directa los valores extremos que puede tomar el $epsilon_("eff")$ son $(epsilon_r + 1)/2 <= epsilon_("eff") <= epsilon_r$
+
+#grid(
+  columns: (1fr, 1fr),
+  column-gutter: 0pt,
+  align: horizon,
+  [$ lim_(h\/w -> infinity) q--> 1/2 $], [$ lim_(h\/w -> 0) q--> 1 $],
+)
+
+Los límites conseguidos poseen una interpretación física respecto a la distribución espacial de las líneas de campo eléctrico. En el caso de una pista infinitesimalmente angosta ($h\/w -> infinity$), el campo se distribuye de manera simétrica y equitativa dado que la mitad viaja por el sustrato y la otra mitad por el aire. Por el contrario, cuando la pista es 'infinitamente' ancha ($h\/w -> 0$), la estructura emula un capacitor de placas paralelas perfecto provocando que la dispersión hacia el aire se vuelve despreciable y la totalidad del campo se confina dentro del dieléctrico lo que fuerza a que $epsilon_("eff") = epsilon_r$. Este último escenario es el caso que da origen a la estructura _stripline_.
 
 
 === Líneas de transmisión stripline
 
-Stripline es una línea de transmisión formada por tres conductores. asi como se observa en la @fig:stripline, los conductores de los planos superior e inferior son planos de tierra, y la banda conductora central se encuentra entre los dos dieléctricos. El espacio entre la banda conductora y los planos de tierra puede ser aire u otros materiales dieléctricos.
+Una línea _stripline_ consiste en una forma de constructión de una estructura de línea de transmisión compuesta por tres conductores, ubicandose dos de ellos en el exterior de la misma, separados por materiales dieléctricos de tal forma que el restante conductor queda inmerso en interfaz de contacto de ambas capas dieléctricas. Una ilustración que clarifica lo expresado se observa en la @fig:stripline donde los conductores de los planos superior e inferior son planos de tierra y la banda conductora central se encuentra entre dos dieléctricos que pueden ser de igual o distinta permitividad diélectrica.
 
-#v(-0.5cm)
 #figure(
   image("imgs/ilustrations/striplineDespliegue.png", width: 40%),
-  caption: [Línea de transmisión Stripline],
+  caption: [Estructura stripline],
 )<fig:stripline>
 
-Estas lineas tienen como ventaja que evita las interferencias radiadas (la radiación es mínima y puede despreciarse), con una pérdida similar a la de las líneas coaxiales. Sin embargo, como el $epsilon_(e f f)$ que es igual al $epsilon_r$, es mayor que el de una microstrip debido a que la propagación se produce solo en el sustrato. Esto reduce la velocidad de fase de la señal, resultando una longitud de onda ($lambda$) mas corta para una misma frecuencia.
+La consecuencia inmediata de este "blindaje" es el confinamiento del campo dentro de las fronteras de la estructura. Al no existir una interfaz sustrato-aire, la onda se propaga inmersa en un medio dieléctrico homogéneo. Por lo tanto, si ambos sustratos del sandwich son de iguales caracteristicas ($epsilon_r$), el factor de llenado efectivo es máximo ($q = 1$) y la permitividad percibida por la onda coincide con la del material.
+
+Una de las principales ventajas de la stripline, derivada de la homogeneidad de su estructura, es que permite asumir una propagación en modo transversal electromagnético (TEM). Sin embargo en la práctica debido a las imperfecciones del proceso de fabricación en adición a las diferencias geometrícas y de permitividad dieléctrica relativa que tiene cada material que integre el '_stack_' del PCB, el modo de propagación realmente será cuasi-TEM. A pesar de estas limitaciones prácticas, la stripline sigue siendo la geometría plana que presenta la mayor similitud y aproximación al modo TEM ideal.
+
+Por otro lado, la estructura al presentar una forma de 'sandwich' funciona como un blindaje para el conductor central. Esto logra confinar el campo entre las placas exteriores permitiendo despreciar la energía radiada por fuera del sustrato.
+
+Asimismo, como la onda se propaga enteramente por el sustrato, la permitividad efectiva es máxima $epsilon_(e f f) = epsilon_r$ logrando superar al de una _microstrip_ del mismo material lo que conlleva una reducción de la velocidad de fase de la señal como podemos deducir de la @ec:vp_eff lo que reduce la longitud de onda (@ec:lambda_eff) para una misma frecuencia.
 
 
-
-
-=== Fuentes de referencia (links adjuntos) #todo("REVISAR ESTO")
+// === Fuentes de referencia (links adjuntos) #todo("REVISAR ESTO")
 // Caracterización del sustrato
 // - #link("https://scikit-rf.readthedocs.io/en/latest/examples/networktheory/Correlating%20microstripline%20model%20to%20measurement.html")[Scikit-RF - Biblioteca de cálculo numérico para RF en pyhton]
 // - #link("http://lamsimenterprises.com/Paper_APracticalMethodtoModelEffectivePermittivity_Simonovich.pdf")[_Paper_ sobre medición de la permitividad efectiva de línea microstrip]
@@ -406,6 +445,70 @@ Estas lineas tienen como ventaja que evita las interferencias radiadas (la radia
 // - #link("https://www.digikey.com/en/articles/the-fundamentals-of-rf-directional-couplers-and-how-to-use-them-effectively?utm_source=chatgpt.com")[Mediciones con acopladores direccionales]
 // - #link("https://upcommons.upc.edu/server/api/core/bitstreams/cac75ff6-f9d3-44a0-bb7d-41c74aa24020/content")[Simulación electromagnética y acopladores direccionales]
 // // - #link()
+
+
+
+== Materiales
+Entre los diferentes materiales dieléctricos utilizados como sustrato en la fabricación de placas de circuito impreso (PCB) para alta frecuencia, destacan los cerámicos o teflonados comerciales habitualmente denominados 'tipo Rogers'#footnote[Rogers Corp. es un fabricante de referencia en diseños de alta frecuencia, dado que sus sustratos ofrecen una caracterización eléctrica del sustrato confiable, estable y trazable https://www.rogerscorp.com/] o 'tipo Isola'#footnote[Al igual que Rogers, ofrece laminados con prestaciones notables para aplicaciones de alta velocidad: https://www.isola-group.com/] y los basados en fibra de vidrio comunmente llamados 'FR4' @globalwell2024fr @raypcb2023fr4 @lee2021advancements @johnson2020comparative. Este último es ampliamente utilizado en circuitos de RF que no requieren prestaciones considerables o se busca un material asequible para trabajar en frecuencias menores a 3GHz; no obstante, a medida que las señales se aproximan a este límite, su desempeño se degrada significativamente debido a diversos factores que se analizarán en las secciones posteriores.
+#todo_compromiso("Hablar del la relación de la tg y er en funcion de la frecuencia")
+
+Cuando hablamos de 'FR4' nos referimos al sustrato dieléctrico que se compone por un tejido de fibra de vidrio dispuesto en un entretramado en forma de malla como se observa en la @fig:malla_fr4 impregnado con resina epoxi que le da el caracteristico color amarillo verdoso (@fig:fr4_lamina). Sobre este laminado se prensa el stack-up definitivo y se laminan las capas de cobre que conformarán las pistas del circuito
+
+Por otra parte, las siglas FR provienen de la denominación _Flame Retardant_ (retardante de llama) Grado 4, lo que indica el cumplimiento de estándares de seguridad ante la inflamabilidad del material bajo la norma UL94 V-0. Esta propiedad autoextinguible se debe principalmente a la composición de la resina epoxi utilizada (habitualmente epiclorhidrina y bisfenol) combinada con agentes retardantes bromados. Ante la presencia de fuego directo, estos aditivos retardan la combustión logrando que el material extinga la llama luego de que elimine la fuente de ignición original
+
+#subpar.grid(
+  figure(image("imgs/ilustrations/laminado_fr4.png", width: 100%), caption: [
+    Láminas de FR4 (fibra de vidrio con resina epoxi)
+  ]),
+  <fig:fr4_lamina>,
+
+  figure(image("imgs/ilustrations/Malla_FR4_MBE.PNG", width: 100%), caption: [
+    Tejido de fibra de vidrio entrelazado en un sustrato FR4
+  ]),
+  <fig:malla_fr4>,
+
+  figure(image("imgs/ilustrations/stackup_4_capas_real.png", width: 100%), caption: [
+    Vista de corte del stack-up real de un PCB de 4 capas sobre sustrato FR4
+  ]),
+
+  columns: (0.8fr, 0.8fr, 1fr),
+  gap: 0.5cm,
+  gutter: 0.5cm,
+  caption: [Sustrato FR4 en vistas macroscópica y microscópica],
+  label: <fig:polarizacion_dielectrico>,
+)
+
+Desde el punto de vista eléctrico, particularmente en su uso en circuitos de alta frecuencia, el FR4 se caracteriza por su permitividad relativa ( $epsilon_r$) y su tangente de pérdidas (tan $delta$), parámetros que describen el comportamiento del material frente a campos eléctricos alternos. La tangente de pérdidas cuantifica la energía disipada en el dieléctrico debido a los procesos de polarización del material. Valores bajos de este parámetro indican menores pérdidas y, por lo tanto, una mejor propagación de las señales electromagnéticas.
+
+
+#subpar.grid(
+  figure(image("imgs/ilustrations/dielectricoNoPolTAND.PNG", width: 100%), caption: [
+    PCB no polarizado
+  ]),
+  <fig:di_no_pol>,
+
+  figure(image("imgs/ilustrations/dielectricoSIPolTAND.PNG", width: 100%), caption: [
+    PCB polarizado
+  ]),
+  <fig:di_pol>,
+
+  columns: (1fr, 1fr),
+  gap: 0.5cm,
+  gutter: 2cm,
+  caption: [Polarización del sustrato del PCB],
+  label: <fig:polarizacion_dielectrico>,
+)
+
+En la práctica, el sustrato FR4 no es perfectamente homogéneo ni isotrópico, debido principalmente a la estructura del tejido de fibra de vidrio y a imperfecciones propias del proceso de fabricación. Estas variaciones pueden generar pequeñas diferencias en la permitividad efectiva del material, afectando parámetros importantes en el diseño de líneas de transmisión, como la impedancia característica y la velocidad de propagación.
+
+Asimismo, la rugosidad de las capas de cobre puede incrementar las pérdidas por conducción, especialmente a frecuencias del orden de los GHz. A pesar de ello, cierta rugosidad es necesaria para asegurar una adecuada adhesión entre el cobre y el sustrato dieléctrico durante el proceso de fabricación del PCB.
+
+A pesar de estas limitaciones, el FR4 es el material seleccionado para este trabajo debido a su bajo costo, amplia disponibilidad y facilidad de fabricación, lo que lo convierte en una opción adecuada para la implementación de estructuras de microstrip y para la caracterización experimental de parámetros dieléctricos. Si bien su naturaleza inhomogénea puede introducir pequeñas variaciones en los resultados,para la frecuencia de trabajo que es #qty[915][MHz] el material sigue siendo suficientemente adecuado para el análisis y validación de los métodos de caracterización propuestos.
+
+#todo(
+  "hacer el caminito de contar que si bien sabemos que el er en la materia es cte en realidad es un poco más profunda la cosa y hay que ver que surge en una forma compleja (ahi hay que explicar que representa la parte compleja y real),  tal vez mencionar que vienen de una matriz de tensores",
+)
+
 
 == Aplicaciones
 
@@ -1272,4 +1375,4 @@ Como comentario adicional, el proyecto se pretende implementar en un pcb FR4 de 
 
 
 
-// #bibliography("cites.bib")
+#bibliography("bibliografia.bib", style: "ieee")
