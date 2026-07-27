@@ -200,8 +200,9 @@
 
 // -----------------------------------------------------------
 
-
-
+// IEEE145 -> Rotulacion standard
+// Collins - La biblia real
+// La serie roja (mirar los tomos del MIT)
 
 
 
@@ -422,9 +423,9 @@ Una línea _stripline_ consiste en una forma de constructión de una estructura 
   caption: [Estructura stripline],
 )<fig:stripline>
 
-La consecuencia inmediata de este "blindaje" es el confinamiento del campo dentro de las fronteras de la estructura. Al no existir una interfaz sustrato-aire, la onda se propaga inmersa en un medio dieléctrico homogéneo. Por lo tanto, si ambos sustratos del sandwich son de iguales caracteristicas ($epsilon_r$), el factor de llenado efectivo es máximo ($q = 1$) y la permitividad percibida por la onda coincide con la del material.
+La consecuencia inmediata de este "blindaje" es el confinamiento del campo dentro de las fronteras de la estructura. Al no existir una interfaz sustrato-aire, la onda se propaga inmersa en un medio dieléctrico homogéneo. Por lo tanto, si ambos sustratos del 'sandwich' son de iguales caracteristicas ($epsilon_r$), el factor de llenado efectivo es máximo ($q = 1$) y la permitividad percibida por la onda coincide con la del material.
 
-Una de las principales ventajas de la stripline, derivada de la homogeneidad de su estructura, es que permite asumir una propagación en modo transversal electromagnético (TEM). Sin embargo en la práctica debido a las imperfecciones del proceso de fabricación en adición a las diferencias geometrícas y de permitividad dieléctrica relativa que tiene cada material que integre el '_stack_' del PCB, el modo de propagación realmente será cuasi-TEM. A pesar de estas limitaciones prácticas, la stripline sigue siendo la geometría plana que presenta la mayor similitud y aproximación al modo TEM ideal.
+Una de las principales ventajas de la stripline, producto de la homogeneidad de su estructura, es que permite asumir una propagación en modo transversal electromagnético (TEM). Sin embargo en la práctica debido a las imperfecciones del proceso de fabricación en adición a las diferencias geometrícas y de permitividad dieléctrica relativa que tiene cada material que integre el '_stack_' del PCB, el modo de propagación realmente será cuasi-TEM. A pesar de estas limitaciones prácticas, la stripline sigue siendo la geometría plana que presenta la mayor similitud y aproximación al modo TEM ideal.
 
 Por otro lado, la estructura al presentar una forma de 'sandwich' funciona como un blindaje para el conductor central. Esto logra confinar el campo entre las placas exteriores permitiendo despreciar la energía radiada por fuera del sustrato.
 
@@ -449,7 +450,7 @@ Asimismo, como la onda se propaga enteramente por el sustrato, la permitividad e
 
 
 == Materiales
-Entre los diferentes materiales dieléctricos utilizados como sustrato en la fabricación de placas de circuito impreso (PCB) para alta frecuencia, destacan los cerámicos o teflonados comerciales habitualmente denominados 'tipo Rogers'#footnote[Rogers Corp. es un fabricante de referencia en diseños de alta frecuencia, dado que sus sustratos ofrecen una caracterización eléctrica del sustrato confiable, estable y trazable https://www.rogerscorp.com/] o 'tipo Isola'#footnote[Al igual que Rogers, ofrece laminados con prestaciones notables para aplicaciones de alta velocidad: https://www.isola-group.com/] y los basados en fibra de vidrio comunmente llamados 'FR4' @globalwell2024fr @raypcb2023fr4 @lee2021advancements @johnson2020comparative. Este último es ampliamente utilizado en circuitos de RF que no requieren prestaciones considerables o se busca un material asequible para trabajar en frecuencias menores a 3GHz; no obstante, a medida que las señales se aproximan a este límite, su desempeño se degrada significativamente debido a diversos factores que se analizarán en las secciones posteriores.
+Entre los diferentes materiales dieléctricos utilizados como sustrato en la fabricación de placas de circuito impreso (PCB) para alta frecuencia, destacan los cerámicos o teflonados comerciales habitualmente denominados 'tipo Rogers'#footnote[Rogers Corp. es un fabricante de referencia en diseños de alta frecuencia, dado que sus sustratos ofrecen una caracterización eléctrica del sustrato confiable, estable y trazable https://www.rogerscorp.com/] o 'tipo Isola'#footnote[Al igual que Rogers, ofrece laminados con prestaciones notables para aplicaciones de alta velocidad: https://www.isola-group.com/] y los basados en fibra de vidrio comunmente llamados 'FR4' @globalwell2024fr @raypcb2023fr4 @lee2021advancements @johnson2020comparative. Este último es ampliamente utilizado en circuitos de RF que no requieren prestaciones considerables o se busca un material asequible para trabajar en frecuencias menores a 3GHz; no obstante, a medida que se utiliza el cerca de este límite, su desempeño se degrada significativamente debido a diversos factores que se analizarán en las secciones posteriores.
 #todo_compromiso("Hablar del la relación de la tg y er en funcion de la frecuencia")
 
 Cuando hablamos de 'FR4' nos referimos al sustrato dieléctrico que se compone por un tejido de fibra de vidrio dispuesto en un entretramado en forma de malla como se observa en la @fig:malla_fr4 impregnado con resina epoxi que le da el caracteristico color amarillo verdoso (@fig:fr4_lamina). Sobre este laminado se prensa el stack-up definitivo y se laminan las capas de cobre que conformarán las pistas del circuito
@@ -457,7 +458,7 @@ Cuando hablamos de 'FR4' nos referimos al sustrato dieléctrico que se compone p
 Por otra parte, las siglas FR provienen de la denominación _Flame Retardant_ (retardante de llama) Grado 4, lo que indica el cumplimiento de estándares de seguridad ante la inflamabilidad del material bajo la norma UL94 V-0. Esta propiedad autoextinguible se debe principalmente a la composición de la resina epoxi utilizada (habitualmente epiclorhidrina y bisfenol) combinada con agentes retardantes bromados. Ante la presencia de fuego directo, estos aditivos retardan la combustión logrando que el material extinga la llama luego de que elimine la fuente de ignición original
 
 #subpar.grid(
-  figure(image("imgs/ilustrations/laminado_fr4.png", width: 100%), caption: [
+  figure(image("imgs/ilustrations/laminado_fr4.png", width: 100%,height: 3.5cm, fit: "stretch"), caption: [
     Láminas de FR4 (fibra de vidrio con resina epoxi)
   ]),
   <fig:fr4_lamina>,
@@ -478,8 +479,13 @@ Por otra parte, las siglas FR provienen de la denominación _Flame Retardant_ (r
   label: <fig:polarizacion_dielectrico>,
 )
 
-Desde el punto de vista eléctrico, particularmente en su uso en circuitos de alta frecuencia, el FR4 se caracteriza por su permitividad relativa ( $epsilon_r$) y su tangente de pérdidas (tan $delta$), parámetros que describen el comportamiento del material frente a campos eléctricos alternos. La tangente de pérdidas cuantifica la energía disipada en el dieléctrico debido a los procesos de polarización del material. Valores bajos de este parámetro indican menores pérdidas y, por lo tanto, una mejor propagación de las señales electromagnéticas.
+Desde el punto de vista eléctrico, particularmente en su uso y diseño de circuitos de alta frecuencia nos es de interés algunos parámetros del FR4 que lo caracteriza como lo son su permitividad relativa ($epsilon_r$) y su tangente de pérdidas ($tg (delta)$), sin embargo antes de continuar deberemos profundizar en la definición de estos parámetros pues de ellos dependera el correcto diseño y simulación como así también su posterior implementación.
 
+=== Permitividad dieléctrica
+
+=== Tangente de pérdidas
+
+La tangente de pérdidas cuantifica la energía disipada en el dieléctrico debido a los procesos de polarización del material.
 
 #subpar.grid(
   figure(image("imgs/ilustrations/dielectricoNoPolTAND.PNG", width: 100%), caption: [
@@ -1230,7 +1236,7 @@ El segundo acoplador direccional microstrip el cual fue simulado y diseñado con
 
 #pagebreak()
 
-El tercer acoplador direccional microsse realizo stripline el cual fue simulado y diseñado con cinta de cobre para prototipar obtenemos las siguientes mediciones.
+El tercer acoplador direccional se diseño en formato stripline, luego de haber sido simulado se implemntó con cinta de cobre sobre un PCB de una capa de FR4 permitiendonos obtener las siguientes mediciones.
 
 
 #figures_matrix(
