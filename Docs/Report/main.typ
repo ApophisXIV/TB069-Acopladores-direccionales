@@ -394,7 +394,7 @@ La consecuencia directa de esto, es que todas las ecuaciones donde hasta ahora s
   $ <ec:lambda_eff>],
 )
 
-En este sentido, con el objetivo de cuantificar la proporción de campo que viaja por el sustrato frente al que se dispersa, 
+En este sentido, con el objetivo de cuantificar la proporción de campo que viaja por el sustrato frente al que se dispersa,
 Wheeler @wheeler1965_filling_factor introduce el concepto de factor de llenado efectivo (_effective filling factor_) en la @ec:filling_factor_wheeler
 
 $ q = (epsilon_("eff")-1)/(epsilon_r -1) $<ec:filling_factor_wheeler>
@@ -563,7 +563,7 @@ La parte real de la permitividad ($epsilon^'$) se relaciona con la definición e
 La parte imaginaria de la permitividad  $epsilon^''$ representa las pérdidas del medio, debido al amortiguamiento de los momentos dipolares en vibración. En contraparte, el espacio libre al poseer una permitividad ($epsilon_0$)  puramente real no presenta estas pérdidas.
 
 #figure(image("imgs/ilustrations/permitividad_compleja_modelo.png", width: 40%), caption: [
-  Comportamiento tipico de la parte real ($epsilon^'$) y la parte imaginaria ($epsilon^''$) de la permitividad
+  Comportamiento tipico de la parte real ($epsilon^'$) y la parte imaginaria ($epsilon^''$) de la permitividad del material
 ])<fig:modelo_grafico_epsilon_complejo>
 
 Como se ilustra en la @fig:modelo_grafico_epsilon_complejo, cuando la curva asociada a la parte real ($epsilon^'$) experimenta un rápido decaimiento, la parte imaginaria ($epsilon^''$) aumenta en valor logrando alcanzar máximos para iguales frecuencias producto de los mecanismos de relajación dipolar del material dieléctrico.
@@ -604,6 +604,249 @@ $ tg(delta) = epsilon^''/ epsilon^' $<ec:tangente_delta_sin_sigma>
 Por otro lado, como se mencionó anteriormente, en la práctica los dieléctricos como el FR4 no son homogéneos ni isotrópicos, lo que afecta a parámetros de diseño, como la impedancia característica y la velocidad de propagación.
 
 A pesar de estas limitaciones, el FR4 es el material seleccionado para este trabajo debido a su bajo costo, amplia disponibilidad y facilidad de fabricación, convirtiéndolo en una opción adecuada para la implementación de estructuras de microstrip y para la caracterización experimental de parámetros dieléctricos. Si bien su naturaleza inhomogénea puede introducir pequeñas variaciones en los resultados, para la frecuencia de trabajo de #qty[915][MHz] el material sigue siendo adecuado para el análisis y validación de los métodos de caracterización propuestos.
+
+== Mediciones
+#todo("REVISAR todo este capitulo pues tiene cosas redactadas raras")
+
+Para caracterizar experimentalmente las estructuras _microstrip_ presentadas en este trabajo, los cuales son _stubs_, resonadores de anillo y acopladores direccionales, se emplea el análisis mediante parámetros de dispersión. Estos permiten describir el comportamiento de un dispositivo de múltiples puertos en términos de ondas incidentes y reflejadas en cada uno de sus puertos.
+
+=== Parámetros S
+
+En circuitos de microondas, el análisis de redes se realiza comúnmente mediante parámetros de dispersión, también conocidos como parámetros S.
+
+// #v(-0.5cm)
+#figure(
+  image("imgs/ilustrations/cuadripolo.png", width: 50%),
+  caption: [Modelo de cuadripolo (parámetros S)],
+)<fig:cuadripolo_parametros_s>
+
+El cuadripolo de la @fig:cuadripolo_parametros_s se conforma por dos puertos. El primero de ellos está integrado por los polos $A_1$ y $B_1$,
+que representan la onda incidente y reﬂejada respectivamente; de manera similar en el segundo puerto el polo A2 representa a la onda incidente
+y el polo B2 la onda  reﬂejada. Es importante mencionar que cada uno de los
+puertos puede absorber, reﬂejar o transmitir la señal.
+
+Los parámetros de dispersión se definen como la relación entre la onda que sale de un puerto y la onda que incide en otro, manteniendo todos los demás puertos adaptados a la impedancia característica del sistema. Estos se representan con la letra S seguido de un subíndice de dos dígitos ($S_(i j)$), el primero de ellos indica el puerto de salida (donde se mide) y el segundo el puerto de entrada (donde se aplica el estímulo). Por ejemplo, si se aplica el estímulo en el puerto 1 y se mide en el puerto 2, se obtiene parámetro *$S_(21)$*
+
+Las relaciones entre los polos de cada uno de los puertos nos darán como resultado estos
+parámetros.
+
+#grid(
+  columns: (1fr, 1fr, 1fr, 1fr),
+  column-gutter: 0pt,
+  align: horizon,
+  [$ S_(1 1) = lr(B_1 / A_1 |)_(A_2 = 0) $ ],
+  [$ S_(1 2) = lr(B_1 / A_2 |)_(A_1 = 0) $],
+  [$ S_(2 1) = lr(B_2 / A_1 |)_(A_2 = 0) $],
+  [$ S_(2 2) = lr(B_2 / A_2 |)_(A_1 = 0) $],
+)
+
+
+
+
+
+
+Los parámetros S pueden representarse en forma matricial, con $n^2$ elementos para $n$ puertos. Para un dispositivo de cuatro puertos, como el acoplador direccional analizado de trabajo, la red se podría ser descripta mediante una matriz de dispersión de 4×4 , donde cada elemento corresponde a una relación de transmisión o reflexión entre dos puertos
+
+// $
+//   mat(
+//     S_(1 1), S_(1 2), S_(1 3), S_(1 4);
+//     S_(2 1), S_(2 2), S_(2 3), S_(2 4);
+//     S_(3 1), S_(3 2), S_(3 3), S_(3 4);
+//     S_(4 1), S_(4 2), S_(4 3), S_(4 4);
+//   )
+// $<ec:matriz_s>
+
+Cada uno de estos parámetros tiene un sentido propio y nos permiten conocer parámetros tales
+como la ganancia, impedancia, VSWR, pérdidas de inserción, entre otros. Veamos que representa cada uno de ellos en nuestro caso bipuerto y que podemos obtener a partir
+de estas características base.
+
+*Coeficientes de reflexión*
+
+- $S_("11")$:  *Coeficiente de reflexión  en la entrada* ($Gamma_("in")$) → Pérdidas por retorno (expresadas en dB)
+- $S_("22")$:  *Coeficiente de reflexión en la salida* ($Gamma_("out")$) → Pérdidas por retorno (expresadas en dB)
+
+*Coeficientes de transmisión*
+
+- $S_("12")$:  *Coeficiente de transmisión inversa*  → Pérdidas por inserción (expresadas en dB)
+- $S_("21")$:  *Coeficiente de transmisión directa* → Pérdidas por inserción (expresadas en dB)
+
+
+// El uso de parámetros S resulta especialmente conveniente en frecuencias de microondas, ya que permite caracterizar experimentalmente el dispositivo mediante instrumentos como el analizador de redes vectorial (VNA), el cual mide directamente estos parámetros en función de la frecuencia. En la siguiente sección se describirá el principio de funcionamiento de este instrumento y su utilización para la medición de los dispositivos desarrollados en este trabajo.
+
+=== Analizador de redes vectoriales (VNA)
+
+Un *VNA* es un instrumento que permite medir los parámetros S mencionados previamente; sin embargo, veamos con mayor detalle
+la obtención de los parámetros en una red de dos puertos.
+
+El VNA caracteriza los parámetros S del dispositivo inyectando una señal de estímulo en uno de los puertos del DUT#footnote("Al momento de realizar una medición habitualmente al dispositivo a ensayar o caracterizar se lo denomina
+DUT.") (Device Under Test) mientras que el otro  se adapta con una carga (típicamente de $50 Omega$) si se mide reflexión. Acto seguido, mide la relación entre la onda reﬂejada e incidente en el *puerto 1*, dando como resultado el parámetro $S_("11")$.por otro lado si se
+evalúa la relación entre la onda transmitida del puerto 1 al 2 se obtiene el parámetro $S_("21")$ (transmisión directa). De manera similar, si se invierte el DUT (estímulo en el puerto 2 y carga en el puerto 1), se adquiere el $S_(22)$ (reflexión en el puerto 2) y $S_(12)$ (transmisión inversa). Es importante recordar que los parámetros S se expresan en módulo (dB) y fase (grados).
+
+=== Calibración del VNA
+
+Antes de cualquier medición es importante  siempre realizar una calibración con el
+objetivo de mitigar los errores sistemáticos de origen instrumental, cables y conectores. La calibración básica de un VNA es la calibración tipo SOLT, la cual es la sigla para “*short*” ( cortocircuito), “*open*” (circuito Abierto), “*load*” (carga) y “*through*” (inter-puerto). Habitualmente esta se realiza mediante el software de calibración provisto por el fabricante del instrumento. Las tres primeras instancias (*cortocircuito*, *circuito abierto* y *carga* de 50 Ω) permiten corregir los errores en la medición de coeficientes de reflexión, mientras que la instancia *through* es fundamental para corregir los errores en la medición de coeficientes de transmisión.
+
+#subpar.grid(
+  show-sub-caption: 10pt
+)
+
+#v(-.62cm)
+#subpar.grid(
+  figure(image("imgs/calibracion_vna.jpg", width: 100%, height: 3.5cm, fit: "stretch"), caption: [
+    Banco de calibración
+  ]),
+  figure(
+    image("imgs/ilustrations/torquimetrica.png", width: 100%, height: 3.5cm, fit: "stretch"),
+    caption: [Ejemplo de llave torquimétrica],
+  ),
+  figure(
+    image("imgs/ilustrations/solt_kit.png", width: 100%, height: 3.5cm, fit: "stretch"),
+    caption: [Kit de calibración SOLT (SMA)
+    ],
+  ),
+
+  columns: (1fr, 1fr, 1fr),
+  gutter: 1cm,
+  gap: 0.5cm,
+  caption: [Calibración del VNA],
+  label: <fig:calibración>,
+)
+
+La calibración desplaza el plano de referencia hasta los conectores del DUT, eliminando así los errores sistemáticos del instrumento y de los cables. Para garantizar la repetibilidad y evitar daños en los conectores, se recomienda utilizar llaves torquimétricas para ajustar las conexiones y limpiar las superficies con alcohol isopropílico antes de cada medición.
+
+
+== Modelos de análisis
+
+En este trabajo se consideraron tres modelos que nos permitiran caracterizar el sustrato: el modelo cuasi-estático de Hammerstad y Jensen, el modelo de dispersión de Kirschning y Jansen, y el modelo de Debye de Djordjevic-Sarkar para la permitividad compleja del dieléctrico.
+
+=== Modelo de Hammerstad y Jensen (cuasi-estático)
+El modelo de Hammerstad y Jensen @Hammerstad para _microstrips_ nos proporciona una expresión cerrada para el cálculo de la permitividad efectiva y la impedancia característica en función de su geometría y de las propiedades del sustrato. El modelo introduce correcciones por geometría considerando el espesor del conductor, lo que mejora la precisión en el cálculo de los parámetros de la línea.
+En la @fig:error_hj se presenta una comparativa del error relativo de este modelo frente a otros modelos para un valor fijo de $epsilon_r$ dado poniendo de manifiesto su precisión y menor error respecto de otras fórmulas @ahn2012microstrip_error_hj @qucs_single_microstrip.
+
+#figure(
+  image("imgs/error_modelo_hj.png", width: 60%),
+  caption: [Error relativo de diferentes modelos para la impedancia caracteristica ($epsilon_r = 9.8$)],
+)<fig:error_hj>
+
+
+El modelo se basa en el la definición del parámetro $u = W/h$, que representa una normalización del ancho de la pista respecto de la altura del sustrato. A partir de este parámetro, se definen dos funciones auxiliares $a(u)$ y $b(epsilon_r)$, que modelan la dependencia de la permitividad efectiva con la geometría y el material.
+
+$ a(u) = 1+ 1/49 dot ln((u^4 + (u/52)^2)/(u^4 + 0.432)) + 1/18.7 dot ln(1 + (u/18.1)^3) $
+
+$ b(epsilon_r) = 0.564 dot ((epsilon_r - 0.9)/(epsilon_r + 3))^0.053 $
+
+Haciendo uso de ellas se calcula la permitividad efectiva para el caso ideal donde el espesor del conductor es nulo ($t = 0$) mediante la @ec:epsilon_eff_hammerstad_sin_t
+
+$
+  epsilon_("eff")(u,epsilon_r) = (epsilon_r+1)/2 + (epsilon_r-1)/2 dot (1 + 10 /u)^(-a(u) b(epsilon_r))
+$<ec:epsilon_eff_hammerstad_sin_t>
+
+
+Como fue mencionado anteriormente, el modelo permite calcular la impedancia característica en un medio homogéneo, esto se realiza mediante la @ec:impedancia_hammerstad_sin_t. La expresión incluye la función $f(u)$, que modifica el término logarítmico en función de la relación $W/h$, siendo $eta_0$ la impedancia del vacío $eta_0 approx 377 Omega$.
+
+$ f(u) = 6 + ( 2 pi - 6) dot exp(-(30.666 / u)^0.7528) $
+
+
+$ Z_(01) (u) = eta_0/ (2 pi ) dot ln(f(u) /u + sqrt(1 + (2/u)^2)) $<ec:impedancia_hammerstad_sin_t>
+
+
+
+Para considerar el espesor del conductor ($t$),     Hammerstad y Jensen introducen correcciones en el ancho efectivo de la línea ($u$) mediante dos factores:
+$Delta u_1$ para el cálculo de un medio homogéneo  y $Delta u_r$ para un medio mixto. Dichos factores se definen como:
+
+
+
+#grid(
+  columns: (1.05fr, 1fr),
+  column-gutter: 0pt,
+  align: horizon,
+  [$ Delta u_1 = t/pi ln(1 + (4 exp(1))/(t dot (coth sqrt(6.517 dot u))^2)) $],
+  [$ Delta u_r = 1/2 (1 +1 /(cosh(sqrt(epsilon_r - 1))) dot Delta u_1) $],
+)
+
+A partir de estas correcciones, se definen los anchos efectivos con corrección como: $u_r = u + Delta u_r$ y $u_1 = u + Delta u_1$.
+
+
+Combinando las correcciones por espesor con la impedancia $Z_(01)$, se obtienen las expresiones finales para la permitividad efectiva mediante la @ec:epsilon_eff_hammerstad y la impedancia característica con la @ec:impedancia_hammerstad de la línea _microstrip_. Estas expresiones son válidas en el régimen cuasi-estático y son la base de la que partiremos para el diseño de las líneas _microstrip_ antes de considerar efectos dispersivos.
+
+
+
+#grid(
+  columns: (1.05fr, 1fr),
+  column-gutter: 0pt,
+  align: horizon,
+  [$
+    epsilon_("eff")(u,t,epsilon_r) = epsilon_("eff")(u_r,epsilon_r) dot ((Z_(01) (u_1))/ (Z_(01)(u_r)))^2
+  $<ec:epsilon_eff_hammerstad>],
+  [$ Z_0 (u,t,epsilon_r)= (Z_(01) (u_r) )/( sqrt(epsilon_("eff")(u_r, epsilon_r))) $<ec:impedancia_hammerstad>],
+)
+
+=== Modelo de Kirschning y Jansen (dispersión)
+
+El modelo cuasi-estático de Hammerstad y Jensen, descrito en el apartado anterior, no incluye la dependencia de los parámetros de la línea con la frecuencia. Para incorporar los efectos de la dispersión, se utiliza el modelo de Kirschning y Jansen @Kirschning, el cual proporciona una expresión para la permitividad efectiva en función de la frecuencia.
+
+$ epsilon_("eff")(f) = epsilon_r - ((epsilon_r - epsilon_("eff")(f=0))/(1 + P(f))) $<ec:epsilon_eff_Kirschning>
+
+Este modelo parte del valor de la permitividad efectiva en régimen  cuasi-estático $epsilon_("eff")(f=0)$ calculada mediante el modelo de Hammerstad y Jensen, y la corrige mediante un factor empírico de dispersión $P(f)$ que depende de la frecuencia y de la geometría de la línea mediante la @ec:epsilon_eff_Kirschning donde el factor $P(f)$ se define como:
+
+$ P(f)= P_1 dot P_2 dot [(0.1844 + P_3 dot P_4) dot 10 dot f dot h]^1.5763 $
+
+donde las funciones P1, P2, P3 y P4 vienen dadas por:
+
+$P_1 = 0.27488 + [0.6315 + 0.525/(1+ 0.157 dot f dot h)^20] u - 0.065683 exp(-8.7513 dot u)$
+
+$P_2 = 0.33622 [1-exp(- 0.03442 epsilon_r)]$
+
+$P_3 = 0.0363 exp(-4.6 dot u) dot {1- exp[-((f dot h)/3.87)^4.97]}$
+
+$P_4 = 1 + 2.751 {1- exp[-(epsilon_r/15.916)^8] }$
+
+
+Es importante mencionar que en estas expresiones, f se expresa en gigahertz (GHz), h en centrimetros (cm) y el parámetro $u=W/h$ es la relación entre el ancho de la pista y la altura del sustrato, definida previamente en el modelo de Hammerstad y Jensen.
+
+
+
+
+=== Modelo de Djordjevic - Sarkar (modelo Debye del diélectrico)
+#todo("TODO lo de este modelo hay que revisar lo que se escribio")
+
+Los modelos presentados anteriormente (Hammerstad y Jensen, Kirschning y Jansen) describen la permitividad efectiva de la línea microstrip en función de la geometría y la frecuencia, pero no modelan la permitividad dieléctrica del material en función de la frecuencia. Como se mencionó previamente mediante la ecuación @ec:epsilon_complejo, la permitividad es una magnitud compleja y se puede expresar como la @ec:epsilon_con_delta.
+$
+  epsilon = epsilon' dot (1 - j dot tan(delta))
+$<ec:epsilon_con_delta>
+
+El modelo Debye establece que la respuesta en frecuencia del material debe ser causal. Cuando hablamos de causalidad de un material nos referimos a que este cumple las condiciones de Kramers-Kronig #todo("citar kramer-kronig") las cuales indican que la respuesta del material a una excitación no puede ocurrir antes de la excitación misma.
+
+El modelo Debye clásico sobre el que se desarrolla, si bien cumple la causalidad es valido en un rango acotado frente a la extensión que propone el modelo Sarkar pues en el modelo clasico presentado en la @ec:debye_clasico se tiene un solo tiempo de relajación que responde a un rango acotado de frecuencias y si se quisiera extender se deberia sumar N términos de tiempos de relajación como en la @ec:debye_clasico_n_terms lo que complejizaría la operación con el modelo.
+
+#grid(
+  columns: (1.05fr, 1fr),
+  column-gutter: 0pt,
+  align: horizon,
+  [$
+    epsilon_r^* (omega) = epsilon_infinity + Delta_epsilon/(1+j dot omega dot tau)
+  $ <ec:debye_clasico>],
+  [$
+    epsilon_r^* (omega) = epsilon_infinity + sum_(i=1)^N (Delta_epsilon/(1+j dot omega dot tau_i))
+  $ <ec:debye_clasico_n_terms>],
+)
+
+Djordjevic y Sarkar observaron que para muchos sustratos, como el FR-4, la distribución de tiempos de relajación no es discreta, sino continua, uniforme y en forma logarítmica. Para modelar este comportamiento #todo("aca continuar con la explicacion")
+// $epsilon_r (omega) = epsilon'_(infinity) + sum_(i=1)^(N) (Delta epsilon_i)/(1 + j omega/ omega_i) - j sigma / (omega  epsilon_0)$
+
+$ k = log((f_("high")+ j dot "freq" ) / (f_("low") + j dot "freq")) $
+
+$ f_d = log((f_("high") + j dot f)/(f_("low") + j dot f)) $
+
+$ "ep"_"d" = -tg(delta) dot epsilon_r / Im(k) $
+
+$ epsilon_(infinity) = epsilon_r dot (1+ tg(delta) dot Re(k)) / Im(k) $
+
+$ epsilon_r = epsilon_(infinity) + "ep"_"d" dot f_d $
+#todo("revisar el modelo para ver si es correcta la implementacion e introducir el despeje que hizo Kar y el motivo de porque es conveniente hacerlo de esa forma pues tenemos los datos de lo que sacamos antes de la tg_delta y epr_eff")
+
+
 
 
 == Aplicaciones
@@ -647,11 +890,9 @@ $ Z(l) = j dot Z_0 dot tan(beta dot l) $<ec:stub_corto>
   caption: [Impedancia del stub en función de $beta l$],
 )
 
-Las curvas de la @fig:open_stub y la @fig:short_stub permiten observar cómo varía la impedancia del stub en función de su longitud eléctrica para ambos tipos de terminación. A partir de este comportamiento surgen diversas aplicaciones en circuitos de radiofrecuencia y microondas.
+Las curvas de la @fig:open_stub y la @fig:short_stub permiten observar cómo varía la impedancia del stub en función de su longitud eléctrica para ambos tipos de terminación. A partir de este comportamiento surgen diversas aplicaciones, siendo las más comunes la adaptación de impedancias donde se emplea para compensar la parte reactiva de una carga y lograr la máxima transferencia de potencia como así también el diseño de filtros de microondas, en los que actúa como un elemento reactivo implementado directamente sobre el PCB, entre otras.
 
-Entre sus aplicaciones más comunes se encuentra la adaptación de impedancias, donde se emplea para compensar la parte reactiva de una carga y lograr una mejor transferencia de potencia entre la línea y el dispositivo conectado, y el diseño de filtros de microondas, en los que actúa como un elemento reactivo implementado directamente sobre el PCB.
-
-Otra aplicación relevante es la caracterización de dieléctricos, ya que es posible estimar la permitividad efectiva del sustrato sobre el cual se implementa la línea de transmisión. Esto resulta particularmente útil para el análisis y validación de materiales utilizados en circuitos de alta frecuencia.
+Otra aplicación relevante es la caracterización de dieléctricos, ya que es posible estimar la permitividad efectiva del sustrato sobre el cual se implementa la línea de transmisión. Esto resulta particularmente útil para el análisis y validación de materiales utilizados.
 
 Para esta aplicación, la longitud física del stub se diseña a un cuarto de longitud de onda ($lambda/4$) asociada a la frecuencia de resonancia $f$, como se expresa en la @ec:longitud_stub, donde $L$ es la longitud física, $c_0$ es la velocidad de la luz en el vacío y $epsilon_("eff")$ es la permitividad efectiva del sustrato.
 
@@ -659,18 +900,17 @@ Para esta aplicación, la longitud física del stub se diseña a un cuarto de lo
 
 $ L = lambda/4 = c_0/(4 dot f dot sqrt(epsilon_("eff")) ) $<ec:longitud_stub>
 
-Las condiciones de resonancia ocurren en los puntos donde la impedancia de entrada del stub se anula ($Z_("in") =0$), haciendo que la línea se comporte como un cortocircuito a la frecuencia de interés.
+Las condiciones de resonancia ocurren en los puntos donde la impedancia de entrada del stub se anula ($Z_("in")=0$), haciendo que la línea se comporte como un cortocircuito a la frecuencia de interés. Por otro lado, la antiresonancia ocurre cuando la impedancia de entrada del stub se hace infinita ($Z_("in")=infinity$).
 
-En un stub con terminación en circuito abierto, como se observa en la @fig:open_stub,  las resonancias ocurren para los armónicos impares (n =1,3,5,...), obteniendo la @ec:resonancia_open_stub.
-
+En un stub con terminación en circuito abierto, como se observa en la @fig:open_stub,  las resonancias ocurren para los armónicos impares $(n=1,3,5,...)$, cumpliendose la @ec:resonancia_open_stub. Por su parte, las antiresonancia ocurren en armónicos pares $(n=2,4,6,...)$
 
 $ beta dot l = (2k + 1) dot pi / 2 --> n = 2k + 1 $<ec:resonancia_open_stub>
 
-Para un stub con terminación en cortocircuito, observando la @fig:short_stub, las resonancias ocurren para los armónicos pares (n = 2,4,6,...)
+Para un stub con terminación en cortocircuito, observando la @fig:short_stub, las resonancias ocurren para los armónicos pares ($n = 2, 4, 6,dots$), tal como se indica en la @ec:resonancia_short_stub.
 
 $ beta dot l = 2k dot pi / 2 --> n = 2k $<ec:resonancia_short_stub>
 
-
+De manera complementaria, las antiresonancias ($Z_("in") -> infinity$) para este stub en cortocircuito ocurren en los armónicos impares ($n = 1, 3, 5, dots$), lo que corresponde a los puntos donde la tangente tiende a infinito por lo tanto la impedancia también.
 
 
 // Para dos stubs de diferentes longitudes se obtinen:
@@ -748,13 +988,13 @@ Para complementar el analisis de los modos de resonancia del anillo, Wu y Rosenb
 
 Los modos de resonancia se denominan $T M_("nml")$ donde $T M$ corresponde a transversal magnético (definido anteriormente), n la variación azimutal (alrededor del anillo) la cual indica cuántas longitudes de onda completas se distribuyen a lo largo de la circunferencia del anillo, m es la variación radial y l indica la variación en altura de la onda. Dado que el sustrato es delgado, el campo no varía en altura por lo que habitualmente será $l = 0$.
 
- 
+
 Luego, partiendo de la condición de resonancia de Troughton (@ec:resonancia_anillo) y expresándola en función del número de onda $(k=2pi/lambda)$ se obtiene la @ec:aproximacion_con_k.
 
 $ k dot R_("med") = n $<ec:aproximacion_con_k>
 
 
-Esta ecuación indica que la fase acumulada de la onda al dar una vuelta completa al anillo debe ser $2 pi n$. Sin embargo, como advierten Wu y Rosenbaum, esta igualdad es válida para anillos de ancho angosto $("W"/R_("med") -->0)$. En ese caso, el campo viaja en una dirección (la circunferencia) y no hay variación radial, por lo que el modo es puramente $T M_("n10")$. Cuando el ancho del anillo es grande o alcanza aproximadamente la mitad de la longitud de onda a la que fue diseñado, aparecen variaciones del campo en la dirección radial lo que da lugar a modos de alto orden ($m>1$) y efectos de borde que modifican la frecuencia de resonancia; como consecuencia, el valor de $k dot R_("med")$ es menor que n para el modo dado. 
+Esta ecuación indica que la fase acumulada de la onda al dar una vuelta completa al anillo debe ser $2 pi n$. Sin embargo, como advierten Wu y Rosenbaum, esta igualdad es válida para anillos de ancho angosto $("W"/R_("med") -->0)$. En ese caso, el campo viaja en una dirección (la circunferencia) y no hay variación radial, por lo que el modo es puramente $T M_("n10")$. Cuando el ancho del anillo es grande o alcanza aproximadamente la mitad de la longitud de onda a la que fue diseñado, aparecen variaciones del campo en la dirección radial lo que da lugar a modos de alto orden ($m>1$) y efectos de borde que modifican la frecuencia de resonancia; como consecuencia, el valor de $k dot R_("med")$ es menor que n para el modo dado.
 
 Wu y Rosenbaum muestran que el modo $T M_("110")$ es el dominante para cualquier ancho de anillo y establecen que para evitar modos de alto orden se debe cumplir con la @ec:condicion_wu.
 
@@ -777,7 +1017,7 @@ $ Q_0 = Q_L / (1 - 10^(-L/20)) $<ec:Q_sin_carga>
 donde $L$ es la pérdida de inserción en [dB] del anillo en la frecuencia de resonancia.
 
 Las pérdidas totales en el resonador, representadas por la inversa del factor de calidad ($1/Q_0$), son la suma de las contribuciones individuales de las pérdidas en el dieléctrico ($1/Q_d$), las pérdidas en el conductor ($1/Q_c$) y las pérdidas por radiación ($1/Q_r$). De acuerdo con Heinola @Heinola_anillos las pérdidas por radiación en un resonador de anillo son despreciables debido a que son estructuras cerradas
-($1/Q_r approx 0$), por lo que el factor de calidad dieléctrico puede calcularse con la @ec:q_dielectrico. 
+($1/Q_r approx 0$), por lo que el factor de calidad dieléctrico puede calcularse con la @ec:q_dielectrico.
 
 $ 1/Q_d = 1/Q_0 - 1/Q_c $<ec:q_dielectrico>
 
@@ -828,6 +1068,8 @@ Los acopladores direccionales son dispositivos pasivos de microondas utilizados 
 
 Un acoplador direccional se modela como una red de cuatro puertos. Cuando una señal se aplica en uno de los puertos, la mayor parte de la potencia se transmite hacia el puerto de salida principal, mientras que una fracción de la señal es acoplada hacia el puerto acoplado. El último puerto se denomina puerto aislado, ya que idealmente no recibe potencia cuando la señal se propaga en la dirección prevista.
 
+
+#todo("en este parrafo hay chamuyo con la parte de sistemas de RF, no versear")
 En @acoplador_minicircuit se describe que la característica de un acoplador direccional es su capacidad para acoplar potencia de forma dependiente de la dirección de propagación de la onda en la línea de transmisión. De esta manera, el dispositivo puede distinguir entre ondas que se desplazan en direcciones opuestas, lo que resulta particularmente útil para medir potencia directa y reflejada en sistemas de RF.
 
 
@@ -913,7 +1155,7 @@ $ Z_(0 e) dot Z_(0 o) = Z_0^2 $
 
 Donde $Z_0$ es la impedancia característica de la linea de transmisión, tipicamente $50 Omega$. Además, el factor de acoplamiento puede expresarse en términos de estas impedancias como:
 
-$ C = 20 dot log(k)  --> C =20 dot log ((Z_(0 e) + Z_(0 o))/ (Z_(0 e) - Z_(0 o))) $<ec:fact_c>
+$ C = 20 dot log(k) --> C =20 dot log ((Z_(0 e) + Z_(0 o))/ (Z_(0 e) - Z_(0 o))) $<ec:fact_c>
 
 lo cual permite determinar el diseño geométrico necesario para lograr un determinado valor de acoplamiento.
 
@@ -933,7 +1175,6 @@ Las impedancias de los modos par e impar se calculan con  la @ec:impedancia_par 
   align: horizon,
   [$ Z_(0 e) = Z_0 dot sqrt((1+k)/(1-k)) $<ec:impedancia_par>],
   [$ Z_(0 o) =Z_0 dot sqrt((1-k)/(1+k)) $<ec:impedancia_impar>],
-
 )
 
 
@@ -956,110 +1197,6 @@ Su funcionamiento según Pozar #cite(<Pozar>, supplement: [p.]) se basa en aplic
 Las impedancias características de las líneas que conforman el acoplador se eligen para lograr el acoplamiento deseado. Para un acoplador de impedancia $Z_0$ (típicamente $50 Omega$), las ramas horizontales (en serie) deben tener una impedancia de $Z_0 / sqrt(2)$, mientras que las ramas verticales (en derivación) deben tener una impedancia de $Z_0$. Esta elección de impedancias es la que garantiza el comportamiento en cuadratura y el aislamiento del puerto 4.
 
 Cabe destacar que este tipo de acoplador no se utilizará en el diseño práctico de este trabajo, pero su mención permite contextualizar otras alternativas dentro de la familia de acopladores direccionales.
-
-== Mediciones
-
-Para caracterizar experimentalmente los dispositivos de microcinta presentados en este trabajo, los cuales son _stubs_, resonadores de anillo y acopladores direccionales, se emplea el análisis mediante parámetros de dispersión. Estos permiten describir el comportamiento de un dispositivo de múltiples puertos en términos de ondas incidentes y reflejadas en cada uno de sus puertos.
-
-=== Parámetros S
-
-En circuitos de microondas, el análisis de redes se realiza comúnmente mediante parámetros de dispersión, también conocidos como parámetros S.
-
-// #v(-0.5cm)
-#figure(
-  image("imgs/ilustrations/cuadripolo.png", width: 50%),
-  caption: [Modelo de cuadripolo (parámetros S)],
-)<fig:cuadripolo_parametros_s>
-
-El cuadripolo de la @fig:cuadripolo_parametros_s se conforma por dos puertos. El primero de ellos está integrado por los polos $A_1$ y $B_1$,
-que representan la onda incidente y reﬂejada respectivamente; de manera similar en el segundo puerto el polo A2 representa a la onda incidente
-y el polo B2 la onda  reﬂejada. Es importante mencionar que cada uno de los
-puertos puede absorber, reﬂejar o transmitir la señal.
-
-Los parámetros de dispersión se definen como la relación entre la onda que sale de un puerto y la onda que incide en otro, manteniendo todos los demás puertos adaptados a la impedancia característica del sistema. Estos se representan con la letra S seguido de un subíndice de dos dígitos ($S_(i j)$), el primero de ellos indica el puerto de salida (donde se mide) y el segundo el puerto de entrada (donde se aplica el estímulo). Por ejemplo, si se aplica el estímulo en el puerto 1 y se mide en el puerto 2, se obtiene parámetro *$S_(21)$*
-
-Las relaciones entre los polos de cada uno de los puertos nos darán como resultado estos
-parámetros.
-
-#grid(
-  columns: (1fr, 1fr,1fr,1fr),
-  column-gutter: 0pt,
-  align: horizon,
-  [$ S_(1 1) = lr(B_1 / A_1 |)_(A_2 = 0) $ ],
-  [$ S_(1 2) = lr(B_1 / A_2 |)_(A_1 = 0) $],
-  [$ S_(2 1) = lr(B_2 / A_1 |)_(A_2 = 0) $],
-  [$ S_(2 2) = lr(B_2 / A_2 |)_(A_1 = 0) $],
-)
-
-
-
-
-
-
-Los parámetros S pueden representarse en forma matricial, con $n^2$ elementos para $n$ puertos. Para un dispositivo de cuatro puertos, como el acoplador direccional analizado en este trabajo, la red se describe mediante una matriz de dispersión de 4×4 , donde cada elemento corresponde a una relación de transmisión o reflexión entre dos puertos.
-
-$
-  mat(
-    S_(1 1), S_(1 2), S_(1 3), S_(1 4);
-    S_(2 1), S_(2 2), S_(2 3), S_(2 4);
-    S_(3 1), S_(3 2), S_(3 3), S_(3 4);
-    S_(4 1), S_(4 2), S_(4 3), S_(4 4);
-  )
-$<ec:matriz_s>
-
-Cada uno de estos parámetros tiene un sentido propio y nos permiten conocer parámetros tales
-como la ganancia, impedancia, VSWR, pérdidas de inserción, entre otros. Veamos que representa cada uno de ellos en nuestro caso bipuerto y que podemos obtener a partir
-de estas características base.
-
-*Coeficientes de reflexión*
-
-- $S_("11")$:  *Coeficiente de reflexión  en la entrada* ($Gamma_("in") $) → Pérdidas por retorno (expresadas en dB)
-- $S_("22")$:  *Coeficiente de reflexión en la salida* ($Gamma_("out") $) → Pérdidas por retorno (expresadas en dB)
-
-*Coeficientes de transmisión*
-
-- $S_("12")$:  *Coeficiente de transmisión inversa*  → Pérdidas por inserción (expresadas en dB)
-- $S_("21")$:  *Coeficiente de transmisión directa* → Pérdidas por inserción (expresadas en dB)
-
-
-// El uso de parámetros S resulta especialmente conveniente en frecuencias de microondas, ya que permite caracterizar experimentalmente el dispositivo mediante instrumentos como el analizador de redes vectorial (VNA), el cual mide directamente estos parámetros en función de la frecuencia. En la siguiente sección se describirá el principio de funcionamiento de este instrumento y su utilización para la medición de los dispositivos desarrollados en este trabajo.
-
-=== Analizador de redes vectoriales (VNA)
-
-Un *VNA* es un instrumento que permite medir los parámetros S mencionados previamente; sin embargo, veamos con mayor detalle
-la obtención de los parámetros en una red de dos puertos.
-
-El VNA caracteriza los parámetros S del dispositivo inyectando una señal de estímulo en uno de los puertos del DUT#footnote("Al momento de realizar una medición habitualmente al dispositivo a ensayar o caracterizar se lo denomina
-DUT.") (Device Under Test) mientras que el otro  se adapta con una carga (típicamente de $ 50 Omega$) si se mide reflexión. Acto seguido, mide la relación entre la onda reﬂejada e incidente en el *puerto 1*, dando como resultado el parámetro $S_("11")$.por otro lado si se
-evalúa la relación entre la onda transmitida del puerto 1 al 2 se obtiene el parámetro $S_("21")$ (transmisión directa). De manera similar, si se invierte el DUT (estímulo en el puerto 2 y carga en el puerto 1), se adquiere el $S_(22)$ (reflexión en el puerto 2) y $S_(12)$ (transmisión inversa). Es importante recordar que los parámetros S se expresan en módulo (dB) y fase (grados).
-
-=== Calibración del VNA
-
-Antes de cualquier medición es importante  siempre realizar una calibración con el
-objetivo de mitigar los errores sistemáticos de origen instrumental, cables y conectores. La calibración básica de un VNA es la calibración tipo SOLT, la cual es la sigla para “*short*” ( cortocircuito), “*open*” (circuito Abierto), “*load*” (carga) y “*through*” (inter-puerto). Habitualmente esta se realiza mediante el software de calibración provisto por el fabricante del instrumento. Las tres primeras instancias (*cortocircuito*, *circuito abierto* y *carga* de 50 Ω) permiten corregir los errores en la medición de coeficientes de reflexión, mientras que la instancia *through* es fundamental para corregir los errores en la medición de coeficientes de transmisión.
-
-La calibración desplaza el plano de referencia hasta los conectores del DUT, eliminando así los errores sistemáticos del instrumento y de los cables. Para garantizar la repetibilidad y evitar daños en los conectores, se recomienda utilizar llaves torquimétricas para ajustar las conexiones y limpiar las superficies con alcohol isopropílico antes de cada medición.
-
-#subpar.grid(
-  show-sub-caption: 10pt
-)
-
-#v(-0.5cm)
-#subpar.grid(
-  figure(image("imgs/calibracion_vna.jpg", width: 90%, height: 4.5cm, fit: "stretch"), caption: [
-    Instancia circuito abierto
-  ]),
-  figure(image("imgs/ilustrations/calibracion_con_llaves_torq.png", width: 90%, height: 4.5cm), caption: [Instancia through observando las llaves 
-    torquimétricas
-  ]),
-
-  columns: (1fr, 1fr),
-  gutter: 1cm,
-  gap: 0.5cm,
-  caption: [Calibración del VNA],
-  label: <fig:calibración>,
-)
-
 
 
 
@@ -1098,165 +1235,215 @@ La calibración desplaza el plano de referencia hasta los conectores del DUT, el
 
 = Caracterización del sustrato
 
-La caracterización del sustrato FR4 se realiza mediante la aplicación de modelos analíticos para la permitividad efectiva, la impedancia característica y las pérdidas en líneas microstrip. Estos modelos permiten obtener parámetros fundamentales para el diseño y la validación experimental de las estructuras presentadas en este trabajo.
+La caracterización del sustrato FR4 se realizará a través de tres métodos de medición independientes: diferencia de fase en stubs _microstrip_, resonadores de anillo y capacitor de placas planas paralelas.
 
 
-El comportamiento cuasi-estático de la permitividad efectiva se describe mediante el modelo de Hammerstad y Jensen, el cual expresa dicha propiedad en función de la geometría de la línea y de la permitividad relativa del sustrato. Para considerar el efecto de la dispersión con la frecuencia, se emplea el modelo de Kirschning y Jansen, que introduce una corrección empírica dependiente de la frecuencia y de la geometría.
 
 // En cuanto al análisis de pérdidas, se adopta el modelo de Schneider para la atenuación dieléctrica, mientras que las pérdidas por conducción se estiman a partir del modelo de Pucel et al.. Las pérdidas por radiación se consideran despreciables en el rango de frecuencias y configuraciones geométricas consideradas, de acuerdo con el criterio establecido por Belohoubek y Denlinger para estructuras de microcinta cerradas.
 
-A continuación se presentan los modelos utilizados para la caracterización teórica del sustrato FR4.
+== Método 1: diferencia de fase en stubs microstrip
+El primer método consiste en la utilización de stubs de microstrip con terminación a circuito abierto de diferentes longitudes, fabricados sobre el sustrato FR4, con el objetivo de estimar la permitividad efectiva ($epsilon_("eff")$) del sustrato. Este método se basa en la relación entre la frecuencia de resonancia y antiresonancia de un stub y su longitud eléctrica, la cual depende de forma directa del parámetro $epsilon_("eff")$.
 
+Si se intentara medir las resonancias y antiresonancias haciendo uso de un solo stub abierto incurririamos en errores de medición como la capacitancia de borde en el extremo abierto y la longitud eléctrica añadida por la transición entre el conector SMA con la línea _microstrip_ y el cable del VNA lo que provocaría, aunque en este caso intuimos despreciable, sería un desplazamiento al fin de las frecuencias de resonancias medidas.
 
-=== Modelo de Hammerstad y Jensen (cuasi-estático)
-
-El modelo de Hammerstad y Jensen @Hammerstad proporciona una expresión para la permitividad efectiva y la impedancia característica de una línea microstrip en función de su geometría y de las propiedades del sustrato. El modelo incluye correcciones para tener en cuenta el espesor finito del conductor, lo que mejora la precisión en el cálculo de los parámetros eléctricos.
-
-El modelo se basa en el parámetro $u = W/h$, que representa la relación entre el ancho de la pista y la altura del sustrato. A partir de este parámetro, se definen dos funciones auxiliares, $a(u)$ y $b(epsilon_r)$, que modelan la dependencia de la permitividad efectiva con la geometría y el material.
-
-$ a(u) = 1+ 1/49 dot ln((u^4 + (u/52)^2)/(u^4 + 0.432)) + 1/18.7 dot ln(1 + (u/18.1)^3) $
-
-$ b(epsilon_r) = 0.564 dot ((epsilon_r - 0.9)/(epsilon_r + 3))^0.053 $
-
-Estas funciones se utilizan para calcular la permitividad efectiva en el caso ideal de espesor de conductor despreciable ($t = 0$) mediante la @ec:epsilon_eff_hammerstad_sin_t.
-
-$ epsilon_("eff")(u,epsilon_r) = (epsilon_r+1)/2 + (epsilon_r-1)/2 dot (1 + 10 /u)^(-a(u) b(epsilon_r)) $<ec:epsilon_eff_hammerstad_sin_t>
-
-
-Además de la permitividad efectiva, el modelo permite calcular la impedancia característica en un medio homogéneo mediante la @ec:impedancia_hammerstad_sin_t. La expresión incluye la función $f(u)$, que modifica el término logarítmico en función de la relación $W/h$, siendo $eta_0$ la impedancia del vacío $eta_0 approx 377 Omega$.
-
-$ f(u) = 6 + ( 2 pi - 6) dot exp(-(30.666 / u)^0.7528) $
-
-
-$ Z_(01) (u) = eta_0/ (2 pi ) dot ln(f(u) /u + sqrt(1 + (2/u)^2)) $<ec:impedancia_hammerstad_sin_t>
-
-
-
-Para considerar el espesor del conductor ($t$),     Hammerstad y Jensen introducen correcciones en el ancho efectivo de la línea ($u$) mediante dos factores:
-$Delta u_1$ para el cálculo de un medio homogéneo  y $Delta u_r$ para un medio mixto.
-
-
+Para mitigar estos errores, se utiliza un par de stubs geométricamente idénticos excepto en su longitud, con una diferencia $Delta_L$ que al reordenar la @ec:longitud_stub se consiguen la @ec:stub_1_L y @ec:stub_2_DL.
 
 #grid(
-  columns: (1.05fr, 1fr),
+  columns: (1fr, 1fr),
   column-gutter: 0pt,
   align: horizon,
-  [$ Delta  u_1 = t/pi ln(1 + (4 exp(1))/(t dot (coth sqrt(6.517  dot u))^2)) $],
-  [$ Delta u_r = 1/2 (1 +1 /(cosh(sqrt(epsilon_r - 1))) dot Delta  u_1) $],
-
+  [$ f_("stub1") = n dot c_0 / (4 dot L dot sqrt(epsilon_("eff"))) $<ec:stub_1_L>],
+  [$ f_("stub2") = n dot c_0 / (4 dot (L + Delta_L) dot sqrt(epsilon_("eff"))) $<ec:stub_2_DL>],
 )
 
-A partir de estas correcciones, se definen los anchos efectivos corregidos $u_r = u + Delta u_r $ y $u_1 = u + Delta u_1$.
+Al ser los stubs muy similares, los efectos parásitos son prácticamente los mismos en ambos, por lo que al restar la @ec:stub_1_L con la @ec:stub_2_DL mediante diferencias en sus frecuencias de resonancia el error sistemático se cancela.
 
+El método consiste en medir el parámetro $S_11$ de cada stub y analizar la fase para identificar las frecuencias de resonancia y antiresonancia.  Al obtenerlas, considerando el mismo orden armónico en cualquiero par de stubs se despeja la permitividad efectiva en la @ec:delta_pair_e_eff.
 
-Combinando las correcciones por espesor con la impedancia $Z_(01)$, se obtienen las expresiones finales para la permitividad efectiva mediante la @ec:epsilon_eff_hammerstad y la impedancia característica con la @ec:impedancia_hammerstad de la línea microstrip. Estas expresiones son válidas en el régimen cuasi-estático y constituyen la base para el diseño de líneas microstrip antes de considerar los efectos dispersivos.
+$
+  epsilon_"eff" = [(c_0 dot n)/(4 dot Delta_L) dot (1/f_("stub2") - 1/f_("stub1"))]^2
+$<ec:delta_pair_e_eff>
 
-
-
-#grid(
-  columns: (1.05fr, 1fr),
-  column-gutter: 0pt,
-  align: horizon,
-  [$ epsilon_("eff")(u,t,epsilon_r) = epsilon_("eff")(u_r,epsilon_r) dot ((Z_(01) (u_1))/ (Z_(01)(u_r)))^2 $<ec:epsilon_eff_hammerstad>],
-  [$ Z_0 (u,t,epsilon_r)=  (Z_(01) (u_r) )/( sqrt(epsilon_("eff")(u_r, epsilon_r))) $<ec:impedancia_hammerstad>],
-
-)
-
-=== Modelo de Kirschning y Jansen (dispersión)
-
-El modelo cuasi-estático de Hammerstad y Jensen presentado anteriormente no considera los efectos de la dispersión con la frecuencia. Para tener en cuenta este fenómeno, se emplea el modelo de Kirschning y Jansen @Kirschning, que proporciona una expresión para la permitividad efectiva dependiente de la frecuencia.
-
-El modelo se basa en la permitividad efectiva cuasi-estática $epsilon_("eff")(f=0)$ calculada mediante el modelo de Hammerstad y Jensen, y la corrige mediante un factor de dispersión $P(f)$ que depende de la frecuencia y de la geometría de la línea mediante la @ec:epsilon_eff_Kirschning.
-
-$ epsilon_("eff")(f) = epsilon_r - ((epsilon_r - epsilon_("eff")(f=0))/(1 + P(f))) $<ec:epsilon_eff_Kirschning>
-
-donde el factor $P(f)$ se define mediante la 
-
-$ P(f)= P_1 P_2 dot [(0.1844 + P_3 P_4) dot 10 dot f dot h]^1.5763 $
-
-En el cual las funciones P1, P2, P3 y P4 se definen como:
-
-$P_1 = 0.27488 + [0.6315 + 0.525/(1+ 0.157 dot f dot h)^20] u - 0.065683 exp(-8.7513 u) $
-
-$P_2 = 0.33622 [1-exp(- 0.03442 epsilon_r)] $
-
-$P_3 = 0.0363 exp(-4.6 u) dot {1- exp[-((f dot h)/3.87)^4.97]} $
-
-$P_4 = 1 + 2.751 {1- exp[-(epsilon_r/15.916)^8] } $
-
-En estas expresiones, f se expresa en GHz, h en cm. El parámetro $u=W/h$ es la relación entre el ancho de la pista y la altura del sustrato.
-
-
-
-
-=== Modelo de Djordjevic Sarkar (modelo debye)
-
-Los modelos presentados anteriormente (Hammerstad y Jensen, Kirschning y Jansen) describen la permitividad efectiva de la línea microstrip en función de la geometría y la frecuencia, pero no modelan  permitividad  dieléctrica del material en función de la frecuencia. Teniendo en cuenta que la permitividad dieléctrica es compleja como se mencionó antes mediante la ecuación @ec:epsilon_complejo que el epsilon se escribe $epsilon = epsilon' (1-tg(delta))$
-
-Para modelar este comportamiento de forma causal en el dominio del tiempo, se utiliza una suma de términos de relajación de Debye:
-
-// $epsilon_r (omega) = epsilon'_(infinity) + sum_(i=1)^(N) (Delta epsilon_i)/(1 + j omega/ omega_i) - j sigma / (omega  epsilon_0)$
-
-$ k = log((f_("high")+ j dot "freq"  ) / (f_("low") + j dot "freq")) $
-
-$ f_d = log((f_("high") + j dot f)/(f_("low") + j dot f)) $
-
-$ "ep"_"d" = -tg(delta) dot epsilon_r / Im(k) $
-
-$ epsilon_(infinity) = epsilon_r dot (1+ tg(delta) dot Re(k)) / Im(k) $
-
-$ epsilon_r = epsilon_(infinity) + "ep"_"d" dot f_d $
-== Método 1: stubs de microstrip
-
-El primer método consiste en la utilización de stubs de microstrip con terminación de circuito abierto de diferentes longitudes, fabricados sobre un sustrato FR4, con el objetivo de estimar la permitividad efectiva ($epsilon_(e f f)$) del sustrato FR4.
+Esta ecuación depende únicamente de ΔL y no de la longitud absoluta de los stubs, por lo que la exactitud del método está ligada fuertemente a la medición de las longitudes individuales como así también al proceso de fabricación que puede alterar la geometría del stub. Promediando las estimaciones de los diferentes pares de stubs para diferentes armónicos permite reducir la incertidumbre, obteniendo un valor representativo de $epsilon_"eff"$.
 
 === Simulación y diseño
+El diseño de los stubs se realizó utilizando la calculadora de líneas microstrip integrada en Qucs (@fig:qucs_stubs_calculadora). Para una impedancia característica de 50 $Omega$, se calcularon las dimensiones geométricas (ancho W y longitud L) de cada stub empleando el modelo de Hammerstad y Jensen en su formulación cuasi-estática. Este modelo proporciona la permitividad efectiva y la impedancia característica en función de la geometría y las propiedades del sustrato.
 
-En la etapa de diseño se determinaron las dimensiones geométricas de los stubs empleando modelos analíticos para microstrip como Hammerstad y jensen, considerando una impedancia característica de 50 Ω. Se diseñaron stubs de distintas longitudes eléctricas correspondientes a fracciones de la longitud de onda para una frecuencia de #qty[915][MHz], en particular  $lambda/2,lambda/4, lambda/8$.
-
-Adicionalmente, se implementaron stubs de longitudes físicas de #qty[50][mm] y #qty[100][mm], con el objetivo de generar resonancias en distintas frecuencias.
-
-
-
-#todo("AGREGAR FOTOS DE USO DE QUCS Y FEKO y mencionar uso del simulador")
-
-=== Implementación
-En esta etapa de implementación se realizó el PCB con los stubs después de simularlos para luego medir y caracterizar el sustrato.
+Sobre el PCB de sustrato FR4 se diseñaron cinco stubs con distintas longitudes eléctricas, correspondientes a fracciones de la longitud de onda de la frecuencia central de 915 MHz: $lambda$/2, $lambda$/4 y $lambda$/8.
 
 #subpar.grid(
-  figure(image("imgs/ring_y_stubs_cinta.jpg", height: 5cm, width: 100%)),
-  // figure(image("imgs/anillos_stubs_filmina_fr4.png",height: 3.5cm)),
-  figure(image("imgs/anillos_stubs_fr4_listos.png", height: 5cm, width: 100%)),
-  columns: (1fr, 1fr),
-  caption: [Fabricación de los PCBs],
+  figure(
+    image("imgs/stub_calculadora.png", width: 100%),
+    caption: [Ejemplo de diseño para stub L=$lambda$/8 (Qucs)],
+  ),
+  <fig:qucs_stubs_calculadora>,
+
+  figure(
+    image("imgs/feko/feko_stubs.png", width: 100%),
+    caption: [Modelo 3D de simulación de los stubs (Altair Feko)],
+  ),
+  <fig:feko_stubs_general>,
+
+  columns: (1fr, 1.22fr),
   gap: 0.5cm,
-  label: <fig:pcb>,
+  caption: [Campo cercano para los armónicos del stub L = \lambda/2],
+  label: <fig:campo_cercanjo_stubs>,
+)
+Adicionalmente, se incluyeron dos stubs con longitudes de 50 mm y 100 mm, con el fin de generar resonancias en frecuencias diferentes y así disponer de un conjunto de datos más amplio y redundante para el cálculo, y así conformar finalmente un sistema de 5 puertos cuya matriz S será de la forma de @ec:matriz_s_stubs donde $S_11$ reperesenta el stub de $lambda/2$, $S_22$ el de $lambda/4$, $S_33$ el de $lambda/8$, $S_44$ el de 50mm y $S_55$ el de 100mm.
+$
+  S = mat(
+    S_(1 1), S_(1 2), S_(1 3), S_(1 4), S_(1 5);
+    S_(2 1), S_(2 2), S_(2 3), S_(2 4), S_(2 5);
+    S_(3 1), S_(3 2), S_(3 3), S_(3 4), S_(3 5);
+    S_(4 1), S_(4 2), S_(4 3), S_(4 4), S_(4 5);
+    S_(5 1), S_(5 2), S_(5 3), S_(5 4), S_(5 5);
+  )
+$<ec:matriz_s_stubs>
+
+
+Con las dimensiones obtenidas, se construyó un modelo tridimensional de cada stub sobre el sustrato FR4 en el software de simulación Altair Feko. La @fig:feko_stubs_general muestra la disposición de los stubs en el modelo de simulación. Para cada stub se realizó una simulación en dominio de la frecuencia, excitando de a un puerto a la vez y obteniendo el parámetro $S_11$ ($Gamma$) en el rango de 100 MHz a 6 GHz correspondiente al mismo rango que se estableció en la medición física mediante el VNA N9923A FieldFox.
+
+A partir de los resultados de simulación se generaron gráficos de magnitud y fase de $S_11$ para todos los stubs, tanto en simulación como posteriormente en medición, con el fin de comparar el comportamiento resonante, particularmente en la fase
+#figure(
+  image("imgs/feko/feko_stubs_mag_comparativa.png", width: 100%),
+  caption: [Magnitud [dB] del parametro $S_11$,$S_22$,$S_33$,$S_44$,$S_55$],
+)<fig:stubs_feko_mag>
+#figure(
+  image("imgs/feko/feko_stubs_phase_wrapped_comparativa.png", width: 100%),
+  caption: [Fase [°] envuelta del parametro $S_11$,$S_22$,$S_33$,$S_44$,$S_55$],
+)<fig:stubs_feko_fase_wrap>
+#figure(
+  image("imgs/feko/feko_stubs_phase_unwrapped_comparativa.png", width: 100%),
+  caption: [Fase [°] desenvuelta del parametro $S_11$,$S_22$,$S_33$,$S_44$,$S_55$],
+)<fig:stubs_feko_fase_unwrap>
+
+En la @fig:stubs_feko_mag se presenta un gráfico de la magnitud en decibeles de los parámetros $S_11$,$S_22$,$S_33$,$S_44$,$S_55$ donde se identifican los picos de reflexión, correspondientes a las frecuencias donde el stub presenta una impedancia de entrada mínima, es decir, se encuentra en resonancia. Sin embargo, para la realización de este método de caracterización, el gráfico de fase de la @fig:stubs_feko_fase_wrap nos aporta más información, ya que nos permite identificar tanto las resonancias como las antiresonancias a partir de los cruces por cero que se observan en su forma envuelta.
+
+Posteriormente notaremos que el uso de la fase envuelta puede conducirnos a ciertos errores en la detección de falsos positivos de puntos de resonancia, por lo que el procesamiento de los datos lo realizaremos mediante la fase desenvuelta. Esta última elimina las discontinuidades artificiales y facilita la identificación de los múltiplos de 180°, como se observa en la @fig:stubs_feko_fase_unwrap.
+
+Además, a modo cualitativo y con un objetivo didactico, se obtuvo la distribución de campo cercano en el plano del sustrato para cada excitación individual, lo que permite representar la densidad del campo en las proximidades de cada stub permitiendo ver la onda estacionaria para los diferentes armónicos en la @fig:campo_cercano_stubs. Se identifica el respectivo armónico mediante la condicion $N°_("armónico") = 2 dot N°_"max" - 1$
+
+#subpar.grid(
+  figure(image("imgs/feko/stubs_campo/st_arm1.png", width: 100%), caption: [Armónico 1 $approx$ 0.418GHz]),
+  figure(image("imgs/feko/stubs_campo/st_arm2.png", width: 100%), caption: [Armónico 2 $approx$ 1.98GHz]),
+  figure(image("imgs/feko/stubs_campo/st_arm3.png", width: 100%), caption: [Armónico 3 $approx$ 2.82GHz]),
+
+  figure(image("imgs/feko/stubs_campo/st_arm4.png", width: 100%), caption: [Armónico 4 $approx$ 3.66GHz]),
+  figure(image("imgs/feko/stubs_campo/st_arm5.png", width: 100%), caption: [Armónico 5 $approx$ 4.5GHz]),
+  figure(image("imgs/feko/stubs_campo/st_arm6.png", width: 100%), caption: [Armónico 6 $approx$ 5.27GHz]),
+
+  columns: (1fr, 1fr, 1fr),
+  caption: [Campo cercano para los armónicos del stub L=$lambda$/2],
+  gap: 0.5cm,
+  label: <fig:campo_cercano_stubs>,
+)
+
+
+=== Implementación
+Tras la etapa de simulación, se procedió a la fabricación del PCB que contiene los cinco stubs diseñados. El proceso incluyó la transferencia del diseño realizado en KiCAD mediante fotolitografía sobre el cobre y posteriormente se realizó el grabado por cloruro férrico. En la @fig:pcb_stubs se muestran imágenes del proceso de fabricación, desde la transferencia del negativo en un ambiente con luz roja hasta el resultado final antes de soldarle los conectores SMA.
+
+#subpar.grid(
+  figure(
+    image("imgs/ilustrations/pcb/stubs_pcb_pre.png", width: 65%, height: 5cm, fit: "stretch"),
+    caption: [PCB durante proceso fotolitografico],
+  ),
+  // figure(image("imgs/anillos_stubs_filmina_fr4.png",height: 3.5cm)),
+  figure(
+    image("imgs/ilustrations/pcb/stubs_pcb.png", width: 65%, height: 5cm, fit: "stretch"),
+    caption: [Resultado final ],
+  ),
+
+  columns: (1fr, 1fr),
+  caption: [Fabricación del PCB de stubs],
+  gap: 0.5cm,
+  label: <fig:pcb_stubs>,
 )
 
 
 
 === Mediciones
 
-Una vez fabricados los stubs, las mediciones se llevan a cabo mediante un analizador vectorial de redes (VNA). En particular, se mide el parámetro $S_(1 1)$, correspondiente al coeficiente de reflexión en el puerto de entrada.
+Una vez fabricados los stubs, las mediciones se llevan a cabo mediante un analizador vectorial de redes (VNA). En particular, se mide el parámetro $S_(11)$, correspondiente al coeficiente de reflexión en el puerto de entrada.
 
-Se realizaron las mediciones desde #qty[100][MHz] hasta #qty[6][GHz] con 1001 puntos por lo que la medición se realizó a pasos
+Para la conexión de los stubs al VNA, se soldaron conectores SMA hembra en el extremo de la línea de alimentación de cada stub. Se tuvo especial cuidado con los residuos de la soldadura para evitar la formación capacitancias no deseadas que puedan introducir efectos parásitos en el resultado de medición.
+
+Antes de realizar las mediciones, se llevó a cabo un procedimiento de calibración del VNA utilizando un kit de calibración tipo SOLT (Short-Open-Load-Through). La calibración se realizó en el plano de los conectores SMA, es decir, en el extremo del cable coaxial que se conecta al stub, para eliminar los efectos de fase y atenuación introducidos por el cable y los adaptadores. Luego el VNA fue configurado con un ancho de banda de IF (Intermediate Frequency) de #qty[300][Hz] para reducir el ruido de medición y mejorar la relación señal-ruido, y se aplicó un promedio de 5 barridos
+
+Finalmente se realizaron las mediciones desde #qty[100][MHz] hasta #qty[6][GHz] con 1001 puntos por lo que la medición se realizó a pasos
 de #qty[5.89][MHz].
 
 #figure(
-  image("imgs/stub_un_cuarto.jpg", width: 45%),
-  caption: [medición del stub de un cuarto de longitud de onda],
+  image("imgs/stub_un_cuarto_medicion.png", width: 50%),
+  caption: [Medición del stub de $lambda$/4],
 )<fig:stub_un_cuarto>
 
-A partir de las mediciones de fase obtenidas para cada stub, se analizan los datos utilizando un _script_ en _python_, en un incio busca los cruces por cero detectando la pendiente positiva, ya que esos puntos se consideran puntos de resonancia.
+Durante la medición, cada stub fue excitado individualmente mientras los demás stubs permanecían sin conectar (en circuito abierto). Esta configuración podría introducir cierto acoplamiento entre stubs debido a la proximidad física entre ellos. Sin embargo, durante el diseño se tuvo en cuenta esta posibilidad y se adoptó como criterio de diseño que la separación mínima entre stubs debería ser $d>=3dot w$ con w es el ancho de la línea _microstrip_. Dado que fue diseñado para una impedancia caracteristica $Z_0 = 50 Omega$, w es #qty[2.97][mm]  del stub dando como resultado $d>=8.92$ mm.
 
-Sin embargo, dado que el VNA entrega la fase envuelta (_wrapped_), es decir, la fase tiene saltos abruptos en las frecuencias de resonancia que va desde #qty[-180][$degree$] a #qty[180][$degree$], por lo que la hace susceptible al ruido de fase o espurios que pueda tener la señal.
+Para evaluar cuantitativamente este efecto, se analizaron los parámetros por fuera de la diagonal principal de la matriz de la @ec:matriz_s_stubs obtenidos de las simulaciones en Feko, los cuales representan la transmisión desde el stub excitado (agresor) hacia cada uno de los demás stubs (víctimas). Siendo una red pasiva y siendo excitados con el mismo nivel de señal, por simetría los parametros $S_("ij")$ y $S_("ji")$ deberían ser iguales.
+
+En la @fig:acoplamiento_stubs se presentan los parámetros de acoplamiento para cada una de las diferentes excitaciones del stub agresor con las restantes 4 líneas victimas.
+
+#subpar.grid(
+  grid.cell(colspan: 2, figure(
+    image("imgs/feko/stubs_acop/acop_100mm.png", width: 100%, height: 5cm, fit: "stretch"),
+    caption: [Agresor: Stub 100mm],
+  )),
+  grid.cell(colspan: 2, figure(
+    image("imgs/feko/stubs_acop/acop_50mm.png", width: 100%, height: 5cm, fit: "stretch"),
+    caption: [Agresor: Stub 50mm],
+  )),
+  grid.cell(colspan: 2, figure(
+    image("imgs/feko/stubs_acop/acop_lambda_8.png", width: 100%, height: 5cm, fit: "stretch"),
+    caption: [Agresor: Stub $lambda$/8],
+  )),
+  grid.cell(colspan: 1, []),
+  grid.cell(colspan: 2, figure(
+    image("imgs/feko/stubs_acop/acop_lambda_4.png", width: 100%, height: 5cm, fit: "stretch"),
+    caption: [Agresor: Stub $lambda$/4],
+  )),
+  grid.cell(colspan: 2, figure(
+    image("imgs/feko/stubs_acop/acop_lambda_2.png", width: 100%, height: 5cm, fit: "stretch"),
+    caption: [Agresor: Stub $lambda$/2],
+  )),
+  columns: (1fr,) * 6,
+  caption: [Magnitud de los parámetros de acoplamiento para cada stub excitado],
+  gap: 0.5cm,
+  label: <fig:acoplamiento_stubs>,
+)
+
+Los resultados muestran que el acoplamiento máximo promedio observado fue menor a -20 dB en todo el rango de frecuencias, con la mayoría de los pares presentando valores inferiores a -30 dB. Adicionalmente, se verificó que el acoplamiento en las frecuencias donde los stubs presentan resonancias armónicas entre sí, pero incluso en esos puntos el valor se mantiene por debajo -20 dB.
+
+Por lo tanto, se concluye que el acoplamiento mutuo entre stubs es despreciable para todo el rango de frecuencias utilizado, validando así el banco de medición utilizado y asegurando que las mediciones de $S_11$, $S_22$, $S_33$, $S_44$, $S_55$ reflejan el comportamiento individual de cada stub.
+
+=== Procesamiento de datos
+
+A partir de las mediciones de fase obtenidas para cada stub, se analizan los datos utilizando un script desarrollado en Python en el cual, en virtud de las condiciones planteadas en la @ec:resonancia_open_stub, se buscan las frecuencias donde la fase presenta cruces por los múltiplos de 180°. Si bien esta idea sería válida si la señal no tuviera ruido de fase, en la práctica no podemos dar por sentado eso.
+
+El VNA entrega los parámetros de dispersión con la fase envuelta (_wrapped_), es decir, acotada al intervalo de -180° a 180°, por lo que esta puede presentar saltos abruptos artificiales cada vez que la fase acumulada supera los extremos del intervalo. Cabe destacar que estos saltos no son parte del fenómeno de resonancia, sino una ambigüedad matemática producto de la función arcotangente. Por este motivo, la fase envuelta es susceptible al ruido de fase o a espurios presentes en la señal, que podrían provocar un salto de fase que sería interpretado como un falso positivo de resonancia.
+
+#subpar.grid(
+  figure(
+    image("imgs/stubs/medicion_fase_envuelta_stubs.jpg", width: 100%, height: 6cm, fit: "stretch"),
+    caption: [Fase envuelta],
+  ), <fig:fase_envuelta_stubs>,
+  figure(
+    image("imgs/stubs/medicion_fase_desenvuelta_stubs.jpg", width: 100%, height: 6cm, fit: "stretch"),
+    caption: [Fase desenvuelta],
+  ),
+  columns: 1fr,
+  caption: [Medición de fase de los stubs],
+  gap: 0.5cm,
+  label: <fig:medicion_fase_stubs>,
+)
+Este fenómeno fue observado luego de procesar los datos de fase presentados en la @fig:fase_envuelta_stubs, donde al desenvolver la fase se detectó que, de haber sido analizado con la fase envuelta, se habría incurrido en un error al interpretar falsas resonancias.
+
+#todo("Aca poner el caso donde se vio que por fase envuelta aparecia una resonancia que en desenvuelta no")
+
+Para evitar este problema, el script primero desenrolla la fase (_unwrapping_) de cada curva recorriendo los sucesivos puntos de frecuencia de las curvas presentadas en la @fig:fase_envuelta_stubs de tal forma que al detectar una diferencia de fase entre dos muestras consecutivas que supera los 180° en valor absoluto, se suman o restan 360° a todos los puntos posteriores. De esta manera se eliminan los saltos artificiales y se recupera la evolución continua de la fase con la frecuencia. Luego, con la fase desenvuelta, se analizan las sucesivas resonancias y antiresonancias al recorrer las curvas y acumulando 180° de fase entre cada uno de los puntos de interés; esto nos permite obtener las frecuencias de los armónicos donde ocurren resonancias y antiresonancias en cada stub.
+
+Con los datos de frecuencias de resonancia obtenidos
 
 
-Por consiguiente se utilizó un algoritmo para densenvolver la fase (_unwrapped_), el cual hace que la fase sea lineal eliminando esas discontinuidades. Este proceso elimina el ruido o espurios que tenga la señal por lo que es mas exacto al momento de obtener esas frecuencias de resonancia, pues se obtienen en multiplos de #qty[180][$degree$].
-
-Dado que la discretización de la señal es cada #qty[5.89][MHz], puede que se omita el valor exacto de la frecuencia de resonancia, por lo que se decidió  mejorar el proceso de detección de las resonancias. Para la primera resonancia, a la fase desenvuelta (_unwrapped_) se le calculó el módulo y a la señal resultante se le resto #qty[180][$degree$], con este proceso
-la frecuencia de resonancia se encuentra en el cruce por cero, por ende se utilizó el algoritmo para dectar el cruce por cero.
-Este proceso se itero restando multiplos de #qty[180][$degree$] para localizar todas las resonancias como cruce por cero de la señal.
 
 
 Como se ilustra en la #todo("IMAGEN") las frecuencias de resonancia son aproximadamente multiplos impares debido a que se trata de stubs con terminación a circuito abierto.
@@ -1312,9 +1499,12 @@ $ C = (epsilon_(e f f) dot A)/d $<ec:capacitancia>
 Siendo d la distancia entre placas  y A el área del capacitor.
 
 
-= Ánalisis de resultados
+== Ánalisis de resultados
 
-= Diseño de un acoplador direccional
+
+
+
+= Diseño del acoplador direccional
 
 El objetivo del trabajo es diseñar, simular y caracterizar un acoplador direccional en tecnología microstrip centrado en 915 MHz, capaz de manejar una potencia de 5 W. Este componente formará parte del proyecto general y será destinado a la medición de potencia reflejada y el monitoreo del ajuste de antena, permitiendo obtener el coeficiente de reflexión a partir de la señal acoplada, aunque para este trabajo se acota el trabajo hasta la realización de acoplador direccional.
 
