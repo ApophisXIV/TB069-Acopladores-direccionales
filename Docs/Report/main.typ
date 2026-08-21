@@ -9,7 +9,7 @@
   logo: image("imgs/Logo-fiuba_big.png", width: 3cm),
   // <a href="https://www.flaticon.com/free-icons/aerospace" title="aerospace icons">Aerospace icons created by gravisio - Flaticon</a>
   language: "es",
-  abstract: lorem(50),
+  abstract: "Este trabajo presenta el diseño, simulación, implementación y caracterización de acopladores direccionales en tecnología microstrip y stripline sobre sustrato FR4, centrados en la frecuencia de 915 MHz. Se realizó una caracterización exhaustiva del sustrato mediante tres métodos experimentales independientes: diferencia de fase en stubs, resonadores de anillo y medición de capacitancia, con el fin de obtener parámetros precisos para el diseño. Se implementaron cuatro prototipos de acopladores, evaluando su acoplamiento, aislamiento y directividad. ",
   compact-mode: false,
   it,
 )
