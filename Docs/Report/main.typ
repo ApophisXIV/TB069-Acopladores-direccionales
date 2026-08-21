@@ -381,7 +381,7 @@ Una línea _microstrip_ consiste en un _stack-up_ de 2 capas donde la capa super
 
 La estructura al estar inmersa entre dos medios materiales podemos afirmar que la señal se propagará por el dieléctrico como así también por el otro medio, en este caso aire. Esta discontinuidad de medios provoca que el campo electromagnético no sea puramente transversal, dando lugar al modo cuasi-TEM antes mencionado. Asimismo, se manifiestan las pérdidas por radiación, ya que una fracción de la energía no queda confinada en el sustrato sino que se radia.
 #todo("revisar")
-Un parametro importante que debemos mencionar es la permitividad dieléctrica efectiva, esta expresion es consecuencia natural de la forma en la que se encuentra construida nuestra estructura al estar embebida entre dos medios materiales con permitividades dieléctricas relativas diferentes, poniendo de manifiesto que la onda propagante percibirá una permitividad dieléctrica relativa equivalente, cuyo valor se encontrará entre el $epsilon_r$ del aire#footnote[$epsilon_r("aire") = 1,00059 approx 1$] y el $epsilon_r$ del sustrato.
+Un parametro importante que debemos mencionar es la permitividad dieléctrica efectiva, esta expresión es consecuencia natural de la forma en la que se encuentra construida nuestra estructura al estar embebida entre dos medios materiales con permitividades dieléctricas relativas diferentes, poniendo de manifiesto que la onda propagante percibirá una permitividad dieléctrica relativa equivalente, cuyo valor se encontrará entre el $epsilon_r$ del aire#footnote[$epsilon_r("aire") = 1,00059 approx 1$] y el $epsilon_r$ del sustrato.
 
 La consecuencia directa de esto, es que todas las ecuaciones donde hasta ahora se utilizaba la constante del material deberan contemplar esta discontinuidad como se muestra en la @ec:vp_eff y @ec:lambda_eff siendo $c_0$ la velocidad de la luz en el vacío y $lambda$ la longitud de onda.
 
@@ -608,7 +608,7 @@ A pesar de estas limitaciones, el FR4 es el material seleccionado para este trab
 == Mediciones
 #todo("REVISAR todo este capitulo pues tiene cosas redactadas raras")
 
-Para caracterizar experimentalmente las estructuras _microstrip_ presentadas en este trabajo, los cuales son _stubs_, resonadores de anillo y acopladores direccionales, se emplea el análisis mediante parámetros de dispersión. Estos permiten describir el comportamiento de un dispositivo de múltiples puertos en términos de ondas incidentes y reflejadas en cada uno de sus puertos.
+Para llevar a cabo la caracterización experimental las estructuras _microstrip_ estudiadas en este trabajo, es decir, _stubs_, resonadores de anillo y acopladores direccionales, se emplea el análisis mediante parámetros de dispersión. Estos permiten describir el comportamiento de un dispositivo de múltiples puertos en términos de ondas incidentes y reflejadas en cada uno de sus puertos.
 
 === Parámetros S
 
@@ -621,11 +621,11 @@ En circuitos de microondas, el análisis de redes se realiza comúnmente mediant
 )<fig:cuadripolo_parametros_s>
 
 El cuadripolo de la @fig:cuadripolo_parametros_s se conforma por dos puertos. El primero de ellos está integrado por los polos $A_1$ y $B_1$,
-que representan la onda incidente y reﬂejada respectivamente; de manera similar en el segundo puerto el polo A2 representa a la onda incidente
-y el polo B2 la onda  reﬂejada. Es importante mencionar que cada uno de los
+que representan la onda incidente y reﬂejada respectivamente; de manera similar en el segundo puerto el polo A2 y v2 representan la onda incidente
+y la onda  reﬂejada. Es importante mencionar que cada uno de los
 puertos puede absorber, reﬂejar o transmitir la señal.
 
-Los parámetros de dispersión se definen como la relación entre la onda que sale de un puerto y la onda que incide en otro, manteniendo todos los demás puertos adaptados a la impedancia característica del sistema. Estos se representan con la letra S seguido de un subíndice de dos dígitos ($S_(i j)$), el primero de ellos indica el puerto de salida (donde se mide) y el segundo el puerto de entrada (donde se aplica el estímulo). Por ejemplo, si se aplica el estímulo en el puerto 1 y se mide en el puerto 2, se obtiene parámetro *$S_(21)$*
+Los parámetros de dispersión se definen como la relación entre la onda que sale de un puerto y la onda que incide en otro, manteniendo todos los demás puertos adaptados a la impedancia característica del sistema. Estos se representan con la letra S seguido de un subíndice de dos dígitos ($S_(i j)$), el primero de ellos indica el puerto de salida (donde se realiza la medición) y el segundo el puerto de entrada (donde se aplica el estímulo). Por ejemplo, si se aplica el estímulo en el puerto 1 y se mide en el puerto 2, se obtiene parámetro *$S_(21)$*
 
 Las relaciones entre los polos de cada uno de los puertos nos darán como resultado estos
 parámetros.
@@ -642,19 +642,7 @@ parámetros.
 
 
 
-
-
-
-Los parámetros S pueden representarse en forma matricial, con $n^2$ elementos para $n$ puertos. Para un dispositivo de cuatro puertos, como el acoplador direccional analizado de trabajo, la red se podría ser descripta mediante una matriz de dispersión de 4×4 , donde cada elemento corresponde a una relación de transmisión o reflexión entre dos puertos
-
-// $
-//   mat(
-//     S_(1 1), S_(1 2), S_(1 3), S_(1 4);
-//     S_(2 1), S_(2 2), S_(2 3), S_(2 4);
-//     S_(3 1), S_(3 2), S_(3 3), S_(3 4);
-//     S_(4 1), S_(4 2), S_(4 3), S_(4 4);
-//   )
-// $<ec:matriz_s>
+Los parámetros S pueden representarse en forma matricial, con $n^2$ siendo n la cantidad de puertos. Para un dispositivo de cuatro puertos, como el acoplador direccional analizado en este trabajo, la red podría ser descripta mediante una matriz de dispersión de 4x4 , donde cada elemento corresponde a una relación de transmisión o reflexión entre dos puertos.
 
 Cada uno de estos parámetros tiene un sentido propio y nos permiten conocer parámetros tales
 como la ganancia, impedancia, VSWR, pérdidas de inserción, entre otros. Veamos que representa cada uno de ellos en nuestro caso bipuerto y que podemos obtener a partir
@@ -1460,12 +1448,20 @@ Es importante notar que como se ilustra en la #todo("IMAGEN con el notch en 4GHz
 == Método 2: Resonadores de anillo
 
 El segundo método se basa en resonadores de anillo implementados sobre el sustrato FR4. Estos dispositivos presentan resonancias a frecuencias específicas que dependen de la permitividad efectiva del material y de las dimensiones geométricas del resonador.
+
+
+=== Simulación y diseño
+El segundo método consiste en la utilización de anillos resonantes de microstrip de diferentes gaps y radios, fabricados sobre un sustrato FR4, con el fin de estimar la permitividad efectiva ($epsilon_("eff")$) del sustrato. Este método se basa en la aproximación de línea recta antes mencionada en la @ec:resonancia_anillo 
+
+
+
 === Simulación y diseño
 
-#todo("AGREGAR COSAS")
+
+
+
 
 === Implementación
-
 
 
 
@@ -1506,17 +1502,16 @@ Siendo d la distancia entre placas  y A el área del capacitor.
 
 = Diseño del acoplador direccional
 
-El objetivo del trabajo es diseñar, simular y caracterizar un acoplador direccional en tecnología microstrip centrado en 915 MHz, capaz de manejar una potencia de 5 W. Este componente formará parte del proyecto general y será destinado a la medición de potencia reflejada y el monitoreo del ajuste de antena, permitiendo obtener el coeficiente de reflexión a partir de la señal acoplada, aunque para este trabajo se acota el trabajo hasta la realización de acoplador direccional.
+El objetivo del trabajo es diseñar, simular y caracterizar un acoplador direccional microstrip centrado en 915 MHz, capaz de manejar una potencia de 5 W. Este componente formará parte del proyecto general y será destinado a la medición de potencia reflejada y el monitoreo del ajuste de antena, permitiendo obtener el coeficiente de reflexión a partir de la señal acoplada. sim ebargo, el presente trabajo se acota a la realización 
+de un acoplador direccional.
 
-El desarrollo se realizará utilizando uSimmics (Qucs-studio) como herramienta principal de simulación, siendo un software libre y sin costo permitiendo analizar y simular las líneas acopladas y una implementación alcanzable en el marco del proyecto, aunque los resultados podrían contrastarse posteriormente con herramientas como Feko
+El desarrollo se realizará utilizando uSimmics (Qucs-studio) como herramienta principal de simulación, siendo un software libre y sin costo permitiendo analizar y simular las líneas acopladas y una implementación alcanzable en el marco del proyecto, aunque los resultados podrían contrastarse posteriormente con herramientas como Feko.
 
-El diseño teórico se basará en el modelo de modos par e impar (even/odd), a partir del cual se determinarán los parámetros de acoplamiento ($C$) y directividad ($D$). Estos parámetros serán validados mediante simulaciones electromagnéticas.
+Por otro lado el diseño teórico se basará en el modelo de modos par e impar (even/odd), a partir del cual se determinarán los parámetros de acoplamiento ($C$) y directividad ($D$). Estos parámetros serán válidados mediante simulaciones electromagnéticas.
 
-Se realizará un barrido paramétrico sobre el espaciado entre líneas, ancho de pista y longitud de acoplamiento, con el fin de optimizar la respuesta en frecuencia del acoplador y lograr un acoplamiento que si bien todavia no fue definido con rigurosidad será próximo a –30 dB en la frecuencia central.
+Con el fin de optimizar la respuesta en frecuencia del acoplador y lograr un acoplamiento que si bien todavia no fue definido con rigurosidad será próximo a #qty[-30][dB] en la frecuencia de trabajo se realizará un barrido paramétrico sobre el espaciado entre líneas, ancho de pista y longitud de acoplamiento 
 
 Finalmente, el acoplador se fabricará sobre el mismo sustrato caracterizado (FR4), se medirán sus parámetros $S_(11)$, $S_(21)$, $S_(31)$ y $S_(41)$ mediante un analizador vectorial de redes (VNA), y se evaluará la directividad obtenida comparando la potencia acoplada hacia los puertos acoplado y aislado.
-
-// En un acoplador direccional ideal, las pérdidas por inserción y las pérdidas por acoplamiento son idénticas. En la práctica, las pérdidas por inserción serán una combinación de pérdidas de acoplamiento, pérdidas dieléctricas, pérdidas del conductor y pérdidas por ROE. Dependiendo del rango de frecuencias, las pérdidas por acoplamiento son menos significantes con un acoplamiento superior a 15
 
 == Implementación del acoplador direccional
 
@@ -1524,9 +1519,6 @@ Finalmente, el acoplador se fabricará sobre el mismo sustrato caracterizado (FR
 Al momento de la implementación física del dispositivo en un PCB se decició hacerlo mediante un proceso fotolitografico. Dicho método fue escogido con el fin de minimizar las variaciones físicas en las dimesiones de las estructuras debido a que la exactitud de los métodos de estimación utilizados es altamente sensible a la geometría.
 
 
-// Luego de simulaciones y diseño de acopladores direccionales se realiza la implementación de un acoplador, utilizando el método
-//  de fotolitografía con el objetivo de maximizar la resolución geométrica del mismo, debido a que los parámetros fisicos como la separación entre lineas (_gap_), el ancho y la longitud de la linea en la región de acoplamiento, son muy criticos ya que
-// afectan de manera directa a las impedancias par (_even_) e impar (_odd_) y esto a su vez afecta al factor de acoplamiento, por ende también afeta la directividad del dispositivo.
 
 Por otro lado también se realizaron acopladores de prototipo hechos manualmente con cinta de cobre sobre el FR4, donde se fue
 iterando hasta conseguir una directividad alrededor de los #qty[20][dB]. Este proceso se hizo tanto para acoplador microstrip como stripline para
@@ -1544,6 +1536,8 @@ poder observar de manera experimetal la diferencia entre ellos.
   label: <fig:pcb_acoplador_direccional>,
 )
 
+
+En la @fig:pcb_acoplador_direccional se puede notar los diseños que se obtuvieron mendiante el proceso por fotolitografia y los experiemntales con cinta de cobre donde se realizarán las distintas mediciones. 
 
 == Mediciones del acoplador Direccional
 
@@ -1612,9 +1606,6 @@ Midiendo el acoplador de manera inversa, es decir, el puerto 1 ahora es el puert
 )
 
 #pagebreak()
-
-
-
 
 
 El segundo acoplador direccional microstrip el cual fue simulado y diseñado con cinta de cobre para prototipar obtenemos las siguientes mediciones.
@@ -1786,21 +1777,6 @@ El tercer diseño tiene el objetivo de validar el modelo de simulacion  para lin
 Una de las primeras lecciones aprendidas fue la necesidad de contar con un blindado consistente en el contorno del sustrato mostrando la importancia de confinar correctamente el campo dentro del "_stack-up_". Asi mismo el calor generado por la soldadura al momento de cerrar la caja debe ser rapidamente disipado mientras se la cierra pues el aumento de calor y posibles movimientos involuntarios de las capas del "sandwich" hace que se despegue la cinta de cobre y se mueva arruinando así los ajustes previamente realizados.
 
 El cuarto y último dispositivo es un acoplador direccional stripline, el cual se obtuvo la mayor directividad #qty[20.95][dB]. Este dispositivo se implemento y luego con un cutter se fue modificando de forma sustractiva el gap, el ancho y la longitud (paralela a la linea de transmisión) junto con la simulación. Dichas modificaciones se hicieron de a pasos cortos debido a q si se hacen pasos mas grandes puede modificarse por demás.
-
-
-#pagebreak()
-= Interfaz gráfica para la obtención
-Inspirado en las calculadoras de QUCS se decidió implementar una para la obtención del parámetro $epsilon_r$ y $tg(delta)$, adjuntado los archivos del VNA calcule los mismos automatizando el proceso, ademas la misma contará con interfaz de linea de comandos facilitando la posibilidad de hacer scripting.
-
-// #image("gui.png")
-
-Como comentario adicional, el proyecto se pretende implementar en un pcb FR4 de 4 capas habilitando la posibilidad de realización de _striplines_, minimizando las pérdidas por radiación en la interfaz sutrato/aire *(consultar)*
-
-
-
-#image("imgs/ad8302_reflectometer.png")
-
-#image("imgs/AD8302.png", width: 50%)
 
 
 
