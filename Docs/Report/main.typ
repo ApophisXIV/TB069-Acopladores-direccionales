@@ -9,7 +9,7 @@
   logo: image("imgs/Logo-fiuba_big.png", width: 3cm),
   // <a href="https://www.flaticon.com/free-icons/aerospace" title="aerospace icons">Aerospace icons created by gravisio - Flaticon</a>
   language: "es",
-  abstract: "Este trabajo presenta el diseño, simulación, implementación y caracterización de acopladores direccionales en tecnología microstrip y stripline sobre sustrato FR4, centrados en la frecuencia de 915 MHz. Se realizó una caracterización exhaustiva del sustrato mediante tres métodos experimentales independientes: diferencia de fase en stubs, resonadores de anillo y medición de capacitancia, con el fin de obtener parámetros precisos para el diseño. Se implementaron cuatro prototipos de acopladores, evaluando su acoplamiento, aislamiento y directividad. ",
+  abstract: "Este trabajo presenta el diseño, simulación, implementación y caracterización de acopladores direccionales en tecnología microstrip y stripline sobre sustrato FR4, centrados en la frecuencia de 915 MHz. Se realizó una caracterización exhaustiva del sustrato mediante dos métodos experimentales independientes: diferencia de fase en stubs, resonadores de anillo con el fin de obtener parámetros precisos para el diseño. Se implementaron cuatro prototipos de acopladores, evaluando su acoplamiento, aislamiento y directividad. ",
   compact-mode: false,
   it,
 )
@@ -1017,7 +1017,7 @@ Cabe destacar que este tipo de acoplador no se utilizará en el diseño práctic
 /* -------------------------------------------------------------------------- */
 = Caracterización del sustrato
 
-La caracterización del sustrato FR4 se realizará a través de tres métodos de medición independientes: diferencia de fase en stubs microstrip, resonadores de anillo y capacitor de placas planas paralelas.
+La caracterización del sustrato FR4 se realizará a través de tres métodos de medición independientes: diferencia de fase en stubs microstrip, resonadores de anillo.
 
 == Método 1: diferencia de fase en stubs microstrip
 
@@ -1291,37 +1291,12 @@ El análisis de la respuesta en frecuencia permite identificar las frecuencias d
 De las cinco estructuras medidas, el valor representativo de permitividad relativa obtenido fue $epsilon_r = 3.789 plus.minus 0.19$, consistente con el valor estimado por el método de stubs y la tangente de pérdidas obtenida fue $tg(delta) = 0.035 plus.minus 0.03$, dentro del rango esperado para este tipo de sustrato.
 
 
-
-== Método 3: Medición de capacitancia
-
-El tercer método consiste en un capacitor plano implementado sobre el mismo sustrato FR4. La capacitancia de este dispositivo depende directamente de la permitividad efectiva del dieléctrico y de la geometría del capacitor.
-
-=== Diseño
-
-En este caso se realizó el capacitor con una placa FR4 de #qty[35][mm]x#qty[50][mm]
-
-
-=== Mediciones
-
-
-Finalmente, el tercer método consiste en la medición de la capacitancia de un capacitor plano fabricado sobre el mismo sustrato FR4. A partir del valor medido de capacitancia y utilizando la relación mostrada en la @ec:capacitancia, se calcula la permitividad efectiva del material:
-
-$ C = (epsilon_(e f f) dot A)/d $<ec:capacitancia>
-
-Siendo d la distancia entre placas  y A el área del capacitor.
-
-
-== Ánalisis de resultados
-
-
-
-
 = Diseño del acoplador direccional
 
 El objetivo del trabajo es diseñar, simular y caracterizar un acoplador direccional microstrip centrado en 915 MHz, capaz de manejar una potencia de 5 W. Este componente formará parte del proyecto general y será destinado a la medición de potencia reflejada y el monitoreo del ajuste de antena, permitiendo obtener el coeficiente de reflexión a partir de la señal acoplada. sim ebargo, el presente trabajo se acota a la realización 
 de un acoplador direccional.
 
-El desarrollo se realizará utilizando uSimmics (Qucs-studio) como herramienta principal de simulación, siendo un software libre y sin costo permitiendo analizar y simular las líneas acopladas y una implementación alcanzable en el marco del proyecto, aunque los resultados podrían contrastarse posteriormente con herramientas como Feko.
+El desarrollo se realizará utilizando uSimmics (Qucs-studio) como herramienta principal de simulación, siendo un software libre y sin costo permitiendo analizar y simular las líneas acopladas y una implementación alcanzable en el marco del proyecto.
 
 Por otro lado el diseño teórico se basará en el modelo de modos par e impar (even/odd), a partir del cual se determinarán los parámetros de acoplamiento ($C$) y directividad ($D$). Estos parámetros serán válidados mediante simulaciones electromagnéticas.
 
