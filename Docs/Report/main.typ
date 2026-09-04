@@ -266,7 +266,7 @@ La onda electromagnética en una línea de transmisión se propaga principalment
 
 La onda electromagnética puede hacerlo mediante distintos modos de propagación, los cuales describen la orientación de los campos eléctrico y magnético con respecto a la dirección de propagación. Dependiendo de esta orientación, los campos pueden presentar componentes transversales, longitudinales o una combinación de ambas.
 
-#v(-0.5cm)
+// #v(-0.5cm)
 #figure(
   image("imgs/modoTEMvectores.PNG", width: 5cm),
   caption: [Modo de propagación TEM],
@@ -274,16 +274,18 @@ La onda electromagnética puede hacerlo mediante distintos modos de propagación
 
 Cuando el campo eléctrico y magnético son completamente transversales a la dirección de propagación, se presenta el modo TEM (Transversal Electromagnético), como se ilustra en la @fig:modo_tem. Este modo es más propenso a darse en frecuencias inferiores al GHz (sub-GHz) y en estructuras principalmente no dispersivas (homogéneas), como pueden ser las striplines o líneas coaxiales #cite(<Pozar>, supplement: [p.141]). En otras palabras, en estructuras donde la dispersión de la onda electromagnética fuera del confinamiento de la línea es baja o nula.
 
-También existe el modo TE (Transversal Eléctrico), en el cual el campo eléctrico es completamente transversal a la dirección de propagación, mientras que el campo magnético presenta una componente longitudinal. En el caso contrario, el modo TM (Transversal Magnético) presenta el campo magnético transversal y el campo eléctrico con una componente longitudinal. Ambos se ilustran en las @fig:TE y @fig:TM, respectivamente.
 
-#v(-0.25cm)
+
+También existe el modo TE (Transversal Eléctrico), en el cual el campo eléctrico es completamente transversal a la dirección de propagación, mientras que el campo magnético presenta una componente longitudinal. 
+
+// #v(-0.25cm)
 #subpar.grid(
-  figure(image("imgs/modoTEvectores.PNG", width: 4.5cm), caption: [
+  figure(image("imgs/modoTEvectores.PNG", width: 5cm), caption: [
     Modo de propagación TE
   ]),
   <fig:TE>,
 
-  figure(image("imgs/modoTMvectores.PNG", width: 4.5cm), caption: [
+  figure(image("imgs/modoTMvectores.PNG", width:5cm), caption: [
     Modo de propagación TM
   ]),
   <fig:TM>,
@@ -294,6 +296,10 @@ También existe el modo TE (Transversal Eléctrico), en el cual el campo eléctr
   caption: [Modos de propagación transversales],
   label: <fig_modo_propagacion>,
 )
+
+En el caso contrario, el modo TM (Transversal Magnético) presenta el campo magnético transversal y el campo eléctrico con una componente longitudinal. Ambos se ilustran en las @fig:TE y @fig:TM, respectivamente.
+
+
 
 Por último, el modo más propenso a ocurrir en la práctica es el denominado modo cuasi-TEM. En este modo, los campos eléctrico y magnético son casi, pero no exactamente, perpendiculares a la dirección de propagación. El modo cuasi-TEM ocurre especialmente en estructuras inhomogéneas, producto de que no toda la energía electromagnética queda confinada en la línea de transmisión, sino que una parte existe fuera del sustrato debido a las diferencias entre la permitividad del dieléctrico y el medio que la rodea, como es el caso de la línea microstrip.
 
@@ -491,7 +497,7 @@ La parte real de la permitividad ($epsilon'$) se relaciona con la definición pr
 La parte imaginaria ($epsilon''$) representa las pérdidas del medio, debidas al amortiguamiento de los momentos dipolares en vibración. En contraste, el espacio libre, al poseer una permitividad ($epsilon_0$) puramente real, no presenta estas pérdidas.
 
 #figure(
-  image("imgs/ilustrations/permitividad_compleja_modelo.png", width: 40%),
+  image("imgs/ilustrations/permitividad_compleja_modelo.png", width: 50%),
   caption: [
     Comportamiento típico de la parte real ($epsilon'$) y la parte imaginaria ($epsilon''$) de la permitividad del material en frecuencia
   ],
@@ -570,7 +576,7 @@ Cada uno de estos parámetros tiene un significado propio y permite conocer magn
 
 === Analizador de redes vectoriales (VNA)
 
-Un VNA es un instrumento que permite medir los parámetros S mencionados previamente. A continuación se describe con mayor detalle la obtención de estos parámetros en una red de dos puertos.
+A grandes rasgos, entre las diversas funciones que nos ofrece, un VNA es un instrumento que permite medir los parámetros S mencionados previamente. A continuación se describe con mayor detalle la obtención de estos parámetros en una red de dos puertos.
 
 El VNA caracteriza los parámetros S del dispositivo inyectando una señal de estímulo en uno de los puertos del DUT#footnote[Al momento de realizar una medición, el dispositivo a ensayar o caracterizar se denomina DUT (Device Under Test).], mientras que el otro puerto se termina con una carga adaptada (típicamente de $50 Omega$) cuando se mide reflexión. Acto seguido, mide la relación entre la onda reflejada y la incidente en el puerto 1, obteniendo así el parámetro $S_(11)$. Por otro lado, si se evalúa la relación entre la onda transmitida del puerto 1 al puerto 2, se obtiene el parámetro $S_(21)$ (transmisión directa). De manera similar, si se invierte el DUT (estímulo en el puerto 2 y carga en el puerto 1), se adquieren $S_(22)$ (reflexión en el puerto 2) y $S_(12)$ (transmisión inversa).
 
@@ -578,11 +584,11 @@ El VNA caracteriza los parámetros S del dispositivo inyectando una señal de es
 
 Antes de cualquier medición es imprescindible realizar una calibración con el objetivo de mitigar los errores sistemáticos de origen instrumental, así como los introducidos por cables y conectores. La calibración básica de un VNA es la calibración tipo SOLT, acrónimo de *short* (cortocircuito), *open* (circuito abierto), *load* (carga) y *through* (inter-puerto). Habitualmente, esta se realiza mediante el software de calibración provisto por el fabricante del instrumento. Las tres primeras etapas (cortocircuito, circuito abierto y carga de $50 Omega$) permiten corregir los errores en la medición de coeficientes de reflexión, mientras que la etapa through es fundamental para corregir los errores en la medición de coeficientes de transmisión.
 
-#subpar.grid(
-  show-sub-caption: 10pt
-)
+// #subpar.grid(
+//   show-sub-caption: 1pt
+// )
 
-#v(-.62cm)
+// #v(-.62cm)
 #subpar.grid(
   figure(image("imgs/calibracion_vna.jpg", width: 100%, height: 3.5cm, fit: "stretch"), caption: [
     Banco de calibración
@@ -603,7 +609,9 @@ Antes de cualquier medición es imprescindible realizar una calibración con el 
   label: <fig:calibración>,
 )
 
-La calibración desplaza el plano de referencia hasta los conectores del DUT, eliminando así los errores sistemáticos del instrumento y de los cables. Para garantizar la repetibilidad y evitar daños en los conectores, se recomienda utilizar llaves torquimétricas para ajustar las conexiones y limpiar las superficies y conectores con alcohol isopropílico antes de cada medición.
+La calibración desplaza el plano de referencia hasta los conectores del DUT, eliminando así los errores sistemáticos del instrumento y de los cables. 
+
+Para garantizar la repetibilidad y evitar daños en los conectores, se recomienda utilizar llaves torquimétricas para ajustar las roscas, limpiar las superficies y conectores (interna y externamente) con alcohol isopropílico antes de cada medición.
 
 /* -------------------------------------------------------------------------- */
 /*           Modelos de analisis (Hammerstad - Kirschning - Sarkar)           */
@@ -653,10 +661,10 @@ Para considerar el espesor del conductor ($t$), Hammerstad y Jensen introducen c
 
 A partir de estas correcciones, se definen los anchos efectivos corregidos como $u_r = u + Delta u_r$ y $u_1 = u + Delta u_1$.
 
-Combinando las correcciones por espesor con la impedancia $Z_(01)$, se obtienen las expresiones finales para la permitividad efectiva (@ec:epsilon_eff_hammerstad) y la impedancia característica (@ec:impedancia_hammerstad) de la línea microstrip. Estas expresiones son válidas en el régimen cuasi-estático y constituyen la base para el diseño de las líneas microstrip antes de considerar efectos dispersivos.
+Combinando las correcciones por espesor con la impedancia $Z_(01)$, se obtienen las expresiones finales para la permitividad efectiva (@ec:epsilon_eff_hammerstad) y la impedancia característica (@ec:impedancia_hammerstad) de la línea microstrip. Estas expresiones son válidas en el régimen cuasi-estático y constituyen la base para el diseño de las líneas microstrip antes de considerar efectos dispersivos. Es importante mencionar que el simulador QUCS utiliza internamente dicho modelo para el calculo de impedancia característica por lo que podremos utilizarlo para dicho fin en el diseño y desarrollo del _set-up_ experimental.
 
 #grid(
-  columns: (1.05fr, 1fr),
+  columns: (1.25fr, 1fr),
   column-gutter: 0pt,
   align: horizon,
   [$
@@ -825,17 +833,17 @@ Expresando la longitud de onda en función de la permitividad efectiva ($epsilon
 
 $ epsilon_("eff") = ((n · c_0) / (f · 2 pi R_("med")))^2 $ <ec:eff_ring>
 
-Shebani #cite(<shebani2011>) presenta curvas de diseño para el cálculo del radio medio del anillo y las dimensiones de las líneas de alimentación para diferentes sustratos como FR4, RT-Duroid 5870 y Alumina, facilitando el diseño del resonador a partir de la frecuencia de operación y la geometría de la línea. En su trabajo, el radio medio se calcula utilizando la misma condición de Troughton y la permitividad efectiva se obtiene mediante el modelo de Kirschning y Jansen.
+Shebani #cite(<shebani2011>) presenta curvas de diseño para el cálculo del radio medio del anillo y las dimensiones de las líneas de alimentación para diferentes sustratos como FR4, RT-Duroid 5870 y Alumina, facilitando el diseño del resonador a partir de la frecuencia de operación y la geometría de la línea. En su trabajo, el radio medio se calcula utilizando la misma condición de Troughton y la permitividad efectiva que se obtiene mediante el modelo de Kirschning y Jansen.
 
 Para complementar el análisis de los modos de resonancia, Wu y Rosenbaum desarrollan un gráfico de los diferentes modos que pueden aparecer, donde relacionan el ancho normalizado del anillo ($W/R_("med")$) con la constante de propagación normalizada ($k · R_("med")$), siendo $W$ el ancho del anillo ($W = R_e - R_i$) y $k$ el número de onda #cite(<wu_mode_chart>).
 
 Los modos de resonancia se denominan $"TM"_("nml")$, donde $"TM"$ corresponde a transversal magnético, $n$ es la variación azimutal (alrededor del anillo) que indica cuántas longitudes de onda completas se distribuyen a lo largo de la circunferencia, $m$ es la variación radial y $l$ indica la variación en altura de la onda. Dado que el sustrato es delgado, el campo no varía en altura por lo que habitualmente $l = 0$. Posteriormente se presentarán ilustraciones obtenidas en simulación en relación al campo cercano del anillo en condiciones de resonancia y como la onda se distribuye en la estructura.
 
-Partiendo de la condición de resonancia de Troughton (@ec:resonancia_anillo) y expresándola en función del número de onda ($k = 2pi/lambda$) se obtiene:
+Partiendo de la condición de resonancia de Troughton (@ec:resonancia_anillo) y expresándola en función del número de onda ($k = (2pi)/lambda$) se obtiene:
 
 $ k · R_("med") = n $ <ec:aproximacion_con_k>
 
-Esta ecuación indica que la fase acumulada de la onda al dar una vuelta completa al anillo debe ser $2 pi dot n$. Sin embargo, como advierten Wu y Rosenbaum, esta igualdad es válida para anillos de ancho angosto $W/R_("med") -> 0$. En ese caso, el campo viaja en una dirección (la circunferencia) y no hay variación radial, por lo que el modo es puramente $"TM"_("n10")$. Cuando el anillo es ancho aparecen variaciones del campo en la dirección radial que dan lugar a modos de alto orden ($m > 1$) y efectos de borde que modifican la frecuencia de resonancia; como consecuencia, el valor de $k · R_("med")$ es menor que $n$ para el modo dado.
+Esta ecuación indica que la fase acumulada de la onda al dar una vuelta completa al anillo debe ser $2 pi dot n$. Sin embargo, como advierten Wu y Rosenbaum, esta igualdad es válida para anillos de ancho angosto $W/R_("med") -> 0$. En ese caso, el campo viaja en una dirección (la circunferencia) y no hay variación radial, por lo que el modo es puramente $"TM"_("n10")$. Cuando el anillo es ancho aparecen variaciones del campo en la dirección radial que dan lugar a lo que se denomina modos de alto orden ($m > 1$) y efectos de borde que modifican la frecuencia de resonancia; como consecuencia, el valor de $k · R_("med")$ es menor que $n$ para el modo dado.
 
 Wu y Rosenbaum muestran que el modo $"TM"_("110")$ es el dominante para cualquier ancho de anillo y establecen que para evitar modos de alto orden se debe cumplir:
 
@@ -958,7 +966,7 @@ En el modo par, las tensiones en ambas líneas son iguales y están en fase, por
 
 Por el contrario, en el modo impar, las tensiones son iguales en magnitud pero están desfasadas $180 degree$, por lo que las corrientes circulan en direcciones opuestas. En este caso el plano de simetría actúa como un muro eléctrico perfecto (PEC), donde el campo eléctrico tangencial es nulo. Este modo tiene una impedancia característica denominada impedancia impar $Z_(0 o)$.
 #figure(
-  image("imgs/ilustrations/par_impar.png", width: 30%),
+  image("imgs/ilustrations/par_impar.png", width: 60%),
   caption: [Distribución de campos para el modo par e impar en líneas acopladas.],
 )<fig:modos_par_impar>
 
@@ -1236,7 +1244,7 @@ El script genera cuatro figuras que muestran las diferentes etapas del procesami
   caption: [Ajuste del modelo de Djordjevic-Sarkar],
 )<fig:er_ds>
 
-De las diez combinaciones evaluadas, se aceptaron ocho pares válidos. La permitividad relativa media obtenida es $epsilon_r = 3.40 plus.minus 0.62$, y el modelo de Djordjevic-Sarkar ajustado presenta parámetros $epsilon_infinity = 2.115$ y $Delta epsilon = 4.433$. Las frecuencias superiores a #qty[4.5][GHz] se excluyeron del análisis debido a resonancias espurias de los conectores SMA.
+De las diez combinaciones evaluadas, se aceptaron ocho pares válidos. La permitividad relativa media obtenida es $epsilon_r = 3.40 plus.minus 0.62$, y el modelo de Djordjevic-Sarkar ajustado presenta parámetros $epsilon_infinity = 2.115$ y $Delta epsilon = 4.433$. Las frecuencias superiores a #qty[4.5][GHz] se excluyeron del análisis debido a resonancias espurias producto de los conectores SMA.
 
 
 
@@ -1268,7 +1276,7 @@ Como fue mencionado anteriormente se presentan gráficos del campo cercano para 
 
 === Implementación
 
-La fabricación de los resonadores se realizó mediante el mismo proceso fotolitográfico descripto en el método de stubs, transfiriendo el diseño de KiCad al cobre del sustrato FR4 y grabando con cloruro férrico. Cada resonador incluye dos líneas de alimentación con conectores SMA soldados en sus extremos, asegurando la conexión al VNA para las mediciones.
+La fabricación de los resonadores se realizó mediante el mismo proceso fotolitográfico descripto en el método de stubs. Cada resonador incluye dos líneas de alimentación con conectores SMA soldados en sus extremos, asegurando la conexión al VNA para las mediciones.
 
 
 #figure(
@@ -1293,14 +1301,14 @@ De las cinco estructuras medidas, el valor representativo de permitividad relati
 
 = Diseño del acoplador direccional
 
-El objetivo del trabajo es diseñar, simular y caracterizar un acoplador direccional microstrip centrado en 915 MHz, capaz de manejar una potencia de 5 W. Este componente formará parte del proyecto general y será destinado a la medición de potencia reflejada y el monitoreo del ajuste de antena, permitiendo obtener el coeficiente de reflexión a partir de la señal acoplada. sim ebargo, el presente trabajo se acota a la realización 
+El objetivo del trabajo es diseñar, simular y caracterizar un acoplador direccional microstrip centrado en 915 MHz, capaz de manejar una potencia de 5 W. Este componente formará parte del proyecto general y será destinado a la medición de potencia reflejada y el monitoreo del ajuste de antena, permitiendo obtener el coeficiente de reflexión a partir de la señal acoplada. sim ebargo, el presente trabajo se acota a la realización
 de un acoplador direccional.
 
 El desarrollo se realizará utilizando uSimmics (Qucs-studio) como herramienta principal de simulación, siendo un software libre y sin costo permitiendo analizar y simular las líneas acopladas y una implementación alcanzable en el marco del proyecto.
 
-Por otro lado el diseño teórico se basará en el modelo de modos par e impar (even/odd), a partir del cual se determinarán los parámetros de acoplamiento ($C$) y directividad ($D$). Estos parámetros serán válidados mediante simulaciones electromagnéticas.
+Por otro lado el diseño teórico se basará en el modelo de modos par e impar (even/odd), a partir del cual se determinarán los parámetros de acoplamiento ($C$) y directividad ($D$). Estos parámetros serán válidados mediante simulación.
 
-Con el fin de optimizar la respuesta en frecuencia del acoplador y lograr un acoplamiento que si bien todavia no fue definido con rigurosidad será próximo a #qty[-30][dB] en la frecuencia de trabajo se realizará un barrido paramétrico sobre el espaciado entre líneas, ancho de pista y longitud de acoplamiento 
+Con el fin de optimizar la respuesta en frecuencia del acoplador y lograr un acoplamiento que si bien todavia no fue definido con rigurosidad será próximo a #qty[-30][dB] en la frecuencia de trabajo se realizará un barrido paramétrico sobre el espaciado entre líneas, ancho de pista y longitud de acoplamiento
 
 Finalmente, el acoplador se fabricará sobre el mismo sustrato caracterizado (FR4), se medirán sus parámetros $S_(11)$, $S_(21)$, $S_(31)$ y $S_(41)$ mediante un analizador vectorial de redes (VNA), y se evaluará la directividad obtenida comparando la potencia acoplada hacia los puertos acoplado y aislado.
 
@@ -1328,7 +1336,7 @@ poder observar de manera experimetal la diferencia entre ellos.
 )
 
 
-En la @fig:pcb_acoplador_direccional se puede notar los diseños que se obtuvieron mendiante el proceso por fotolitografia y los experiemntales con cinta de cobre donde se realizarán las distintas mediciones. 
+En la @fig:pcb_acoplador_direccional se puede notar los diseños que se obtuvieron mendiante el proceso por fotolitografía y con cinta de cobre donde se realizarán las distintas mediciones.
 
 == Mediciones del acoplador Direccional
 
@@ -1376,7 +1384,7 @@ Es importante que como el VNA tiene solo dos puertos, al momento de medir los pu
 
 
 #pagebreak()
-#todo("Modificar la foto del nuevo aislado")
+// #todo("Modificar la foto del nuevo aislado")
 
 Midiendo el acoplador de manera inversa, es decir, el puerto 1 ahora es el puerto 2:
 
@@ -1569,6 +1577,18 @@ Una de las primeras lecciones aprendidas fue la necesidad de contar con un blind
 
 El cuarto y último dispositivo es un acoplador direccional stripline, el cual se obtuvo la mayor directividad #qty[20.95][dB]. Este dispositivo se implemento y luego con un cutter se fue modificando de forma sustractiva el gap, el ancho y la longitud (paralela a la linea de transmisión) junto con la simulación. Dichas modificaciones se hicieron de a pasos cortos debido a q si se hacen pasos mas grandes puede modificarse por demás.
 
+== Conclusiones
+En este trabajo se diseñaron, implementaron y caracterizaron acopladores direccionales en tecnología microstrip y stripline sobre sustrato FR4 para una frecuencia de diseño de 915 MHz, integrando herramientas de modelado teórico, simulación electromagnética y validación experimental mediante mediciones con analizador de redes vectorial.
+
+La caracterización experimental del sustrato demostró la importancia de obtener parámetros eléctricos propios del material utilizado en lugar de depender exclusivamente de los valores nominales proporcionados por el fabricante. La utilización de dos métodos independientes diferencia de fase en stubs y resonadores de anillo permitió validar la consistencia de los resultados y reducir la incertidumbre en los parámetros empleados durante el diseño.
+
+Los resultados obtenidos evidenciaron que el desempeño de un acoplador direccional es altamente sensible tanto a su geometría como a su proceso de fabricación. En el primer prototipo se observó una directividad negativa, situación que se corrigió invirtiendo la orientación del dispositivo, alcanzando posteriormente una directividad de 18,33 dB y demostrando la influencia que puede tener la disposición física del circuito sobre el comportamiento electromagnético.
+
+El segundo acoplador microstrip confirmó que la optimización geométrica mediante barridos paramétricos constituye una estrategia efectiva para mejorar la directividad del dispositivo, mientras que los prototipos stripline permitieron identificar aspectos constructivos que no suelen aparecer en el análisis teórico, como la necesidad de un blindaje perimetral adecuado y la influencia del proceso de ensamblado sobre la estabilidad de la geometría del acoplador.
+
+El mejor desempeño se obtuvo con el cuarto prototipo stripline, que alcanzó una directividad de 20,95 dB, superior al resto de los diseños implementados. Este resultado pone de manifiesto que el confinamiento del campo electromagnético característico de la configuración stripline favorece el aislamiento entre puertos y mejora la directividad, incluso en una implementación artesanal, siempre que las dimensiones críticas se ajusten cuidadosamente.
+
+Finalmente, el trabajo permitió comprobar que, para aplicaciones en la banda UHF alrededor de 915 MHz, el FR4 continúa siendo una alternativa técnicamente viable cuando se complementa con una adecuada caracterización experimental del material y un proceso iterativo de simulación y ajuste. Asimismo, las metodologías desarrolladas para la caracterización del sustrato y la optimización de las estructuras implementadas constituyen una base sólida para futuros diseños de dispositivos de microondas sobre PCB, tanto en tecnologías microstrip como stripline.
 
 
 #bibliography("bibliografia.bib", style: "ieee")
