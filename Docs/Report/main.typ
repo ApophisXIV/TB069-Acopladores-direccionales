@@ -276,7 +276,7 @@ Cuando el campo eléctrico y magnético son completamente transversales a la dir
 
 
 
-También existe el modo TE (Transversal Eléctrico), en el cual el campo eléctrico es completamente transversal a la dirección de propagación, mientras que el campo magnético presenta una componente longitudinal. 
+También existe el modo TE (Transversal Eléctrico), en el cual el campo eléctrico es completamente transversal a la dirección de propagación, mientras que el campo magnético presenta una componente longitudinal.
 
 // #v(-0.25cm)
 #subpar.grid(
@@ -285,7 +285,7 @@ También existe el modo TE (Transversal Eléctrico), en el cual el campo eléctr
   ]),
   <fig:TE>,
 
-  figure(image("imgs/modoTMvectores.PNG", width:5cm), caption: [
+  figure(image("imgs/modoTMvectores.PNG", width: 5cm), caption: [
     Modo de propagación TM
   ]),
   <fig:TM>,
@@ -609,7 +609,7 @@ Antes de cualquier medición es imprescindible realizar una calibración con el 
   label: <fig:calibración>,
 )
 
-La calibración desplaza el plano de referencia hasta los conectores del DUT, eliminando así los errores sistemáticos del instrumento y de los cables. 
+La calibración desplaza el plano de referencia hasta los conectores del DUT, eliminando así los errores sistemáticos del instrumento y de los cables.
 
 Para garantizar la repetibilidad y evitar daños en los conectores, se recomienda utilizar llaves torquimétricas para ajustar las roscas, limpiar las superficies y conectores (interna y externamente) con alcohol isopropílico antes de cada medición.
 
@@ -697,7 +697,7 @@ Es importante mencionar que en estas expresiones $f$ se expresa en gigahertz (GH
 
 === Modelo de Djordjevic-Sarkar (modelo de Debye del dieléctrico)
 
-Los modelos presentados anteriormente (Hammerstad y Jensen, Kirschning y Jansen) describen la permitividad efectiva de la línea microstrip en función de la geometría y la frecuencia, pero no modelan la permitividad dieléctrica del material en función de la frecuencia. Como se mencionó previamente mediante la ecuación @ec:epsilon_complejo, la permitividad es una magnitud compleja y puede expresarse como:
+Los modelos presentados anteriormente (Hammerstad-Jensen, Kirschning-Jansen) describen la permitividad efectiva de la línea microstrip en función de la geometría y la frecuencia. Sin embargo, no modelan la permitividad dieléctrica del material del sustrato en función de la frecuencia. Asimismo, como se mencionó previamente mediante la ecuación @ec:epsilon_complejo, la permitividad es una magnitud compleja y puede expresarse como:
 
 $ epsilon = epsilon' · (1 - j · tan(delta)) $ <ec:epsilon_con_delta>
 
@@ -895,7 +895,7 @@ $
   alpha_d = 8.686 · pi · (epsilon_("eff") - 1)/(epsilon_r - 1) · (epsilon_r)/(epsilon_("eff")) · (tg(delta))/(lambda)
 $ <ec:schneider_loss>
 
-Despejando $tg(delta)$ de la @ec:schneider_loss y considerando que $alpha_d$ se obtiene de la @ec:q_dielectrico mediante $alpha_d = (8.686 pi)/(Q_d · lambda)$, se llega a la expresión utilizada por Heinola et al. #cite(<Heinola_anillos>):
+Despejando $tg(delta)$ de la @ec:schneider_loss y considerando que $alpha_d$ se obtiene de la @ec:q_dielectrico mediante $alpha_d = (8.686 pi)/(Q_d · lambda)$, se llega a la expresión utilizada por Heinola #cite(<Heinola_anillos>):
 
 $ tg(delta) = (epsilon_("eff") · (epsilon_r - 1))/(Q_d · epsilon_r · (epsilon_("eff") - 1)) $ <ec:tan_delta>
 
@@ -1021,19 +1021,19 @@ Cabe destacar que este tipo de acoplador no se utilizará en el diseño práctic
 
 
 /* -------------------------------------------------------------------------- */
-/*                               Caracterizacion                              */
+/*                               Caracterización                              */
 /* -------------------------------------------------------------------------- */
 = Caracterización del sustrato
 
-La caracterización del sustrato FR4 se realizará a través de tres métodos de medición independientes: diferencia de fase en stubs microstrip, resonadores de anillo.
+La caracterización de un sustrato FR4 se llevó a cabo mediante dos métodos de medición independientes: diferencia de fase en stubs microstrip y resonadores de anillo.
 
 == Método 1: diferencia de fase en stubs microstrip
 
-El primer método consiste en la utilización de stubs de microstrip con terminación a circuito abierto de diferentes longitudes, fabricados sobre el sustrato FR4, con el objetivo de estimar la permitividad efectiva ($epsilon_("eff")$) del sustrato. Este método se basa en la relación entre la frecuencia de resonancia y antiresonancia de un stub y su longitud eléctrica, la cual depende de forma directa del parámetro $epsilon_("eff")$.
+El primer método emplea stubs de microstrip con terminación a circuito abierto de diferentes longitudes, fabricados sobre un sustrato FR4, con el objetivo de estimar la permitividad efectiva ($epsilon_("eff")$). Este método se basa en la relación entre la frecuencia de resonancia y antiresonancia de un stub y su longitud eléctrica, la cual depende de forma directa del parámetro $epsilon_("eff")$.
 
 Si se intentara medir las resonancias y antiresonancias utilizando un solo stub abierto se incurriría en errores de medición como la capacitancia de borde en el extremo abierto y la longitud eléctrica añadida por la transición entre el conector SMA, la línea microstrip y el cable del VNA, lo que provocaría un desplazamiento en las frecuencias de resonancia medidas.
 
-Para mitigar estos errores, se utiliza un par de stubs geométricamente idénticos excepto en su longitud, con una diferencia $Delta L$. Al reordenar la @ec:longitud_stub se obtienen las @ec:stub_1_L y @ec:stub_2_DL:
+Para mitigar estos errores, se utiliza un par de stubs geométricamente idénticos que difieren únicamente en su longitud, con una diferencia $Delta L$. Al reordenar la @ec:longitud_stub se obtienen las @ec:stub_1_L y @ec:stub_2_DL:
 
 #grid(
   columns: (1fr, 1fr),
@@ -1043,13 +1043,13 @@ Para mitigar estos errores, se utiliza un par de stubs geométricamente idéntic
   [$ f_("stub2") = n · c_0 / (4 · (L + Delta L) · sqrt(epsilon_("eff"))) $ <ec:stub_2_DL>],
 )
 
-Al ser los stubs muy similares, los efectos parásitos son prácticamente los mismos en ambos, por lo que al restar las ecuaciones y considerar las diferencias en sus frecuencias de resonancia, el error sistemático se cancela.
+Dado que son stubs geométricamente similares, los efectos parásitos son prácticamente los mismos en ambos, por lo que al restar las ecuaciones y considerar las diferencias en sus frecuencias de resonancia, el error sistemático se cancela.
 
 El método consiste en medir el parámetro $S_11$ de cada stub y analizar la fase para identificar las frecuencias de resonancia y antiresonancia. Considerando el mismo orden armónico para cualquier par de stubs, se despeja la permitividad efectiva:
 
 $ epsilon_("eff") = [(c_0 · n)/(4 · Delta L) · (1/f_("stub2") - 1/f_("stub1"))]^2 $ <ec:delta_pair_e_eff>
 
-Esta ecuación depende únicamente de $Delta L$ y no de la longitud absoluta de los stubs, por lo que la exactitud del método está fuertemente ligada a la medición de las longitudes individuales y al proceso de fabricación. Promediando las estimaciones de los diferentes pares de stubs para distintos armónicos se reduce la incertidumbre, obteniendo un valor representativo de $epsilon_("eff")$.
+Esta ecuación depende únicamente de $Delta L$ y no de la longitud absoluta de los stubs, por lo que la exactitud del método está fuertemente ligada a la medición de las longitudes individuales y al proceso de fabricación. Al promediar las estimaciones de los diferentes pares de stubs para distintos armónicos se reduce la incertidumbre, obteniendo un valor representativo de $epsilon_("eff")$.
 
 
 Alternativamente, en lugar de utilizar únicamente las frecuencias de resonancia discretas, es posible extender el análisis empleando la diferencia de fase continua entre dos stubs. La permitividad efectiva se obtiene entonces a partir de la pendiente de la diferencia de fase ($Delta phi$) en función de la frecuencia:
@@ -1167,9 +1167,9 @@ Antes de realizar las mediciones, se llevó a cabo un procedimiento de calibraci
   caption: [Medición del stub de $lambda$/4],
 )<fig:stub_un_cuarto>
 
-Durante la medición, cada stub fue excitado individualmente mientras los demás permanecían sin conectar (en circuito abierto). Esta configuración podría introducir cierto acoplamiento entre stubs debido a la proximidad física entre ellos. Durante el diseño se adoptó como criterio que la separación mínima entre stubs debería ser $d >= 3 · w$, donde $w$ es el ancho de la línea microstrip. Para una impedancia característica $Z_0 = 50 Omega$, $w = #qty[2.97][mm]$, resultando en $d >= 8.92$ mm.
+Durante la medición, cada stub fue excitado individualmente mientras los demás permanecían sin conectar (en circuito abierto). Esta configuración podría introducir cierto acoplamiento entre stubs debido a la proximidad física entre ellos. Como criterio de diseño se adoptó una separación mínima entre stubs $d >= 3 · w$, donde $w$ es el ancho de la línea microstrip. Para una impedancia característica $Z_0 = 50 Omega$, $w = #qty[2.97][mm]$, resultando en $d >= 8.92$ mm.
 
-Para evaluar cuantitativamente este efecto, se analizaron los parámetros fuera de la diagonal principal de la matriz de la @ec:matriz_s_stubs obtenidos de las simulaciones en Feko, los cuales representan la transmisión desde el stub excitado (agresor) hacia cada uno de los demás stubs (víctimas). Siendo una red pasiva y siendo excitados con el mismo nivel de señal, por simetría los parámetros $S_("ij")$ y $S_("ji")$ deberían ser iguales.
+Para evaluar cuantitativamente este efecto, se analizaron los parámetros fuera de la diagonal principal de la matriz de la @ec:matriz_s_stubs obtenidos de las simulaciones en Feko, los cuales representan la transmisión desde el stub excitado (agresor) hacia cada uno de los demás stubs (víctimas). Dado que se trata de una red pasiva excitada con el mismo nivel de señal en cada stub, por simetría los parámetros $S_("ij")$ y $S_("ji")$ deberían ser iguales.
 
 #subpar.grid(
   grid.cell(colspan: 2, figure(
@@ -1203,15 +1203,15 @@ Los resultados muestran que el acoplamiento máximo promedio observado fue menor
 
 === Procesamiento de datos
 
-El procesamiento de los datos de fase se realizó mediante un script en Python que opera sobre los archivos s1p que entrega el VNA donde los parámetros S se presentan con la fase envuelta en el intervalo de -180° a 180°, lo que introduce saltos abruptos artificiales cada vez que la fase acumulada supera los extremos del intervalo. Estos saltos no corresponden a fenómenos físicos sino a una ambigüedad matemática de la función arcotangente, y pueden generar falsos positivos en la detección de resonancias. Por este motivo, el script primero desenvuelve la fase de cada curva recorriendo los puntos de frecuencia y corrigiendo los saltos de 360° cuando la diferencia entre muestras consecutivas supera los 180°, recuperando así la evolución continua de la fase con la frecuencia.
+El procesamiento de los datos de fase se realizó mediante un script en Python que opera sobre los archivos s1p entregados por el VNA. En dichos archivos los parámetros S se presentan con la fase envuelta en el intervalo de -180° a 180°, lo que introduce saltos abruptos artificiales cada vez que la fase acumulada supera los extremos del intervalo. Estos saltos no corresponden a fenómenos físicos sino a una ambigüedad matemática de la función arcotangente, y pueden generar falsos positivos en la detección de resonancias. Por este motivo, el script primero desenvuelve la fase de cada curva recorriendo los puntos de frecuencia y corrigiendo los saltos de 360° cuando la diferencia entre muestras consecutivas supera los 180°, recuperando así la evolución continua de la fase con la frecuencia.
 
 #subpar.grid(
   figure(
-    image("imgs/stubs/medicion_fase_envuelta_stubs.jpg", width: 100%, height: 6cm, fit: "stretch"),
+    image("imgs/stubs/medicion_fase_envuelta_stubs.jpg", width: 85%, height: 6cm, fit: "stretch"),
     caption: [Fase envuelta],
   ), <fig:fase_envuelta_stubs>,
   figure(
-    image("imgs/stubs/medicion_fase_desenvuelta_stubs.jpg", width: 100%, height: 6cm, fit: "stretch"),
+    image("imgs/stubs/medicion_fase_desenvuelta_stubs.jpg", width: 85%, height: 6cm, fit: "stretch"),
     caption: [Fase desenvuelta],
   ),
   columns: 1fr,
@@ -1220,27 +1220,27 @@ El procesamiento de los datos de fase se realizó mediante un script en Python q
   label: <fig:medicion_fase_stubs>,
 )
 
-El flujo de cálculo comienza calculando la diferencia de fase entre cada par de stubs para obtener la permitividad efectiva mediante la @ec:delta_pair_e_eff. Los pares con $Delta L < 15$ mm se descartan por producir estimaciones inestables. Con los pares válidos, se calcula la permitividad relativa del sustrato ($epsilon_r$) utilizando el modelo cuasi-estático de Hammerstad y Jensen, y luego se aplica el modelo de dispersión de Kirschning y Jansen para corregir por frecuencia. Las estimaciones de todos los pares válidos se promedian para obtener la curva representativa de $epsilon_r(f)$.
+El flujo de cálculo comienza calculando la diferencia de fase entre cada par de stubs para obtener la permitividad efectiva mediante la @ec:delta_pair_e_eff. Los pares con $Delta L < 15$ mm se descartan por producir estimaciones inestables. Con los pares válidos, se calcula la permitividad efectiva del sustrato ($epsilon_("eff")$) utilizando el modelo cuasi-estático de Hammerstad y Jensen, y luego se aplica el modelo de dispersión de Kirschning y Jansen para corregir por frecuencia. Las estimaciones de todos los pares válidos se promedian para obtener la curva representativa de $epsilon_("eff") (f)$.
 
 El script genera cuatro figuras que muestran las diferentes etapas del procesamiento. La @fig:er_eff_medido presenta la permitividad efectiva medida para todos los pares de stubs, donde se observa la dispersión de las estimaciones y el promedio representativo. La @fig:er_hj muestra la permitividad relativa obtenida mediante el modelo cuasi-estático de Hammerstad y Jensen, mientras que la @fig:er_kj presenta la corrección por dispersión de Kirschning y Jansen. Finalmente, la @fig:er_ds ajusta el modelo causal de Djordjevic-Sarkar a la curva representativa.
 
 #figure(
-  image("imgs/stubs/stubs_er_medido.png", width: 100%),
+  image("imgs/stubs/stubs_er_medido.png", width: 80%),
   caption: [Permitividad efectiva medida para todos los pares de stubs],
 )<fig:er_eff_medido>
 
 #figure(
-  image("imgs/stubs/stubs_er_hammerstad.png", width: 100%),
+  image("imgs/stubs/stubs_er_hammerstad.png", width: 80%),
   caption: [Permitividad relativa estimada mediante el modelo cuasi-estático de Hammerstad y Jensen],
 )<fig:er_hj>
 
 #figure(
-  image("imgs/stubs/stubs_er_kirschning.png", width: 100%),
+  image("imgs/stubs/stubs_er_kirschning.png", width: 80%),
   caption: [Permitividad relativa corregida por dispersión mediante el modelo de Kirschning y Jansen],
 )<fig:er_kj>
 
 #figure(
-  image("imgs/stubs/stubs_er_sarkar.png", width: 100%),
+  image("imgs/stubs/stubs_er_sarkar.png", width: 80%),
   caption: [Ajuste del modelo de Djordjevic-Sarkar],
 )<fig:er_ds>
 
@@ -1253,15 +1253,74 @@ De las diez combinaciones evaluadas, se aceptaron ocho pares válidos. La permit
 /* -------------------------------------------------------------------------- */
 == Método 2: Resonadores de anillo
 
-El segundo método se basa en resonadores de anillo implementados sobre el sustrato FR4, cuya condición de resonancia se establece cuando el perímetro medio del anillo es igual a un múltiplo entero de la longitud de onda guiada. Este principio permite estimar la permitividad efectiva del sustrato a partir de las frecuencias de resonancia medidas.
+El segundo método se basa en resonadores de anillo implementados sobre el sustrato FR4,en el cual se empleó la aproximación de línea recta propuesta por Troughton en la @ec:resonancia_anillo, la cual establece que la condición de resonancia se cumple cuando el perímetro medio del anillo es igual a un múltiplo entero de la longitud de onda guiada. Este principio permitió estimar la permitividad efectiva del sustrato a partir de las frecuencias de resonancia medidas mediante la @ec:eff_ring.
 
 === Simulación y diseño
 
-El diseño de los resonadores de anillo se realizó siguiendo el criterio de Wu y Rosenbaum para evitar modos de alto orden, estableciendo que el ancho del anillo debe cumplir $W/R_("med") <= 0.1$. Sobre el sustrato FR4 se diseñaron cinco resonadores con frecuencias de resonancia fundamentales distribuidas en la banda de interés, cuyas dimensiones se calcularon a partir de la @ec:eff_ring utilizando el modelo de Hammerstad y Jensen para la permitividad efectiva.
-#figure(image("/assets/image.png", width: 50%), caption: "Modelo 3D del anillo")
-Con las dimensiones obtenidas, se construyeron modelos tridimensionales en Altair Feko y se realizaron simulaciones en dominio de la frecuencia, excitando el puerto de entrada y obteniendo el parámetro $S_(21)$ en el rango de 100 MHz a 6 GHz. Las simulaciones permitieron validar las frecuencias de resonancia diseñadas y ajustar la geometría de los acopladores para asegurar un nivel de acoplamiento adecuado entre las líneas de alimentación y el resonador.
+El diseño de los resonadores de anillo se realizó siguiendo el criterio de Wu y Rosenbaum para evitar modos de alto orden, según el cual el ancho del anillo debe cumplir $W/R_("med") <= 0.1$. Sobre el sustrato FR4, se diseñaron cinco resonadores de anillo cuyas frecuencias de resonancia fundamentales se distribuyeron en torno a la frecuencia de interés. 
 
-Como fue mencionado anteriormente se presentan gráficos del campo cercano para distintas frecuencias de resonancia.
+A partir de la aproximación de línea recta y mediante la @ec:resonancia_anillo, para una frecuencia de #qty[915][MHz] se obtuvo el radio medio $R_("med") = $  #qty[29.064][mm].
+
+Adicionalmente, se calcularon las líneas de alimentación (_feed_ _lines_) mediante la calculadora de líneas microstrip integrada en Qucs (@fig:qucs_rings_calculadora) para una impedancia característica de $50 Omega$. Finalmente se obtiene como resultado las dimensiones de la estructura presentadas en la @tab:calculo_dimensiones_anillos_resonantes
+
+
+#subpar.grid(
+  figure(
+    image("imgs/ring_calculadora.png", width: 100%),
+    caption: [Ejemplo de diseño para uno de los anillos (Qucs)],
+  ),
+  <fig:qucs_rings_calculadora>,
+
+  figure(
+    image("/assets/image.png", width: 100%),
+    caption: [Modelo 3D del anillo],
+  ),
+
+  columns: (1fr, 1.18fr),
+  gap: 0.5cm,
+  caption: [Diseño y simulación del anillo resonante],
+)
+
+
+#align(center, box(width: 80%, [
+  #figure(
+    table(
+      columns: (0.5fr, 0.5fr, 0.6fr, 0.6fr,0.6fr,0.5fr),
+      inset: 6pt,
+      align: horizon,
+      toprule(),
+      // added by this package
+      table.header([*Anillo*], [*Gap*], [*$R_("med")$*], [*Ancho del anillo*],[*Longitud feed lines*], [*Ancho feed lines*]),
+      midrule(),
+      // added by this package
+
+      "Anillo 1", qty[0.4][mm], qty[29.064][mm], qty[1.4865][mm],qty[22.318][mm], qty[2.973][mm],
+
+      "Anillo 2", qty[0.4][mm], qty[29.064][mm], qty[2.973][mm],qty[22.318][mm], qty[2.973][mm],
+
+      "Anillo 3", qty[0.8][mm], qty[29.064][mm], qty[2.973][mm],qty[44.637][mm], qty[2.973][mm],
+
+      "Anillo 4", qty[0.8][mm], qty[29.064][mm], qty[1.4865][mm],qty[44.637][mm], qty[2.973][mm],
+
+      bottomrule(),
+      // added by this package
+    ),
+    caption: "Dimensiones de los anillos resonantes",
+  )<tab:calculo_dimensiones_anillos_resonantes>]))
+
+
+
+Con las dimensiones obtenidas, se construyeron modelos tridimensionales en Altair Feko y se realizaron simulaciones en el dominio de la frecuencia, excitando el puerto de entrada y obteniendo el parámetro $S_(21)$ en el rango de 100 MHz a 6 GHz. Las simulaciones permitieron validar las frecuencias de resonancia diseñadas y ajustar la geometría para asegurar un nivel de acoplamiento adecuado entre las líneas de alimentación y el resonador.
+
+A partir de los resultados de las simulaciones se generaron gráficos de la magnitud del $S_("21")$ para cada anillo, en los que se identifican los picos de resonancia correspondientes.
+
+#figure(
+  image("imgs/rings/magnitud_simulacion_anillos.png", width: 85%),
+  caption: "Parámetro S21 simulado de todos los anillos",
+)
+
+
+Complementariamente, se presentan gráficos del campo cercano de uno de los anillos para distintas frecuencias de resonancia.
 
 #subpar.grid(
   figure(image("imgs/Screenshot from 2026-08-21 09-59-33.png", width: 100%), caption: [Armónico 1]),
@@ -1289,31 +1348,77 @@ La fabricación de los resonadores se realizó mediante el mismo proceso fotolit
 
 Las mediciones se realizaron utilizando el analizador vectorial de redes (VNA), registrando el parámetro $S_(21)$, correspondiente al coeficiente de transmisión, a lo largo del rango de 100 MHz a 6 GHz con 1001 puntos de medición. La calibración se realizó en el plano de los conectores SMA utilizando el kit SOLT, con un ancho de banda de IF de #qty[300][Hz] y un promedio de 5 barridos para reducir el ruido.
 
+
+
+El análisis de la respuesta en frecuencia permite identificar las frecuencias de resonancia del anillo, que se manifiestan como mínimos de pérdida de inserción en el espectro de $S_(21)$. A partir de ellas, y mediante la relación presentada en la @ec:eff_ring, se estima la permitividad efectiva del sustrato. Asimismo, el ancho de banda de la resonancia a -3 dB permite obtener el factor de calidad con carga ($Q_L$) del resonador mediante $Q_L = f / (Delta f)$. A partir de la pérdida de inserción en la resonancia se obtiene el factor de calidad descargado ($Q_0$) que permite estimar las pérdidas dieléctricas del sustrato mediante los modelos de Hammerstad-Jensen para pérdidas por conducción y el modelo de Schneider para pérdidas dieléctricas, siguiendo el procedimiento descripto en la sección de anillos resonantes.
+
+
+=== Procesamiento de datos
+
+El procesamiento de datos de la magnitud del $S_("21")$ se realizó mediante un script en _Python_ que opera sobre los archivos s2p que entrega el VNA.
+
 #figure(
-  image("/assets/image-1.png"),
+  image("imgs/rings/magnitud_s21_anillos.png", width: 80%),
   caption: "Parámetro S21 de todos los anillos",
 )
 
-El análisis de la respuesta en frecuencia permite identificar las frecuencias de resonancia del anillo, que se manifiestan como mínimos de pérdida de inserción en el espectro de $S_(21)$. A partir de estas frecuencias, y utilizando la relación presentada en @ec:eff_ring, es posible estimar la permitividad efectiva del sustrato. Asimismo, el ancho de banda de la resonancia a -3 dB permite obtener el factor de calidad con carga ($Q_L$) del resonador mediante $Q_L = f / (Delta f)$, y a partir de la pérdida de inserción en la resonancia se obtiene el factor de calidad descargado ($Q_0$) que permite estimar las pérdidas dieléctricas del sustrato mediante los modelos de Hammerstad-Jensen para pérdidas por conducción y el modelo de Schneider para pérdidas dieléctricas, siguiendo el procedimiento descripto en la sección de anillos resonantes.
+El flujo de cálculo comenzó con la identificación de los puntos de resonancia para cada anillo, a partir de los cuales se obtiene la permitividad efectiva mediante la @ec:eff_ring y la tangente de pérdidas ($tg(delta)$) mediante la @ec:tan_delta. Una vez calculada el $epsilon_("eff")$ y la $tg(delta)$ se empleó un algoritmo de optimización en _Python_ basado en la biblioteca _minimize_, con el método de _Nelder-Mead_ que dio lugar a seis figuras que muestran las distintas etapas del procedimiento. 
 
-De las cinco estructuras medidas, el valor representativo de permitividad relativa obtenido fue $epsilon_r = 3.789 plus.minus 0.19$, consistente con el valor estimado por el método de stubs y la tangente de pérdidas obtenida fue $tg(delta) = 0.035 plus.minus 0.03$, dentro del rango esperado para este tipo de sustrato.
+La @fig:ring_e_eff_medida presenta la permitividad efectiva medida para todos los anillos y una interpolación representativa, mientras que la @fig:ring_tangente_medida ilustra la tangente de pérdidas para cada anillo. La @fig:ring_e_eff_hammerstad muestra la permitividad efectiva mediante el modelo cuasi-estático de Hammerstad-Jensen.Posteriormente la @fig:ring_e_eff_kirschning presenta la corrección por dispersión de Kirschning-Jansen. Finalmente, la @fig:ring_e_r_sarkar ilustra la permitividad relativa mediante el modelo causal de Djordjevic-Sarkar y la @fig:ring_tangente_modelo_sarkar muestra la tangente delta a partir del mismo modelo.
 
 
-= Diseño del acoplador direccional
+
+#figure(
+  image("imgs/rings/e_eff_medido.png", width: 85%),
+  caption: [Permitividad efectiva medida para todos los anillos],
+)<fig:ring_e_eff_medida>
+
+#figure(
+  image("imgs/rings/e_eff_hammerstad.png", width: 85%),
+  caption: [Permitividad efectiva estimada mediante el modelo cuasi-estático de Hammerstad y Jensen],
+)<fig:ring_e_eff_hammerstad>
+#figure(
+  image("imgs/rings/e_eff_jansen.png", width: 85%),
+  caption: [Permitividad efectiva corregida por dispersión mediante el modelo de Kirschning y Jansen],
+)<fig:ring_e_eff_kirschning>
+
+#figure(
+  image("imgs/rings/e_r_sarkar.png", width: 85%),
+  caption: [Permitividad relativa mediante el modelo de Djordjevic-Sarkar],
+)<fig:ring_e_r_sarkar>
+
+#figure(
+  image("imgs/rings/tangente_medida.png", width: 85%),
+  caption: [Tangente de pérdidas medida para todos los anillos],
+)<fig:ring_tangente_medida>
+
+#figure(
+  image("imgs/rings/tangente_modelo.png", width: 85%),
+  caption: [Tangente de pérdidas mediante el modelo de Djordjevic-Sarkar],
+)<fig:ring_tangente_modelo_sarkar>
+
+
+De las cinco estructuras medidas, el valor representativo de permitividad relativa fue $epsilon_r = 3.789 plus.minus 0.19$ y la tangente de pérdidas fue $tg(delta) = 0.035 plus.minus 0.0028$.
+
+Se observa que el $epsilon_r$ obtenido difiere del valor estimado por el método de stubs en un error relativo del #qty[10.26][%]. Cabe destacar que, si bien ambas caracterizaciones se realizaron sobre PCBs adquiridos con el mismo proveedor, no es posible asegurar que ambos sustratos pertenezcan al mismo lote de fabricación, lo que podría explicar en parte la discrepancia observada.
+
+
+= Diseño y simulación del acoplador direccional
 
 El objetivo del trabajo es diseñar, simular y caracterizar un acoplador direccional microstrip centrado en 915 MHz, capaz de manejar una potencia de 5 W. Este componente formará parte del proyecto general y será destinado a la medición de potencia reflejada y el monitoreo del ajuste de antena, permitiendo obtener el coeficiente de reflexión a partir de la señal acoplada. sim ebargo, el presente trabajo se acota a la realización
 de un acoplador direccional.
 
-El desarrollo se realizará utilizando uSimmics (Qucs-studio) como herramienta principal de simulación, siendo un software libre y sin costo permitiendo analizar y simular las líneas acopladas y una implementación alcanzable en el marco del proyecto.
+El desarrollo se realizará utilizando Qucs como herramienta principal de simulación,permitiendo analizar y simular las líneas acopladas y una implementación alcanzable en el marco del proyecto.
 
-Por otro lado el diseño teórico se basará en el modelo de modos par e impar (even/odd), a partir del cual se determinarán los parámetros de acoplamiento ($C$) y directividad ($D$). Estos parámetros serán válidados mediante simulación.
+Por otro lado el diseño teórico se basa en el modelo de modos par e impar (even/odd), a partir del cual se determinarán los parámetros de acoplamiento ($C$) y directividad ($D$). Estos parámetros serán válidados mediante simulación.
 
-Con el fin de optimizar la respuesta en frecuencia del acoplador y lograr un acoplamiento que si bien todavia no fue definido con rigurosidad será próximo a #qty[-30][dB] en la frecuencia de trabajo se realizará un barrido paramétrico sobre el espaciado entre líneas, ancho de pista y longitud de acoplamiento
+Teniendo en cuenta los rangos de señal que permite el AD8302 se  decidió un acoplamiento próximo a #qty[-30][dB] en la frecuencia de trabajo #qty[915][MHz]. Despejando el coeficiente de acoplamiento de la @ec:fact_c obtenemos un $k = 0,0316$, y posteriormente calculando la impedancia par $Z_("0e")$ y la impedancia impar $Z_("0o")$ mendiante la @ec:impedancia_par y la @ec:impedancia_impar se obtiene $Z_("0e") = qty[51.6][Omega]$
 
-Finalmente, el acoplador se fabricará sobre el mismo sustrato caracterizado (FR4), se medirán sus parámetros $S_(11)$, $S_(21)$, $S_(31)$ y $S_(41)$ mediante un analizador vectorial de redes (VNA), y se evaluará la directividad obtenida comparando la potencia acoplada hacia los puertos acoplado y aislado.
+// Con el fin de optimizar la respuesta en frecuencia del acoplador y lograr un acoplamiento que si bien todavia no fue definido con rigurosidad será próximo a #qty[-30][dB] en la frecuencia de trabajo se realizará un barrido paramétrico sobre el espaciado entre líneas, ancho de pista y longitud de acoplamiento
+
+// Finalmente, el acoplador se fabricará sobre el mismo sustrato caracterizado (FR4), se medirán sus parámetros $S_(11)$, $S_(21)$, $S_(31)$ y $S_(41)$ mediante un analizador vectorial de redes (VNA), y se evaluará la directividad obtenida comparando la potencia acoplada hacia los puertos acoplado y aislado.
 
 == Implementación del acoplador direccional
-
 
 Al momento de la implementación física del dispositivo en un PCB se decició hacerlo mediante un proceso fotolitografico. Dicho método fue escogido con el fin de minimizar las variaciones físicas en las dimesiones de las estructuras debido a que la exactitud de los métodos de estimación utilizados es altamente sensible a la geometría.
 
@@ -1563,6 +1668,7 @@ En la @tab:mediciones_acoplador_915  se sintetizan los parámetros caracteristic
     ),
     caption: "Mediciones del acoplador evaludas en 915 MHz",
   )<tab:mediciones_acoplador_915>]))
+
 En el primer diseño, el ACD1, se obtuvo una directividad negativa de #qty[-9.73][dB], este comportamiento indica que la potencia que se transfirió al puerto aislado es mayor a la del puerto acoplado, por lo que se decide invertirlo.
 
 Al invertir el dispositivo bajo prueba (_DUT_) y repetir la medición, la directividad subió a #qty[18.33][dB]. Este resultado confirma que la respuesta del dispositivo es altamente sensible a la orientación y disposición fisica del acoplador. Al comparar @fig:smith_acoplado_ACD1_inverted y @fig:bench_setup_acoplado_ACD1_inverted se demuestra que la orientación vertical optimiza la directividad del dispositivo.
